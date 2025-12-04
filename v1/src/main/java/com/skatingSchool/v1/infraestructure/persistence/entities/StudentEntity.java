@@ -1,4 +1,4 @@
-package com.skatingSchool.v1.model;
+package com.skatingSchool.v1.infraestructure.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "students")
-public class Student {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +16,8 @@ public class Student {
     // Un usuario no puede volver hacer un estudiante despues de ser registrado por lo menos una vez
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
+    private UserEntity user;
 
-    @Column(nullable = true, length = 50)
-    private String paymentMethod;
-
+    @Column(nullable = false)
+    private Boolean active;
 }

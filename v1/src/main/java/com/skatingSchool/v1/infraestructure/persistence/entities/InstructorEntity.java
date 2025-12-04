@@ -1,4 +1,4 @@
-package com.skatingSchool.v1.model;
+package com.skatingSchool.v1.infraestructure.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "instructors")
-public class Instructor {
+public class InstructorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long instructorId;
@@ -17,7 +17,7 @@ public class Instructor {
     //Lo manejan este onetoone y el unique en la columna
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
+    private UserEntity user;
 
     @Column(nullable = true, length = 200)
     private String experience;

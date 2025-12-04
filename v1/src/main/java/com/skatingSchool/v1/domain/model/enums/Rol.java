@@ -1,4 +1,4 @@
-package com.skatingSchool.v1.model.enums;
+package com.skatingSchool.v1.domain.model.enums;
 
 public enum Rol {
     ADMIN,

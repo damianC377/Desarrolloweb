@@ -1,4 +1,4 @@
-package com.skatingSchool.v1.model;
+package com.skatingSchool.v1.infraestructure.persistence.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "classes")
-public class Class {
+public class ClassEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Class {
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", nullable = false)
-    private Instructor instructor;
+    private InstructorEntity instructor;
 
     @ManyToMany
     @JoinTable(
@@ -33,7 +33,7 @@ public class Class {
         joinColumns = @JoinColumn(name = "class_id"),
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    private List<Student> students;
+    private List<StudentEntity> students;
 
     
 

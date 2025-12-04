@@ -1,4 +1,4 @@
-package com.skatingSchool.v1.model;
+package com.skatingSchool.v1.infraestructure.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @Table(name = "payments")
-public class Payment {
+public class PaymentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Payment {
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
+    private StudentEntity student;
 
     @Column(nullable = false)
     private LocalDate paymentDate;

@@ -1,6 +1,4 @@
-package com.skatingSchool.v1.model;
-
-import com.skatingSchool.v1.model.enums.Rol;
+package com.skatingSchool.v1.infraestructure.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,14 +7,14 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userid;
 
     @Column(nullable = false, unique = true)
-    private String document;
+    private Long document;
 
     @Column(nullable = false, length = 100)
     private String name;
@@ -39,8 +37,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false, length = 50)
-    private Rol rol;
+    private String rol;
     
 }
