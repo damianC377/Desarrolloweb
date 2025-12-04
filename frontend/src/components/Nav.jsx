@@ -8,7 +8,7 @@ export default function Nav() {
       <ul className="navList">
         <li className="logo">
           {/* <img src={skateIcon} alt="Skate Icon" className="logo-icon" /> */}
-          Rolling skate
+          Rolling Speed
         </li>
 
         <div className="menu">
@@ -22,7 +22,10 @@ export default function Nav() {
             <Link to="/services">Servicios</Link>
           </li>
           <li>
-            <Link to="/contact">Contacto</Link>
+            <Link to="/galery">Galería</Link>
+          </li>
+          <li>
+            <Link to="/NewsEvents">Noticias y Testimonios</Link>
           </li>
         </div>
       </ul>
