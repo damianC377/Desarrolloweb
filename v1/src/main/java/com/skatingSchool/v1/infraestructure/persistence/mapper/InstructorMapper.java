@@ -18,4 +18,20 @@ public class InstructorMapper {
         
         return instructorEntity;
     }
+
+
+    public static Instructor toDomain(InstructorEntity instructorEntity){
+        if (instructorEntity == null) {
+            return null;
+            
+        }
+
+        Instructor instructor = new Instructor();
+        instructor.setInstructorId(instructorEntity.getInstructorId());
+        instructor.setUserId(instructorEntity.getUser());
+        instructor.setExperience(instructorEntity.getExperience());
+        
+        return instructor;
+    }
+
 }
