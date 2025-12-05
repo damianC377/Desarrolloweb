@@ -18,7 +18,7 @@ public class InstructorMapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setUserid(instructor.getUserId());
         instructorEntity.setUser(userEntity);
-        instructorEntity.setInstructorId(instructor.getInstructorId());
+        instructorEntity.setId(instructor.getInstructorId());
         instructorEntity.setExperience(instructor.getExperience());
         
         return instructorEntity;
@@ -35,7 +35,7 @@ public class InstructorMapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setUserid(instructor.getUserId());
         instructorEntity.setUser(userEntity);
-        instructor.setInstructorId(instructorEntity.getInstructorId());
+        instructor.setInstructorId(instructorEntity.getId());
         instructor.setExperience(instructorEntity.getExperience());
         
         return instructor;

@@ -6,6 +6,9 @@ import com.skatingSchool.v1.domain.port.FindClassPort;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service()
 public class CreateClassService {
 
     CreateClassPort createClassPort;

@@ -50,7 +50,7 @@ public class PaymentAdapter implements CreatePaymentPort, FindPaymentPort {
 
     @Override
     public Payment findLatestPaymentByStudent(Long studentId) {
-        PaymentEntity entity = paymentRepository.findLatestPaymentByStudent(studentId);
+        PaymentEntity entity = paymentRepository.findTopByStudentIdOrderByPaymentDateDesc(studentId);
         return PaymentMapper.toDomain(entity);
     }
 }

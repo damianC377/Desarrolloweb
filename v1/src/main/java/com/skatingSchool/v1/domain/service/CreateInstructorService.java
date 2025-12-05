@@ -1,9 +1,12 @@
 package com.skatingSchool.v1.domain.service;
 
+import org.springframework.stereotype.Service;
+
 import com.skatingSchool.v1.domain.model.Instructor;
 import com.skatingSchool.v1.domain.port.CreateInstructorPort;
 import com.skatingSchool.v1.domain.port.FindInstructorPort;
 
+@Service()
 public class CreateInstructorService {
 
     CreateInstructorPort createInstructorPort;

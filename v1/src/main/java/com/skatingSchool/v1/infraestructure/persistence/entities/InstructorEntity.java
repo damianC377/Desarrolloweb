@@ -9,7 +9,7 @@ import lombok.Data;
 public class InstructorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long instructorId;
+    private Long id;
 
     // Es una relacion uno a uno, evitando repitacion de datos
     // Un usuario no puede volver hacer un instructor despues de ser registrado por lo menos una vez

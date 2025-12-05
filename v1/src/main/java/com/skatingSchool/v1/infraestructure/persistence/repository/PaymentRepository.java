@@ -14,5 +14,5 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     List<PaymentEntity> findByPaymentDate(LocalDate date);
 
-    PaymentEntity findLatestPaymentByStudent(Long studentId);
+    PaymentEntity findTopByStudentIdOrderByPaymentDateDesc(Long studentId);
 }
