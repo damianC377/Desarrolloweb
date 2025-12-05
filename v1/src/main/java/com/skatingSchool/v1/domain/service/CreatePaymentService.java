@@ -1,18 +1,24 @@
 package com.skatingSchool.v1.domain.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skatingSchool.v1.domain.model.Payment;
 import com.skatingSchool.v1.domain.port.CreatePaymentPort;
 import com.skatingSchool.v1.domain.port.FindPaymentPort;
-@Service()
+@Service
 public class CreatePaymentService {
 
-    CreatePaymentPort createPaymentPort;
-    FindPaymentPort findPaymentPort;
+    private final CreatePaymentPort createPaymentPort;
+    private final FindPaymentPort findPaymentPort;
+
+    @Autowired
+    public CreatePaymentService(CreatePaymentPort createPaymentPort, FindPaymentPort findPaymentPort) {
+        this.createPaymentPort = createPaymentPort;
+        this.findPaymentPort = findPaymentPort;
+    }
 
     public void createPayment(Payment payment) throws Exception {
-
         if (payment.getPaymentId() != null &&
                 findPaymentPort.findById(payment.getPaymentId()) != null) {
             throw new Exception("El pago con ID " + payment.getPaymentId() + " ya existe.");
@@ -34,8 +40,7 @@ public class CreatePaymentService {
             throw new Exception("La fecha del pago no puede estar vacía.");
         }
 
-        Payment lastPayment = findPaymentPort
-                .findLatestPaymentByStudent(payment.getStudentId());
+        Payment lastPayment = findPaymentPort.findLatestPaymentByStudent(payment.getStudentId());
 
         if (lastPayment != null) {
             boolean sameYear = lastPayment.getPaymentDate().getYear() == payment.getPaymentDate().getYear();
@@ -43,9 +48,9 @@ public class CreatePaymentService {
 
             if (sameYear && sameMonth) {
                 throw new Exception(
-                    "El estudiante ya realizó un pago en "
-                    + payment.getPaymentDate().getMonth() + " del "
-                    + payment.getPaymentDate().getYear() + "."
+                    "El estudiante ya realizó un pago en " +
+                    payment.getPaymentDate().getMonth() + " del " +
+                    payment.getPaymentDate().getYear() + "."
                 );
             }
         }
