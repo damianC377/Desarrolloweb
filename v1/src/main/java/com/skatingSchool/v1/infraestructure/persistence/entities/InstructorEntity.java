@@ -17,7 +17,7 @@ public class InstructorEntity {
     //Lo manejan este onetoone y el unique en la columna
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private UserEntity user;
+    private Long user;
 
     @Column(nullable = true, length = 200)
     private String experience;

@@ -9,18 +9,12 @@ public class CreateInstructorService {
     CreateInstructorPort createInstructorPort;
     FindInstructorPort findInstructorPort;
 
-    public void createInstructor(Instructor instructor) throws Exception {
+    public void createInstructor(Instructor instructor, Long userId) throws Exception {
 
-        if (instructor.getInstructorId() != null &&
-                findInstructorPort.findById(instructor.getInstructorId()) != null) {
-            throw new Exception("El instructor con ID " + instructor.getInstructorId() + " ya existe.");
-        }
+        instructor.setUserId(userId);
 
-        if (instructor.getUser() != null &&
-                findInstructorPort.findByUser(instructor.getUser().getUserid()) != null) {
-            throw new Exception("El usuario con ID "
-                    + instructor.getUser().getUserid()
-                    + " ya está asignado como instructor.");
+        if(findInstructorPort.findByUser(userId) != null) {
+            throw new Exception("El usuario con ID " + userId + " ya es asociado.");
         }
 
         if (instructor.getExperience() == null || instructor.getExperience().isBlank()) {

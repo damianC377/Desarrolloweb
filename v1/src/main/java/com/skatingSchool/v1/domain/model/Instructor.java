@@ -3,15 +3,15 @@ package com.skatingSchool.v1.domain.model;
 public class Instructor {
 
     private Long instructorId;
-    private User user;
+    private Long userId;
     private String experience;
 
     public Instructor() {
     }
 
-    public Instructor(Long instructorId, User user, String experience) {
+    public Instructor(Long instructorId, Long userId, String experience) {
         this.instructorId = instructorId;
-        this.user = user;
+        this.userId = userId;
         this.experience = experience;
     }
 
@@ -23,12 +23,12 @@ public class Instructor {
         this.instructorId = instructorId;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getExperience() {
