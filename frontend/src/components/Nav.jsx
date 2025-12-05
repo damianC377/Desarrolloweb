@@ -1,13 +1,13 @@
 import "./Nav.css";
 import { Link } from "react-router-dom";
-import skateIcon from "../assets/icons/skate.png";
+import { Zap } from "lucide-react";
 
 export default function Nav() {
   return (
     <nav className="navbar">
       <ul className="navList">
         <li className="logo">
-          {/* <img src={skateIcon} alt="Skate Icon" className="logo-icon" /> */}
+          <Zap size={28} color="var(--accent)" style={{ marginRight: "0.5rem" }} />
           Rolling Speed
         </li>
 
@@ -25,7 +25,10 @@ export default function Nav() {
             <Link to="/gallery">Galería</Link>
           </li>
           <li>
-            <Link to="/NewsEvents">Noticias y Testimonios</Link>
+            <Link to="/newsEvents">Noticias y Testimonios</Link>
+          </li>
+          <li>
+            <Link to="/signUp">Inscripción</Link>
           </li>
         </div>
       </ul>

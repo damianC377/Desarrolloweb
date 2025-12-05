@@ -1,9 +1,11 @@
 import "./Footer.css";
+import { Activity } from "lucide-react";
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-brand">Roller Speed</div>
+      
 
       <div className="footer-sections">
         <div className="footer-section">
