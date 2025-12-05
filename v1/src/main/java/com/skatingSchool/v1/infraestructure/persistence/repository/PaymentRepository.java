@@ -1,8 +1,8 @@
 package com.skatingSchool.v1.infraestructure.persistence.repository;
 
+import com.skatingSchool.v1.domain.model.Payment;
 import com.skatingSchool.v1.infraestructure.persistence.entities.PaymentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -15,8 +15,5 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     List<PaymentEntity> findByPaymentDate(LocalDate date);
 
-    @Query("SELECT p FROM PaymentEntity p " +
-           "WHERE p.student.studentId = :studentId " +
-           "ORDER BY p.paymentDate DESC")
-    List<PaymentEntity> findLatestPaymentByStudent(Long studentId);
+    Payment findLatestPaymentByStudent(Long studentId);
 }

@@ -27,7 +27,7 @@ public class PaymentMapper {
 
         Payment payment = new Payment();
         payment.setPaymentId(entity.getPaymentId());
-        payment.setStudent(entity.getStudentId());
+        payment.setStudentId(entity.getStudentId());
         payment.setPaymentDate(entity.getPaymentDate());
         payment.setAmount(entity.getAmount());
         payment.setPaymentMethod(entity.getPaymentMethod());

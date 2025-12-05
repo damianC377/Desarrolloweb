@@ -4,5 +4,5 @@ import com.skatingSchool.v1.domain.model.Payment;
 
 public interface CreatePaymentPort {
 
-    Payment save(Payment payment);
+    void save(Payment payment);
 }
