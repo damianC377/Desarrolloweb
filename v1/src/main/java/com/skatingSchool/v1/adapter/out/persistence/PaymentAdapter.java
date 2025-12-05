@@ -19,18 +19,12 @@ public class PaymentAdapter implements CreatePaymentPort, FindPaymentPort {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    // =========================================
-    //              CREATE PAYMENT
-    // =========================================
     @Override
     public void save(Payment payment) {
         PaymentEntity entity = PaymentMapper.toEntity(payment);
-        paymentRepository.save(entity);   // no retorna nada
+        paymentRepository.save(entity);
     }
 
-    // =========================================
-    //            FIND PAYMENT BY ID
-    // =========================================
     @Override
     public Payment findById(Long paymentId) {
         return paymentRepository.findById(paymentId)
@@ -38,20 +32,14 @@ public class PaymentAdapter implements CreatePaymentPort, FindPaymentPort {
                 .orElse(null);
     }
 
-    // =========================================
-    //        FIND PAYMENTS BY STUDENT ID
-    // =========================================
     @Override
     public List<Payment> findByStudentId(Long studentId) {
-        return paymentRepository.findByStudent_StudentId(studentId)
+        return paymentRepository.findByStudentId(studentId)
                 .stream()
                 .map(PaymentMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
-    // =========================================
-    //            FIND PAYMENTS BY DATE
-    // =========================================
     @Override
     public List<Payment> findByDate(LocalDate date) {
         return paymentRepository.findByPaymentDate(date)
@@ -60,17 +48,9 @@ public class PaymentAdapter implements CreatePaymentPort, FindPaymentPort {
                 .collect(Collectors.toList());
     }
 
-    // =========================================
-    //     FIND LATEST PAYMENT BY STUDENT
-    // =========================================
     @Override
     public Payment findLatestPaymentByStudent(Long studentId) {
-        List<PaymentEntity> list = paymentRepository.findLatestPaymentByStudent(studentId);
-
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        return PaymentMapper.toDomain(list.get(0)); // más reciente
+        PaymentEntity entity = paymentRepository.findLatestPaymentByStudent(studentId);
+        return PaymentMapper.toDomain(entity);
     }
 }
