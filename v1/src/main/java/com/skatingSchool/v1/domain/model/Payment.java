@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Payment {
 
     private Long paymentId;
-    private Student student;
+    private long studentId;
     private LocalDate paymentDate;
     private Double amount;
     private String paymentMethod;
@@ -13,10 +13,10 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(Long paymentId, Student student, LocalDate paymentDate,
+    public Payment(Long paymentId, long studentId, LocalDate paymentDate,
                    Double amount, String paymentMethod) {
         this.paymentId = paymentId;
-        this.student = student;
+        this.studentId = studentId;
         this.paymentDate = paymentDate;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
@@ -30,12 +30,12 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
-    public Student getStudent() {
-        return student;
+    public long getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudent(long studentId) {
+        this.studentId = studentId;
     }
 
     public LocalDate getPaymentDate() {

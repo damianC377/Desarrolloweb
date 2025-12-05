@@ -12,11 +12,8 @@ public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentId;
 
-    // Es una relacion uno a uno, evitando repitacion de datos
-    // Un usuario no puede volver hacer un estudiante despues de ser registrado por lo menos una vez
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private UserEntity user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(nullable = false)
     private Boolean active;

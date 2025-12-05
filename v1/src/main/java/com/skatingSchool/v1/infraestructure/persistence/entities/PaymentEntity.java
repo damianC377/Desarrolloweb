@@ -14,9 +14,8 @@ public class PaymentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private StudentEntity student;
+    @Column(name = "student_id", nullable = false)
+    private Long studentId;
 
     @Column(nullable = false)
     private LocalDate paymentDate;
@@ -24,8 +23,6 @@ public class PaymentEntity {
     @Column(nullable = false)
     private Double amount;
 
-    // hay uno principal, y este es secundario
     @Column(nullable = false, length = 50)
     private String paymentMethod;
-
 }

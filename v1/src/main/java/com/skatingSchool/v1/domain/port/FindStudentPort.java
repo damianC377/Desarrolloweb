@@ -6,7 +6,7 @@ public interface FindStudentPort {
 
     Student findById(Long studentId);
 
-    Student findByUser(Long userId);
+    Student findByUserId(Long userId);
 
     Student findActiveStudent(Long studentId);
 }

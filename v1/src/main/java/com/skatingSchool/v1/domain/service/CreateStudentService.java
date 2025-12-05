@@ -6,14 +6,8 @@ import com.skatingSchool.v1.domain.port.FindStudentPort;
 
 public class CreateStudentService {
 
-    private final CreateStudentPort createStudentPort;
-    private final FindStudentPort findStudentPort;
-
-    public CreateStudentService(CreateStudentPort createStudentPort,
-                                FindStudentPort findStudentPort) {
-        this.createStudentPort = createStudentPort;
-        this.findStudentPort = findStudentPort;
-    }
+    CreateStudentPort createStudentPort;
+    FindStudentPort findStudentPort;
 
     public void createStudent(Student student) throws Exception {
 
