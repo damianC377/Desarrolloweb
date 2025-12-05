@@ -1,10 +1,5 @@
 .card-section {
   padding: 4rem 0 9rem;
-  background: linear-gradient(
-    to bottom,
-    var(--light) 0%,
-    var(--text-light) 100%
-  );
 }
 
 .container {

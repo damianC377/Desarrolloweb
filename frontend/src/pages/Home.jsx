@@ -3,13 +3,15 @@ import CardSection from "../components/CardSection";
 import slide1 from "../assets/img/slide1.jpg";
 import slide2 from "../assets/img/slide2.jpg";
 import slide3 from "../assets/img/slide3.jpg";
+import "./Home.css";
 
 function Home() {
   const heroSlides = [
     {
       image: slide1,
       title: "Aprende a Patinar con Pasión",
-      subtitle: "Clases para todas las edades y niveles, combinando diversión y técnica.",
+      subtitle:
+        "Clases para todas las edades y niveles, combinando diversión y técnica.",
     },
     {
       image: slide2,
@@ -26,21 +28,46 @@ function Home() {
   const testimonialSlides = [
     {
       title: "Juan Pérez",
-      subtitle: "“Gracias a la escuela, mi hijo aprendió a patinar y se divierte mientras mejora su técnica. ¡Excelente equipo de instructores!”",
+      subtitle:
+        "Gracias a la escuela, mi hijo aprendió a patinar y se divierte mientras mejora su técnica. ¡Excelente equipo de instructores!",
     },
     {
       title: "María Rodríguez",
-      subtitle: "“Las clases son divertidas y seguras. Me encanta el progreso de mis hijos y cómo se sienten motivados cada día.”",
+      subtitle:
+        "Las clases son divertidas y seguras. Me encanta el progreso de mis hijos y cómo se sienten motivados cada día.",
     },
     {
       title: "Carlos Gómez",
-      subtitle: "“Recomiendo esta escuela a todos los que quieran aprender patinaje de manera profesional y divertida.”",
+      subtitle:
+        "Recomiendo esta escuela a todos los que quieran aprender patinaje de manera profesional y divertida.",
     },
   ];
 
   return (
-    <div>
-      <Carousel slides={heroSlides} />
+    <div className="home-page">
+      {/* Primer carousel con dots */}
+      <Carousel
+        slides={heroSlides}
+        renderSlide={(slide) => (
+          <div
+            style={{
+              backgroundImage: `url(${slide.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              height: "420px",
+              width: "100%",
+            }}
+          >
+            <div className="carousel-content">
+              <h1>{slide.title}</h1>
+              <p>{slide.subtitle}</p>
+            </div>
+          </div>
+        )}
+        showDots={true}
+      />
+
+      {/* Sección de tarjetas */}
       <CardSection
         cards={[
           {
@@ -53,15 +80,23 @@ function Home() {
             icon: "👁️",
             text: "Ser reconocida como la escuela de patinaje líder en la región, destacándonos por la excelencia en la enseñanza, la innovación en nuestras clases y el impacto positivo en la vida de nuestros alumnos.",
           },
-          {
-            title: "Valores",
-            icon: "💖",
-            text: "Compromiso, respeto, responsabilidad, perseverancia y trabajo en equipo, asegurando un entorno positivo donde cada estudiante pueda crecer y disfrutar del patinaje.",
-          },
         ]}
       />
-      <h2 style={{ textAlign: "center", margin: "2rem 0"}}>Testimonios</h2>
-      <Carousel slides={testimonialSlides} type="testimonial" />
+
+      {/* Sección de testimonios */}
+      <h2 className="testimonials-title">Testimonios</h2>
+      <div className="testimonial-carousel">
+        <Carousel
+          slides={testimonialSlides}
+          renderSlide={(slide) => (
+            <div className="testimonial-content">
+              <h3>{slide.title}</h3>
+              <p>{slide.subtitle}</p>
+            </div>
+          )}
+          showDots={false} // sin dots
+        />
+      </div>
     </div>
   );
 }

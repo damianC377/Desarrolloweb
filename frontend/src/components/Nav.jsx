@@ -22,7 +22,7 @@ export default function Nav() {
             <Link to="/services">Servicios</Link>
           </li>
           <li>
-            <Link to="/galery">Galería</Link>
+            <Link to="/gallery">Galería</Link>
           </li>
           <li>
             <Link to="/NewsEvents">Noticias y Testimonios</Link>
