@@ -2,6 +2,7 @@ package com.skatingSchool.v1.infraestructure.persistence.mapper;
 
 import com.skatingSchool.v1.domain.model.Instructor;
 import com.skatingSchool.v1.infraestructure.persistence.entities.InstructorEntity;
+import com.skatingSchool.v1.infraestructure.persistence.entities.UserEntity;
 
 public class InstructorMapper {
 
@@ -11,9 +12,13 @@ public class InstructorMapper {
             
         }
 
+        
+        
         InstructorEntity instructorEntity = new InstructorEntity();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserid(instructor.getUserId());
+        instructorEntity.setUser(userEntity);
         instructorEntity.setInstructorId(instructor.getInstructorId());
-        instructorEntity.setUser(instructor.getUserId());
         instructorEntity.setExperience(instructor.getExperience());
         
         return instructorEntity;
@@ -27,8 +32,10 @@ public class InstructorMapper {
         }
 
         Instructor instructor = new Instructor();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserid(instructor.getUserId());
+        instructorEntity.setUser(userEntity);
         instructor.setInstructorId(instructorEntity.getInstructorId());
-        instructor.setUserId(instructorEntity.getUser());
         instructor.setExperience(instructorEntity.getExperience());
         
         return instructor;

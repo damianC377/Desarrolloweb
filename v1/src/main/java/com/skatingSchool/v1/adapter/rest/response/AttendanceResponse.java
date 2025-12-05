@@ -1,27 +1,14 @@
-package com.skatingSchool.v1.domain.model;
+package com.skatingSchool.v1.adapter.rest.response;
 
 import java.time.LocalDate;
 
-public class Attendance {
+public class AttendanceResponse {
 
     private Long attendanceId;
     private Long classSessionId;
-    private long studentId;
+    private Long studentId;
     private LocalDate attendanceDate;
     private Boolean present;
-
-    public Attendance() {
-    }
-
-    public Attendance(Long attendanceId, Long classSessionId, Long studentId,
-                      LocalDate attendanceDate, Boolean present) {
-                        
-        this.attendanceId = attendanceId;
-        this.classSessionId = classSessionId;
-        this.studentId = studentId;
-        this.attendanceDate = attendanceDate;
-        this.present = present;
-    }
 
     public Long getAttendanceId() {
         return attendanceId;
