@@ -8,29 +8,17 @@ export default function Carousel({
   showArrows = true,
 }) {
   const [current, setCurrent] = useState(0);
-<<<<<<< HEAD
   
-=======
-
->>>>>>> 509954895016e7c961dba75878ba80676acb187f
   useEffect(() => {
     const timer = setInterval(nextSlide, interval);
     return () => clearInterval(timer);
   }, [current]);
-<<<<<<< HEAD
   
-=======
-
->>>>>>> 509954895016e7c961dba75878ba80676acb187f
   const nextSlide = () =>
     setCurrent(current === slides.length - 1 ? 0 : current + 1);
   const prevSlide = () =>
     setCurrent(current === 0 ? slides.length - 1 : current - 1);
-<<<<<<< HEAD
   
-=======
-
->>>>>>> 509954895016e7c961dba75878ba80676acb187f
   return (
     <div className="carousel">
       {slides.map((slide, index) => (
@@ -53,8 +41,4 @@ export default function Carousel({
       )}
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 509954895016e7c961dba75878ba80676acb187f

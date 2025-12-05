@@ -34,8 +34,4 @@ export default function Nav() {
       </ul>
     </nav>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 509954895016e7c961dba75878ba80676acb187f
