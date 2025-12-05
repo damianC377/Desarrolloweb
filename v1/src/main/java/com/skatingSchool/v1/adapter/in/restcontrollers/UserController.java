@@ -26,8 +26,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<UserResponse> createUsers(@RequestBody UserResquest request) throws Exception {
         User user = userRestMapper.toDomain(request);
-        Rol rol = Rol.valueOf(request.getRol().toUpperCase());
-        userUseCase.createUser(user, rol);
+        userUseCase.createUser(user);
 
         return new ResponseEntity<>(
                 userRestMapper.toResponse(user),

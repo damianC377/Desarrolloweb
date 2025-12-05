@@ -14,8 +14,8 @@ public class UserUseCase {
     @Autowired
     private CreateUserService createUserService;
 
-    public void createUser(User user, Rol rol) throws Exception {
-        user.setRol(rol);
+    public void createUser(User user) throws Exception {
+        user.setRol(Rol.STUDENT);
         createUserService.createUser(user);
     }
 
