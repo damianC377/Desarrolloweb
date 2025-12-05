@@ -13,11 +13,13 @@ public class AttendanceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attendanceId;
 
-    @ManyToOne
+    // Relación con la clase, ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id", nullable = false)
     private ClassEntity classSession;
 
-    @ManyToOne
+    // Relación con el estudiante, ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private StudentEntity student;
 
@@ -26,6 +28,4 @@ public class AttendanceEntity {
 
     @Column(nullable = false)
     private Boolean present;
-
-    
 }

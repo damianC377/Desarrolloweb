@@ -1,29 +1,16 @@
-package com.skatingSchool.v1.domain.model;
+package com.skatingSchool.v1.adapter.rest.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Class {
+public class ClassResponse {
 
     private Long classId;
     private String className;
     private String level;
     private LocalDateTime schedule;
-    private long instructorId;
-    private List<Student> students;
-
-    public Class() {
-    }
-
-    public Class(Long classId, String className, String level, LocalDateTime schedule,
-                 Long instructorId, List<Student> students) {
-        this.classId = classId;
-        this.className = className;
-        this.level = level;
-        this.schedule = schedule;
-        this.instructorId = instructorId;
-        this.students = students;
-    }
+    private Long instructorId;
+    private List<Long> studentsIds;
 
     public Long getClassId() {
         return classId;
@@ -61,15 +48,15 @@ public class Class {
         return instructorId;
     }
 
-    public void setInstructorId(long instructorId) {
+    public void setInstructorId(Long instructorId) {
         this.instructorId = instructorId;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public List<Long> getStudentsIds() {
+        return studentsIds;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setStudentsIds(List<Long> studentsIds) {
+        this.studentsIds = studentsIds;
     }
 }

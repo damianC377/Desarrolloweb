@@ -23,20 +23,15 @@ public class ClassEntity {
     @Column(nullable = false)
     private LocalDateTime schedule;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructor_id", nullable = false)
     private InstructorEntity instructor;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "class_students",
         joinColumns = @JoinColumn(name = "class_id"),
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private List<StudentEntity> students;
-
-    
-
-    
-    
 }
