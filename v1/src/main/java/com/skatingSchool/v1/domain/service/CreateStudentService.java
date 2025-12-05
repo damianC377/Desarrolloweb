@@ -16,9 +16,8 @@ public class CreateStudentService {
             throw new Exception("El estudiante con ID " + student.getStudentId() + " ya existe.");
         }
 
-        if (student.getUser() != null &&
-                findStudentPort.findByUser(student.getUser().getUserid()) != null) {
-            throw new Exception("El usuario con ID " + student.getUser().getUserid() +
+        if (findStudentPort.findByUserId(student.getUserId()) != null) {
+            throw new Exception("El usuario con ID " + student.getUserId() +
                     " ya tiene un estudiante asociado.");
         }
 
