@@ -10,14 +10,14 @@ public class PaymentMapper {
             return null;
         }
 
-        PaymentEntity paymententity = new PaymentEntity();
-        paymententity.setPaymentId(payment.getPaymentId());
-        paymententity.setStudent(StudentMapper.toEntity(payment.getStudent()));
-        paymententity.setPaymentDate(payment.getPaymentDate());
-        paymententity.setAmount(payment.getAmount());
-        paymententity.setPaymentMethod(payment.getPaymentMethod());
+        PaymentEntity paymentEntity = new PaymentEntity();
+        paymentEntity.setPaymentId(payment.getPaymentId());
+        paymentEntity.setStudentId(payment.getStudentId());
+        paymentEntity.setPaymentDate(payment.getPaymentDate());
+        paymentEntity.setAmount(payment.getAmount());
+        paymentEntity.setPaymentMethod(payment.getPaymentMethod());
 
-        return paymententity;
+        return paymentEntity;
     }
 
     public static Payment toDomain(PaymentEntity entity) {
@@ -27,7 +27,7 @@ public class PaymentMapper {
 
         Payment payment = new Payment();
         payment.setPaymentId(entity.getPaymentId());
-        payment.setStudent(StudentMapper.toDomain(entity.getStudent()));
+        payment.setStudent(entity.getStudentId());
         payment.setPaymentDate(entity.getPaymentDate());
         payment.setAmount(entity.getAmount());
         payment.setPaymentMethod(entity.getPaymentMethod());
