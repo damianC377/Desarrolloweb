@@ -10,7 +10,6 @@ import com.skatingSchool.v1.adapter.rest.request.UserResquest;
 import com.skatingSchool.v1.adapter.rest.response.UserResponse;
 import com.skatingSchool.v1.application.usecases.UserUseCase;
 import com.skatingSchool.v1.domain.model.User;
-import com.skatingSchool.v1.domain.model.enums.Rol;
 
 @RestController
 @RequestMapping("/api/v1/users")

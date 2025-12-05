@@ -21,7 +21,7 @@ public class UserAdapter implements CreateUserPort, FindUserPort{
         userRepository.save(UserMapper.toEntity(user));
     }
 
-     @Override
+    @Override
     public User findUserByDocument(Long document) {
         UserEntity entity = userRepository.findByDocument(document);
         return UserMapper.toDomain(entity);

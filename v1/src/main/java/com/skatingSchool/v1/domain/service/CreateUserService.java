@@ -1,6 +1,7 @@
 package com.skatingSchool.v1.domain.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skatingSchool.v1.domain.model.User;
 import com.skatingSchool.v1.domain.port.CreateUserPort;
@@ -9,7 +10,10 @@ import com.skatingSchool.v1.domain.port.FindUserPort;
 @Service()
 public class CreateUserService {
 
+    @Autowired
     CreateUserPort createUserPort;
+
+    @Autowired
     FindUserPort findUserPort;
 
     public void createUser(User user) throws Exception{

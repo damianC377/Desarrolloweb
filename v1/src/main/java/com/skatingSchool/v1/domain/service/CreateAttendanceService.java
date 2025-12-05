@@ -4,7 +4,6 @@ import com.skatingSchool.v1.domain.model.Attendance;
 import com.skatingSchool.v1.domain.port.CreateAttendancePort;
 import com.skatingSchool.v1.domain.port.FindAttendancePort;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class CreateAttendanceService {
