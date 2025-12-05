@@ -11,7 +11,7 @@ public class PaymentMapper {
         }
 
         PaymentEntity paymentEntity = new PaymentEntity();
-        paymentEntity.setPaymentId(payment.getPaymentId());
+        paymentEntity.setId(payment.getPaymentId());
         paymentEntity.setStudentId(payment.getStudentId());
         paymentEntity.setPaymentDate(payment.getPaymentDate());
         paymentEntity.setAmount(payment.getAmount());
@@ -26,7 +26,7 @@ public class PaymentMapper {
         }
 
         Payment payment = new Payment();
-        payment.setPaymentId(entity.getPaymentId());
+        payment.setPaymentId(entity.getId());
         payment.setStudentId(entity.getStudentId());
         payment.setPaymentDate(entity.getPaymentDate());
         payment.setAmount(entity.getAmount());

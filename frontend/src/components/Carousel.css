@@ -1,5 +1,242 @@
 .carousel {
   width: 100%;
+  height: 460px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.carousel-content {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-light);
+  text-align: center;
+  z-index: 2;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.8),
+    rgba(var(--accent-rgb), 0.6)
+  );
+  padding: 1.2rem 4rem;
+  max-width: 90%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .carousel-content {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+.carousel-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+}
+
+.carousel-content p {
+  font-size: 1.2rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 2;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.testimonials-section {
+  padding: 4rem 0 6rem;
+  background: linear-gradient(
+    to bottom,
+    var(--text-light) 0%,
+    var(--light) 100%
+  );
+}
+
+.testimonials-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin: 0 0 3rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
+}
+
+.testimonials-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.testimonial-carousel {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 4rem 9rem;
+  position: relative;
+}
+
+.testimonial-carousel .carousel {
+  height: auto;
+  min-height: 320px;
+  background: var(--text-light);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  padding: 3rem 3rem;
+  border-top: 5px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testimonial-content {
+  text-align: center;
+  padding: 3rem 2rem;
+  position: relative;
+}
+
+.testimonial-content::before {
+  content: "\201C";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 5rem;
+  color: var(--accent);
+  opacity: 0.3;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.testimonial-content h3 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+}
+
+.testimonial-content p {
+  color: var(--dark);
+  font-size: 1.25rem;
+  line-height: 1.8;
+  font-style: italic;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.testimonial-carousel .arrow {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 0.9rem;
+}
+
+.testimonial-carousel .left {
+  left: 25px;
+}
+
+.testimonial-carousel .right {
+  right: 25px;
+}
+
+.testimonial-carousel .arrow:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .testimonials-title {
+    font-size: 2rem;
+    margin: 3rem 0 1.5rem;
+  }
+
+  .testimonial-carousel {
+    padding: 0 1rem;
+  }
+
+  .testimonial-carousel .carousel {
+    padding: 2rem 1rem;
+    min-height: 350px;
+  }
+
+  .testimonial-content {
+    padding: 1rem;
+  }
+
+  .testimonial-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .testimonial-content p {
+    font-size: 1rem;
+  }
+
+  .testimonial-carousel .arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    .testimonial-content::before {
+      font-size: 3.5rem;
+      top: -10px;
+    }
+  }
+}
+.carousel {
+  width: 100%;
   height: 420px;
   position: relative;
   overflow: hidden;

@@ -23,7 +23,7 @@ public class UserController {
     private UserRestMapper userRestMapper;
 
 
-    @PostMapping("/Register")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> createUsers(@RequestBody UserResquest request) throws Exception {
         User user = userRestMapper.toDomain(request);
         Rol rol = Rol.valueOf(request.getRol().toUpperCase());

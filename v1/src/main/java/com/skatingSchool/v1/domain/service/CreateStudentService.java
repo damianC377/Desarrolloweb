@@ -1,9 +1,12 @@
 package com.skatingSchool.v1.domain.service;
 
+import org.springframework.stereotype.Service;
+
 import com.skatingSchool.v1.domain.model.Student;
 import com.skatingSchool.v1.domain.port.CreateStudentPort;
 import com.skatingSchool.v1.domain.port.FindStudentPort;
 
+@Service()
 public class CreateStudentService {
 
     CreateStudentPort createStudentPort;

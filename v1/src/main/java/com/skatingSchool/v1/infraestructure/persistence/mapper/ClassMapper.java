@@ -23,7 +23,7 @@ public class ClassMapper {
 
         if (domain.getInstructorId() != null) {
             var instructorEntity = new com.skatingSchool.v1.infraestructure.persistence.entities.InstructorEntity();
-            instructorEntity.setInstructorId(domain.getInstructorId());
+            instructorEntity.setId(domain.getInstructorId());
             classentity.setInstructor(instructorEntity);
         }
 
@@ -49,7 +49,7 @@ public class ClassMapper {
         domain.setSchedule(classentity.getSchedule());
 
         if (classentity.getInstructor() != null) {
-            domain.setInstructorId(classentity.getInstructor().getInstructorId());
+            domain.setInstructorId(classentity.getInstructor().getId());
         }
 
         if (classentity.getStudents() != null) {
