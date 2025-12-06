@@ -9,7 +9,7 @@ import {
   Lock,
   UserCircle,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // 👈 Importar Link
 import "./SignUp.css";
 
 const api_url = import.meta.env.VITE_API_URL ?? "https://backend-desrrollo-production.up.railway.app";
@@ -147,7 +147,6 @@ function SignUp() {
     setIsSubmitting(true);
 
     try {
-      // ✅ FIX: Declarar 'res' correctamente
       const res = await fetch(`${api_url}/api/v1/users/register-student`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -245,9 +244,9 @@ function SignUp() {
           <div className="form-footer">
             <p>
               ¿Ya tienes cuenta?{" "}
-              <a href="/login" className="form-link">
+              <Link to="/login" className="form-link">
                 Inicia sesión
-              </a>
+              </Link>
             </p>
           </div>
         </div>
