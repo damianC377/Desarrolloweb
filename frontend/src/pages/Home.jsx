@@ -3,7 +3,7 @@ import CardSection from "../components/CardSection";
 import slide1 from "../assets/img/slide1.jpg";
 import slide2 from "../assets/img/slide2.jpg";
 import slide3 from "../assets/img/slide3.jpg";
-import "./home.css";
+import "./Home.css";
 
 import { Target, Eye } from "lucide-react";
 
