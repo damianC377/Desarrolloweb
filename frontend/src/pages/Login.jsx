@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import { Lock, UserCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
-const api_url = import.meta.env.VITE_API_URL ?? "https://desarrolloweb-production-4918.up.railway.app";
 
+const api_url = import.meta.env.VITE_API_URL ?? "https://backend-desrrollo-production.up.railway.app";
 
 function Login() {
   const navigate = useNavigate();

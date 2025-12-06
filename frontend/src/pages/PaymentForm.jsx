@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import "./PaymentForm.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "https://desarrolloweb-production-4918.up.railway.app";
+const api_url = import.meta.env.VITE_API_URL ?? "https://backend-desrrollo-production.up.railway.app";
 
 function PaymentForm() {
   const [formData, setFormData] = useState({ paymentMethod: "" });
@@ -79,8 +79,8 @@ function PaymentForm() {
         body: JSON.stringify({
           studentId: Number(studentId),
           paymentMethod: formData.paymentMethod,
-          amount: inscriptionCost, // necesario
-          paymentDate: new Date().toISOString().split("T")[0], // necesario
+          amount: inscriptionCost.toString(),
+          paymentDate: new Date().toISOString().split("T")[0],
         }),
       });
 

@@ -7,7 +7,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 @Configuration
 public class WebConfig {
 
@@ -17,17 +16,22 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://supportive-charisma-production-e238.up.railway.app")
+                        // ✅ URLs correctas de Railway
+                        .allowedOrigins(
+                            "https://frontend-desarollo-production.up.railway.app",
+                            "https://backend-desrrollo-production.up.railway.app",
+                            "http://localhost:5173" // Para desarrollo local
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowCredentials(true)
+                        .maxAge(3600);
             }
         };
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
             .csrf(csrf -> csrf.disable())
             .cors(cors -> {})

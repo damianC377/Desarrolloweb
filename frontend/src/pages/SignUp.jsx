@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "https://desarrolloweb-production-4918.up.railway.app";
+const api_url = import.meta.env.VITE_API_URL ?? "https://backend-desrrollo-production.up.railway.app";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -147,11 +147,19 @@ function SignUp() {
     setIsSubmitting(true);
 
     try {
-      await fetch(`${api_url}/api/v1/users/register-student`, {
+      // ✅ FIX: Declarar 'res' correctamente
+      const res = await fetch(`${api_url}/api/v1/users/register-student`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(errorData.message || "Error en el registro");
+        setIsSubmitting(false);
+        return;
+      }
 
       const data = await res.json();
 
