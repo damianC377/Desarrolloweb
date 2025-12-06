@@ -91,7 +91,7 @@ function Login() {
 
       setIsSubmitting(false);
 
-      navigate("/AdminDashboard");
+      navigate("/adminDasboard");
 
     } catch (error) {
       console.error(error);
