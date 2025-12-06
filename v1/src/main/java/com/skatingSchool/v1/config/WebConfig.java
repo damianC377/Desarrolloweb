@@ -17,12 +17,10 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(
-                                "https://supportive-charisma-production-e238.up.railway.app",
-                                "http://localhost:5173"
-                        )
+                        .allowedOrigins("https://supportive-charisma-production-e238.up.railway.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
