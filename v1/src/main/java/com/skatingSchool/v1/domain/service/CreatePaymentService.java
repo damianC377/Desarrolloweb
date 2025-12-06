@@ -1,6 +1,5 @@
 package com.skatingSchool.v1.domain.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skatingSchool.v1.domain.model.Payment;
@@ -12,7 +11,6 @@ public class CreatePaymentService {
     private final CreatePaymentPort createPaymentPort;
     private final FindPaymentPort findPaymentPort;
 
-    @Autowired
     public CreatePaymentService(CreatePaymentPort createPaymentPort, FindPaymentPort findPaymentPort) {
         this.createPaymentPort = createPaymentPort;
         this.findPaymentPort = findPaymentPort;

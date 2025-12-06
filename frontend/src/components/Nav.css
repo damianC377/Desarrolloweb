@@ -26,11 +26,32 @@
   text-decoration: none;
   color: var(--text-light);
   font-weight: 500;
-  transition: opacity 0.3s ease;
+  position: relative;
+  padding: 0.3rem 0;
+  transition: color 0.3s ease;
 }
 
-.navList a:hover {
-  opacity: 0.7;
+/* Línea inferior */
+.navList a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--accent); /* FIX — usar tu accent real */
+  transition: width 0.3s ease;
+}
+
+.navList a:hover,
+.navList a.active {
+  color: var(--accent);
+}
+
+.navList a:hover::after,
+.navList a.active::after {
+  width: 80%;
 }
 
 .logo {
@@ -41,6 +62,7 @@
   background: linear-gradient(90deg, var(--accent), #ff8c4b);
   color: transparent;
   background-clip: text;
+  -webkit-background-clip: text;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   transition: opacity 0.3s ease;

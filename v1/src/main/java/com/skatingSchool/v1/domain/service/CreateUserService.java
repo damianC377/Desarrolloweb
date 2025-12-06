@@ -2,22 +2,27 @@ package com.skatingSchool.v1.domain.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.skatingSchool.v1.domain.model.User;
 import com.skatingSchool.v1.domain.port.CreateUserPort;
 import com.skatingSchool.v1.domain.port.FindUserPort;
 
-@Service()
+@Service
 public class CreateUserService {
 
     @Autowired
-    CreateUserPort createUserPort;
+    private CreateUserPort createUserPort;
 
     @Autowired
-    FindUserPort findUserPort;
+    private FindUserPort findUserPort;
 
-    public void createUser(User user) throws Exception{
+    @Autowired
+    private PasswordEncoder passwordEncoder;   // <<--- IMPORTANTE
 
+    public void createUser(User user) throws Exception {
+
+        // Validaciones
         if (findUserPort.findUserByDocument(user.getDocument()) != null) {
             throw new Exception("Usuario con documento " + user.getDocument() + " ya existe.");
         } 
@@ -30,6 +35,10 @@ public class CreateUserService {
             throw new Exception("Usuario con email " + user.getEmail() + " ya existe.");
         }
 
+        // 🔐 **Encriptar contraseña**
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // Guardar
         createUserPort.save(user);
     }
 }

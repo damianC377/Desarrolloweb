@@ -16,7 +16,7 @@ public class CreateInstructorService {
 
         instructor.setUserId(userId);
 
-        if(findInstructorPort.findByUser(userId) != null) {
+        if(findInstructorPort.findByUserId(userId) != null) {
             throw new Exception("El usuario con ID " + userId + " ya es asociado.");
         }
 

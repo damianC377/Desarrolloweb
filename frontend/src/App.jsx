@@ -8,7 +8,7 @@ import Services from "./pages/Services";
 import Gallery from "./pages/Gallery";
 import NewsEvents from "./pages/NewsEvents";
 import SignUp from "./pages/SignUp";
-
+import PaymentForm from "./pages/PaymentForm";
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/newsEvents" element={<NewsEvents />} />
         <Route path="/signUp" element={<SignUp />} />
+        <Route path="/payment" element={<PaymentForm />} />
       </Routes>
       <Footer />
     </Router>
