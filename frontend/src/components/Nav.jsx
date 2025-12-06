@@ -7,7 +7,11 @@ export default function Nav() {
     <nav className="navbar">
       <ul className="navList">
         <li className="logo">
-          <Zap size={28} color="var(--accent)" style={{ marginRight: "0.5rem" }} />
+          <Zap
+            size={28}
+            color="var(--accent)"
+            style={{ marginRight: "0.5rem" }}
+          />
           Rolling Speed
         </li>
 
@@ -25,7 +29,7 @@ export default function Nav() {
             <Link to="/gallery">Galería</Link>
           </li>
           <li>
-            <Link to="/newsEvents">Noticias y Testimonios</Link>
+            <Link to="/newsEvents">Eventos</Link>
           </li>
           <li>
             <Link to="/signUp">Inscripción</Link>

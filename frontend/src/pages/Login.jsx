@@ -1,20 +1,9 @@
 import { useState, useRef } from "react";
-import {
-  Send,
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  CreditCard,
-  Lock,
-  UserCircle,
-} from "lucide-react";
+import { Lock, UserCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
-
-function SignUpInstructor() {
+function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
@@ -22,60 +11,6 @@ function SignUpInstructor() {
   const inputRefs = useRef([]);
 
   const formFields = [
-    {
-      name: "document",
-      label: "Número de Documento",
-      type: "number",
-      placeholder: "1234567890",
-      required: true,
-      icon: CreditCard,
-      colSpan: "half",
-    },
-    {
-      name: "name",
-      label: "Nombre",
-      type: "text",
-      placeholder: "Tu nombre",
-      required: true,
-      icon: User,
-      colSpan: "half",
-    },
-    {
-      name: "lastname",
-      label: "Apellido",
-      type: "text",
-      placeholder: "Tu apellido",
-      required: true,
-      icon: User,
-      colSpan: "half",
-    },
-    {
-      name: "email",
-      label: "Correo Electrónico",
-      type: "email",
-      placeholder: "tu@email.com",
-      required: true,
-      icon: Mail,
-      colSpan: "half",
-    },
-    {
-      name: "phone",
-      label: "Teléfono",
-      type: "tel",
-      placeholder: "+57 300 1234567",
-      required: true,
-      icon: Phone,
-      colSpan: "half",
-    },
-    {
-      name: "address",
-      label: "Dirección",
-      type: "text",
-      placeholder: "Calle 123 #45-67",
-      required: true,
-      icon: MapPin,
-      colSpan: "half",
-    },
     {
       name: "username",
       label: "Nombre de Usuario",
@@ -116,26 +51,9 @@ function SignUpInstructor() {
   const validateForm = () => {
     const newErrors = {};
     formFields.forEach((field) => {
-      if (field.required && !formData[field.name]?.trim())
+      if (field.required && !formData[field.name]?.trim()) {
         newErrors[field.name] = `${field.label} es requerido`;
-      if (field.type === "email" && formData[field.name]) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData[field.name]))
-          newErrors[field.name] = "Email inválido";
       }
-      if (
-        field.name === "password" &&
-        formData[field.name] &&
-        formData[field.name].length < 6
-      )
-        newErrors[field.name] =
-          "La contraseña debe tener al menos 6 caracteres";
-      if (
-        field.name === "document" &&
-        formData[field.name] &&
-        formData[field.name].toString().length < 6
-      )
-        newErrors[field.name] = "Documento inválido";
     });
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -143,28 +61,42 @@ function SignUpInstructor() {
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
+
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(`${api_url}/api/v1/users/register`, {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
       });
 
-      const data = await res.json();
-
-      if (data.instructorId) {
-        localStorage.setItem("instructorId", data.instructorId);
-        navigate("/dashboard-instructor");
-      } else {
-        alert("Error en el registro. Intenta nuevamente.");
+      if (!response.ok) {
+        const errorData = await response.json();
+        setIsSubmitting(false);
+        alert(errorData.message || "Credenciales incorrectas");
+        return;
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("No se pudo registrar el instructor.");
-    } finally {
+
+      const data = await response.json();
+
+      // Guarda token e id
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("id", data.id);
+
       setIsSubmitting(false);
+
+      navigate("/adminDasboard");
+
+    } catch (error) {
+      console.error(error);
+      setIsSubmitting(false);
+      alert("Error al conectar con el servidor");
     }
   };
 
@@ -175,12 +107,9 @@ function SignUpInstructor() {
           <div className="form-icon">
             <UserCircle size={64} />
           </div>
-          <h2 className="form-title">
-            ¡Únete a nuestro equipo de instructores!
-          </h2>
+          <h2 className="form-title">Inicia Sesión</h2>
           <p className="form-subtitle">
-            Completa el formulario para registrarte como instructor en la
-            escuela de patinaje.
+            Ingresa tu usuario y contraseña para acceder a tu cuenta.
           </p>
         </div>
         <div className="contact-form">
@@ -223,18 +152,13 @@ function SignUpInstructor() {
               );
             })}
           </div>
+
           <button
             onClick={handleSubmit}
             className="form-submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? (
-              "Registrando..."
-            ) : (
-              <>
-                Registrarme como Instructor <Send size={18} />
-              </>
-            )}
+            {isSubmitting ? "Ingresando..." : "Iniciar Sesión"}
           </button>
         </div>
       </div>
@@ -242,4 +166,4 @@ function SignUpInstructor() {
   );
 }
 
-export default SignUpInstructor;
+export default Login;

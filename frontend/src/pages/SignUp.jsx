@@ -234,6 +234,14 @@ function SignUp() {
               </>
             )}
           </button>
+          <div className="form-footer">
+            <p>
+              ¿Ya tienes cuenta?{" "}
+              <a href="/login" className="form-link">
+                Inicia sesión
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

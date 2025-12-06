@@ -1,5 +1,5 @@
 import "./Services.css";
-import { Clock, Users, Target } from "lucide-react";
+import { Clock, Users, Target, Activity } from "lucide-react";
 
 function Services() {
   const services = [
@@ -13,6 +13,8 @@ function Services() {
       schedule: "Lunes a Viernes: 3:00 PM - 5:00 PM",
       duration: "2 meses",
       ages: "6 años en adelante",
+      icon: <Activity size={36} />,
+      color: "var(--accent)",
     },
     {
       id: 2,
@@ -24,6 +26,8 @@ function Services() {
       schedule: "Martes y Jueves: 5:00 PM - 7:00 PM",
       duration: "3 meses",
       ages: "10 años en adelante",
+      icon: <Target size={36} />,
+      color: "var(--primary)",
     },
     {
       id: 3,
@@ -35,38 +39,8 @@ function Services() {
       schedule: "Lunes a Sábado: 6:00 AM - 8:00 AM",
       duration: "6 meses",
       ages: "12 años en adelante",
-    },
-    {
-      id: 4,
-      title: "Clases Personalizadas",
-      description:
-        "Entrenamiento 1:1 adaptado a tus objetivos y nivel, con plan exclusivo y seguimiento.",
-      details:
-        "Instructor dedicado y horarios flexibles para un progreso óptimo.",
-      schedule: "Horarios a convenir",
-      duration: "Flexible",
-      ages: "Todas las edades",
-    },
-    {
-      id: 5,
-      title: "Patinaje Artístico",
-      description:
-        "Aprende coreografías, saltos y movimientos artísticos sobre patines.",
-      details: "Presentaciones en eventos con música y vestuario incluidos.",
-      schedule: "Miércoles y Viernes: 4:00 PM - 6:00 PM",
-      duration: "4 meses",
-      ages: "8 años en adelante",
-    },
-    {
-      id: 6,
-      title: "Programas para Niños",
-      description:
-        "Actividades recreativas para desarrollar coordinación, motricidad y confianza.",
-      details:
-        "Grupos organizados por edades, con metodología lúdica y divertida.",
-      schedule: "Sábados y Domingos: 9:00 AM - 11:00 AM",
-      duration: "Programa mensual",
-      ages: "4 a 12 años",
+      icon: <Users size={36} />,
+      color: "var(--secondary)",
     },
   ];
 
@@ -89,6 +63,17 @@ function Services() {
               key={service.id}
               className={`service-section ${isReverse ? "reverse" : ""}`}
             >
+              {/* Tarjetica pequeña al lado del texto */}
+              <div className="service-image">
+                <div
+                  className="service-image-placeholder small"
+                  style={{ backgroundColor: service.color }}
+                >
+                  {service.icon}
+                </div>
+              </div>
+
+              {/* Texto del servicio */}
               <div className="service-text">
                 <h2>{service.title}</h2>
                 <p className="service-main-desc">{service.description}</p>
@@ -130,7 +115,7 @@ function Services() {
               Quiénes Somos
             </a>
             <a href="/newsEvents" className="btn-secondary">
-              Noticias y Eventos
+              Eventos
             </a>
           </div>
         </div>

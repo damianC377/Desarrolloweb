@@ -1,5 +1,6 @@
 package com.skatingSchool.v1.domain.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import com.skatingSchool.v1.domain.port.FindStudentPort;
 @Transactional
 public class CreateStudentService {
 
-    CreateStudentPort createStudentPort;
-    FindStudentPort findStudentPort;
+    @Autowired
+    private CreateStudentPort createStudentPort;
+
+    @Autowired
+    private FindStudentPort findStudentPort;
 
     @Autowired
     public CreateStudentService(CreateStudentPort createStudentPort, FindStudentPort findStudentPort) {
@@ -36,3 +40,4 @@ public class CreateStudentService {
         return createStudentPort.save(student);
     }
 }
+

@@ -96,5 +96,9 @@ public class User {
         this.rol = rol;
     }
 
+    public boolean verifyPassword(String rawPassword) {
+        return this.password.equals(rawPassword);
+    }
+
 }
 

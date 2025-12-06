@@ -23,7 +23,7 @@ public class InstructorAdapter implements CreateInstructorPort, FindInstructorPo
     }
 
     @Override
-    public Instructor findByUser(Long userId) {
+    public Instructor findByUserId(Long userId) {
         InstructorEntity entity = instructorRepository.findByUser(userId);
         return InstructorMapper.toDomain(entity);
 

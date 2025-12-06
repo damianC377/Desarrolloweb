@@ -1,7 +1,6 @@
 package com.skatingSchool.v1.infraestructure.persistence.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

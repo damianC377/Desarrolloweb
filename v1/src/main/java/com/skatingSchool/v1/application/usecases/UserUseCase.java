@@ -2,7 +2,6 @@ package com.skatingSchool.v1.application.usecases;
 
 import com.skatingSchool.v1.domain.service.CreateStudentService;
 import com.skatingSchool.v1.domain.service.CreateUserService;
-import com.skatingSchool.v1.domain.service.FindStudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,12 @@ import com.skatingSchool.v1.domain.model.Student;
 import com.skatingSchool.v1.domain.model.User;
 import com.skatingSchool.v1.domain.model.enums.Rol;
 
+
+
+/**
+ * Caso de uso para gestión de usuarios.
+ * Combina las operaciones de autenticación, registro y gestión de usuarios.
+ */
 @Service
 public class UserUseCase {
 

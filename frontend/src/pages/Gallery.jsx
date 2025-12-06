@@ -1,6 +1,13 @@
 import { useState } from "react";
-import { Play } from "lucide-react";
 import "./Gallery.css";
+
+// Importa las imágenes
+import gallery1 from "../assets/img/gallery1.jpg";
+import gallery2 from "../assets/img/gallery2.jpg";
+import gallery3 from "../assets/img/gallery3.jpg";
+import gallery4 from "../assets/img/gallery4.jpg";
+import gallery5 from "../assets/img/gallery5.jpg";
+import gallery6 from "../assets/img/gallery6.jpg";
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -9,92 +16,38 @@ const Gallery = () => {
     {
       type: "image",
       category: "training",
-      placeholder: "Entrenamiento Grupal Nivel Intermedio",
+      src: gallery1,
+      alt: "Entrenamiento Grupal Nivel Intermedio",
     },
     {
       type: "image",
       category: "competition",
-      placeholder: "Campeonato Regional 2023 - Podio",
+      src: gallery2,
+      alt: "Campeonato Regional 2023 - Podio",
     },
     {
       type: "image",
       category: "training",
-      placeholder: "Clase de Principiantes - Primeros Pasos",
+      src: gallery3,
+      alt: "Clase de Principiantes - Primeros Pasos",
     },
     {
       type: "image",
       category: "events",
-      placeholder: "Show Anual 2023 - Presentación Artística",
+      src: gallery4,
+      alt: "Show Anual 2023 - Presentación Artística",
     },
     {
-      type: "video",
-      category: "competition",
-      placeholder: "VIDEO: Rutina de Campeones Nacionales",
+      type: "image",
+      category: "events",
+      src: gallery5,
+      alt: "Ceremonia de Graduación de Nivel",
     },
     {
       type: "image",
       category: "facilities",
-      placeholder: "Nuestras Instalaciones - Pista Principal",
-    },
-    {
-      type: "image",
-      category: "events",
-      placeholder: "Ceremonia de Graduación de Nivel",
-    },
-    {
-      type: "video",
-      category: "events",
-      placeholder: "VIDEO: Día de las Familias 2023",
-    },
-    {
-      type: "image",
-      category: "training",
-      placeholder: "Taller de Verano Intensivo",
-    },
-    {
-      type: "image",
-      category: "competition",
-      placeholder: "Competencia Nacional - Categoría Juvenil",
-    },
-    {
-      type: "image",
-      category: "training",
-      placeholder: "Entrenamiento de Hockey sobre Patines",
-    },
-    {
-      type: "video",
-      category: "training",
-      placeholder: "VIDEO: Técnicas de Patinaje Artístico",
-    },
-    {
-      type: "image",
-      category: "facilities",
-      placeholder: "Sala de Espera y Cafetería",
-    },
-    {
-      type: "image",
-      category: "events",
-      placeholder: "Celebración Día del Niño",
-    },
-    {
-      type: "image",
-      category: "competition",
-      placeholder: "Medallas y Trofeos 2023",
-    },
-    {
-      type: "video",
-      category: "events",
-      placeholder: "VIDEO: Resumen Anual 2023",
-    },
-    {
-      type: "image",
-      category: "training",
-      placeholder: "Clase Individual - Corrección Técnica",
-    },
-    {
-      type: "image",
-      category: "facilities",
-      placeholder: "Vestuarios y Zona de Preparación",
+      src: gallery6,
+      alt: "Nuestras Instalaciones - Pista Principal",
     },
   ];
 
@@ -136,14 +89,10 @@ const Gallery = () => {
 
         <div className="gallery-grid">
           {filteredItems.map((item, index) => (
-            <div key={index} className={`gallery-item ${item.type}`}>
-              <div className="gallery-placeholder">
-                {item.type === "video" && (
-                  <div className="video-icon">
-                    <Play size={48} />
-                  </div>
-                )}
-                <span>{item.placeholder}</span>
+            <div key={index} className="gallery-item">
+              <img src={item.src} alt={item.alt} className="gallery-img" />
+              <div className="gallery-text">
+                <span>{item.alt}</span>
               </div>
               <div className="gallery-overlay">
                 <button className="view-btn">Ver completo</button>
