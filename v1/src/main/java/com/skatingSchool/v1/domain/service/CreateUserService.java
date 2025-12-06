@@ -16,7 +16,7 @@ public class CreateUserService {
     @Autowired
     FindUserPort findUserPort;
 
-    public void createUser(User user) throws Exception{
+    public User createUser(User user) throws Exception{
 
         if (findUserPort.findUserByDocument(user.getDocument()) != null) {
             throw new Exception("Usuario con documento " + user.getDocument() + " ya existe.");
@@ -30,6 +30,6 @@ public class CreateUserService {
             throw new Exception("Usuario con email " + user.getEmail() + " ya existe.");
         }
 
-        createUserPort.save(user);
+        return createUserPort.save(user);
     }
 }

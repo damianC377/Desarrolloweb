@@ -1,10 +1,15 @@
 package com.skatingSchool.v1.infraestructure.persistence.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "students")
 public class StudentEntity {
 
@@ -15,6 +20,6 @@ public class StudentEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "boolean default false")   
     private Boolean active;
 }

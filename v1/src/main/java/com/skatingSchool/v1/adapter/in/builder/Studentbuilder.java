@@ -16,12 +16,11 @@ public class Studentbuilder {
         this.validator = new StudentValidator();
     }
 
-    public Student build(String userId, String active) throws Exception {
+    public Student build(String userId) throws Exception {
 
         Student student = new Student();
 
         student.setUserId(validator.userIdValidator(userId));
-        student.setActive(validator.activeValidator(active));
 
         return student;
     }

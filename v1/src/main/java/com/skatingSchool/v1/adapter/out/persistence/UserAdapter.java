@@ -17,8 +17,10 @@ public class UserAdapter implements CreateUserPort, FindUserPort{
     private UserRepository userRepository;
 
     @Override
-    public void save(User user) {
-        userRepository.save(UserMapper.toEntity(user));
+    public User save(User user) {
+        UserEntity entity = UserMapper.toEntity(user);
+        UserEntity savedEntity = userRepository.save(entity);
+        return UserMapper.toDomain(savedEntity);
     }
 
     @Override
@@ -36,6 +38,12 @@ public class UserAdapter implements CreateUserPort, FindUserPort{
     @Override
     public User findUserByEmail(String email) {
         UserEntity entity = userRepository.findByEmail(email);
+        return UserMapper.toDomain(entity);
+    }
+
+    @Override
+    public User findById(Long userId) {
+        UserEntity entity = userRepository.findById(userId).orElse(null);
         return UserMapper.toDomain(entity);
     }
 }

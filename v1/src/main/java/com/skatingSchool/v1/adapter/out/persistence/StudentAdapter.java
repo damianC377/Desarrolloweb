@@ -2,6 +2,7 @@ package com.skatingSchool.v1.adapter.out.persistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Primary;
 
 import com.skatingSchool.v1.domain.model.Student;
 import com.skatingSchool.v1.domain.port.CreateStudentPort;
@@ -11,14 +12,16 @@ import com.skatingSchool.v1.infraestructure.persistence.mapper.StudentMapper;
 import com.skatingSchool.v1.infraestructure.persistence.repository.StudentRepository;
 
 @Service
+@Primary
 public class StudentAdapter implements CreateStudentPort, FindStudentPort {
 
     @Autowired
     private StudentRepository studentRepository;
 
     @Override
-    public void save(Student student) {
-        studentRepository.save(StudentMapper.toEntity(student));
+    public Student save(Student student) {
+        StudentEntity entity = studentRepository.save(StudentMapper.toEntity(student));
+        return StudentMapper.toDomain(entity);
     }
 
     @Override

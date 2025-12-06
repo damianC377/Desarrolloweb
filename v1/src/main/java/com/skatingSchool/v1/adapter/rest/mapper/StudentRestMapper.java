@@ -20,8 +20,7 @@ public class StudentRestMapper {
         }
 
         Student student = studentbuilder.build(
-            req.getUserId(),
-            req.getActive()
+            req.getUserId()
         );
 
         return student;
@@ -34,7 +33,6 @@ public class StudentRestMapper {
 
         StudentResponse resp = new StudentResponse();
         resp.setUserId(student.getUserId());
-        resp.setActive(student.getActive());
 
         return resp;
     }
