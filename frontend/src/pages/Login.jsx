@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { Lock, UserCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
+const api_url = import.meta.env.VITE_API_URL ?? "https://desarrolloweb-production-4918.up.railway.app";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ function Login() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch(`${api_url}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

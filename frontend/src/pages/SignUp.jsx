@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const api_url = import.meta.env.VITE_API_URL ?? "https://desarrolloweb-production-4918.up.railway.app";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -147,7 +147,7 @@ function SignUp() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(`${api_url}/api/v1/users/register-student`, {
+      await fetch(`${api_url}/api/v1/users/register-student`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

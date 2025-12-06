@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import "./PaymentForm.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const api_url = import.meta.env.VITE_API_URL ?? "https://desarrolloweb-production-4918.up.railway.app";
 
 function PaymentForm() {
   const [formData, setFormData] = useState({ paymentMethod: "" });
@@ -79,10 +79,13 @@ function PaymentForm() {
         body: JSON.stringify({
           studentId: Number(studentId),
           paymentMethod: formData.paymentMethod,
+          amount: inscriptionCost, // necesario
+          paymentDate: new Date().toISOString().split("T")[0], // necesario
         }),
       });
 
       if (!res.ok) throw new Error("Error en el pago");
+
       setSubmitSuccess(true);
     } catch (error) {
       console.error("Error al procesar el pago:", error);
