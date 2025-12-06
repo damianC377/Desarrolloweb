@@ -1,6 +1,10 @@
 import { Users, Award } from "lucide-react";
 import "./About.css";
 
+import about1 from "../assets/img/about1.jpg";
+import about2 from "../assets/img/about2.jpg";
+import about3 from "../assets/img/about3.jpg";
+
 function About() {
   return (
     <div className="about-page">
@@ -27,22 +31,18 @@ function About() {
               instructores certificados internacionalmente y una comunidad de
               más de 500 estudiantes activos.
             </p>
-            <p>
-              Nuestra trayectoria está marcada por la dedicación, el esfuerzo y
-              el amor por este hermoso deporte. Hemos formado campeones, pero
-              más importante aún, hemos formado personas íntegras que llevan los
-              valores del patinaje a todos los aspectos de su vida.
-            </p>
           </div>
           <div className="about-image">
-            <div className="image-placeholder"></div>
+            <div className="image-placeholder">
+              <img src={about1} alt="Personas patinando" />
+            </div>
           </div>
         </section>
 
         {/* Nuestro Propósito */}
         <section className="about-section reverse">
           <div className="about-image">
-            <div className="image-placeholder"></div>
+            <img src={about2} alt="Nuestro equipo" />
           </div>
           <div className="about-text">
             <h3>Nuestro Propósito</h3>
@@ -144,7 +144,7 @@ function About() {
             </div>
           </div>
           <div className="about-image">
-            <div className="image-placeholder"></div>
+            <img src={about3} alt="Instalaciones" />
           </div>
         </section>
       </div>
