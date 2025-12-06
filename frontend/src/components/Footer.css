@@ -1,36 +1,27 @@
-/* ===================================
-   FOOTER - Estructura Principal
-   =================================== */
-
 .footer {
   background: var(--primary);
   color: var(--text-light);
   padding: 4rem 2rem 2rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 3rem;
   font-family: "Poppins", sans-serif;
 }
 
-/* ===================================
-   FOOTER BRAND - Logo/Nombre
-   =================================== */
-
-.footer-brand {
+/* Logo */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 2.2rem;
   font-weight: 900;
+  gap: 0.5rem;
   background: linear-gradient(90deg, var(--accent), #ff8c4b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   text-align: center;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.5px;
 }
-
-/* ===================================
-   FOOTER SECTIONS - Container Grid
-   =================================== */
 
 .footer-sections {
   display: grid;
@@ -41,16 +32,7 @@
   width: 100%;
 }
 
-/* ===================================
-   FOOTER SECTION - Columnas Individuales
-   =================================== */
-
-.footer-section {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Títulos de Sección */
+/* Titles */
 .footer-section h3 {
   font-size: 1.3rem;
   font-weight: 700;
@@ -71,7 +53,7 @@
   border-radius: 2px;
 }
 
-/* Listas */
+/* Lists */
 .footer-section ul {
   list-style: none;
   padding: 0;
@@ -86,7 +68,6 @@
   line-height: 1.6;
   transition: all 0.3s ease;
   cursor: pointer;
-  padding-left: 0;
 }
 
 .footer-section ul li:hover {
@@ -94,49 +75,37 @@
   transform: translateX(5px);
 }
 
-/* Párrafos */
+/* Text */
 .footer-section p {
   font-size: 0.95rem;
   line-height: 1.7;
-  margin-bottom: 0.75rem;
   opacity: 0.9;
+  margin-bottom: 0.75rem;
 }
 
-.footer-section p:last-child {
-  margin-bottom: 0;
-}
-
-/* ===================================
-   FOOTER BOTTOM - Copyright
-   =================================== */
-
+/* Bottom */
 .footer-bottom {
   font-size: 0.9rem;
   text-align: center;
   border-top: 1px solid rgba(255, 107, 53, 0.3);
   padding-top: 1.5rem;
-  margin-top: 1rem;
   opacity: 0.85;
   letter-spacing: 0.3px;
 }
 
-/* ===================================
-   RESPONSIVE - Media Queries
-   =================================== */
-
-/* Tablets */
+/* Tablet */
 @media (max-width: 968px) {
   .footer-sections {
     grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
   }
 
-  .footer-brand {
+  .footer-logo {
     font-size: 2rem;
   }
 }
 
-/* Móviles */
+/* Mobile */
 @media (max-width: 768px) {
   .footer {
     padding: 3rem 1.5rem 1.5rem;
@@ -154,89 +123,11 @@
     transform: translateX(-50%);
   }
 
-  .footer-brand {
+  .footer-logo {
     font-size: 1.8rem;
   }
 
   .footer-section ul li:hover {
     transform: translateX(0);
-  }
-}
-
-/* Móviles pequeños */
-@media (max-width: 480px) {
-  .footer {
-    padding: 2.5rem 1rem 1.5rem;
-  }
-
-  .footer-brand {
-    font-size: 1.6rem;
-  }
-
-  .footer-section h3 {
-    font-size: 1.15rem;
-  }
-
-  .footer-section ul li,
-  .footer-section p {
-    font-size: 0.9rem;
-  }
-
-  .footer-bottom {
-    font-size: 0.85rem;
-  }
-}
-.footer {
-  background: var(--primary);
-  color: var(--text-light);
-  padding: 2rem 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.footer-brand {
-  font-size: 1.8rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, var(--accent), #ff8c4b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.footer-sections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: space-between;
-}
-
-.footer-section h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-  color: var(--accent);
-}
-
-.footer-section ul {
-  list-style: none;
-}
-
-.footer-section ul li,
-.footer-section p {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-}
-
-.footer-bottom {
-  font-size: 0.85rem;
-  text-align: center;
-  border-top: 1px solid rgba(var(--accent-rgb), 0.3);
-  padding-top: 1rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .footer-sections {
-    flex-direction: column;
-    gap: 1.5rem;
   }
 }
