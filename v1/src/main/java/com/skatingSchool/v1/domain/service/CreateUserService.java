@@ -18,9 +18,9 @@ public class CreateUserService {
     private FindUserPort findUserPort;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;   // <<--- IMPORTANTE
+    private PasswordEncoder passwordEncoder;
 
-    public void createUser(User user) throws Exception {
+    public User createUser(User user) throws Exception {
 
         // Validaciones
         if (findUserPort.findUserByDocument(user.getDocument()) != null) {
@@ -35,10 +35,8 @@ public class CreateUserService {
             throw new Exception("Usuario con email " + user.getEmail() + " ya existe.");
         }
 
-        // 🔐 **Encriptar contraseña**
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Guardar
-        createUserPort.save(user);
+        return createUserPort.save(user);
     }
 }

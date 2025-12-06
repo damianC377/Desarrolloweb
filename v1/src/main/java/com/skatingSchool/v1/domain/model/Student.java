@@ -3,15 +3,15 @@ package com.skatingSchool.v1.domain.model;
 public class Student {
 
     private Long studentId;
-    private long UserId;
+    private long userId;
     private Boolean active;
 
     public Student() {
     }
 
-    public Student(Long studentId, long UserId, Boolean active) {
+    public Student(Long studentId, long userId, Boolean active) {
         this.studentId = studentId;
-        this.UserId = UserId;
+        this.userId = userId;
         this.active = active;
     }
 
@@ -24,19 +24,19 @@ public class Student {
     }
 
     public Long getUserId() {
-        return UserId;
+        return userId;
     }
 
-    public void setUserId(long UserId) {
-        this.UserId = UserId;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public Boolean getActive() {
-        return active;
+        return active != null ? active : false;  // ← Nunca retornar null
     }
 
     public void setActive(Boolean active) {
-        this.active = active;
+        this.active = active != null ? active : false;  // ← Nunca asignar null
     }
 
 }

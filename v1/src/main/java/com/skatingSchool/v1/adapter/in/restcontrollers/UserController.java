@@ -1,5 +1,8 @@
 package com.skatingSchool.v1.adapter.in.restcontrollers;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +31,19 @@ public class UserController {
     @Autowired
     private UserRestMapper userRestMapper;
 
-    /**
-     * Endpoint para registro de nuevos usuarios.
-     * POST /api/v1/users/register
-     * 
-     * @param request Datos del usuario a registrar
-     * @return ResponseEntity con los datos del usuario creado
-     */
-    @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@RequestBody UserResquest request) throws Exception {
-        User user = userRestMapper.toDomain(request);
-        userUseCase.createUser(user);
 
-        return new ResponseEntity<>(
-                userRestMapper.toResponse(user),
-                HttpStatus.CREATED
-        );
+    @PostMapping("/register-student")
+    public ResponseEntity<Map<String, Object>> createUsers(@RequestBody UserResquest request) throws Exception {
+        User user = userRestMapper.toDomain(request);
+        Long studentId = userUseCase.createUserStudent(user);
+
+        UserResponse userResponse = userRestMapper.toResponse(user);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", userResponse);
+        response.put("studentId", studentId);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        
     }
 }

@@ -2,12 +2,15 @@ package com.skatingSchool.v1.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skatingSchool.v1.domain.model.Student;
 import com.skatingSchool.v1.domain.port.CreateStudentPort;
 import com.skatingSchool.v1.domain.port.FindStudentPort;
 
-@Service
+@Service()
+@Transactional
 public class CreateStudentService {
 
     @Autowired
@@ -16,15 +19,25 @@ public class CreateStudentService {
     @Autowired
     private FindStudentPort findStudentPort;
 
-    public void createStudent(Student student) throws Exception {
-        // Verificar si ya existe un estudiante para ese usuario
-        Student existing = findStudentPort.findByUserId(student.getUserId());
-        if (existing != null) {
-            throw new Exception("Ya existe un estudiante asociado a este usuario");
+    @Autowired
+    public CreateStudentService(CreateStudentPort createStudentPort, FindStudentPort findStudentPort) {
+        this.createStudentPort = createStudentPort;
+        this.findStudentPort = findStudentPort;
+    }
+
+    public Student createStudent(Student student) throws Exception {
+
+        if (student.getStudentId() != null &&
+                findStudentPort.findById(student.getStudentId()) != null) {
+            throw new Exception("El estudiante con ID " + student.getStudentId() + " ya existe.");
         }
 
-        // Guardar el estudiante
-        createStudentPort.save(student);
+        if (findStudentPort.findByUserId(student.getUserId()) != null) {
+            throw new Exception("El usuario con ID " + student.getUserId() +
+                    " ya tiene un estudiante asociado.");
+        }
+
+        return createStudentPort.save(student);
     }
 }
 

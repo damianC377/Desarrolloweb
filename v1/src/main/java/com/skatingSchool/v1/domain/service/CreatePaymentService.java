@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.skatingSchool.v1.domain.model.Payment;
 import com.skatingSchool.v1.domain.port.CreatePaymentPort;
 import com.skatingSchool.v1.domain.port.FindPaymentPort;
+
 @Service
 public class CreatePaymentService {
 

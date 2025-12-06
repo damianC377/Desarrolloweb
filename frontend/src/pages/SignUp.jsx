@@ -147,7 +147,7 @@ function SignUp() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(`${api_url}/api/v1/users/register`, {
+      const res = await fetch(`${api_url}/api/v1/users/register-student`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
