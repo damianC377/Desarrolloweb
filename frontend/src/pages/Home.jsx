@@ -47,29 +47,30 @@ function Home() {
 
   return (
     <div className="home-page">
-      {/* Primer carousel con dots */}
-      <Carousel
-        slides={heroSlides}
-        renderSlide={(slide) => (
-          <div
-            style={{
-              backgroundImage: `url(${slide.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              height: "420px",
-              width: "100%",
-            }}
-          >
-            <div className="carousel-content">
-              <h1>{slide.title}</h1>
-              <p>{slide.subtitle}</p>
+      <div className="hero-carousel">
+        <Carousel
+          slides={heroSlides}
+          renderSlide={(slide) => (
+            <div
+              className="hero-slide"
+              style={{
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <div className="carousel-content">
+                <h1>{slide.title}</h1>
+                <p>{slide.subtitle}</p>
+              </div>
             </div>
-          </div>
-        )}
-        showDots={true}
-      />
+          )}
+          showDots={true}
+        />
+      </div>
 
-      {/* Sección de tarjetas */}
       <CardSection
         cards={[
           {
@@ -85,7 +86,6 @@ function Home() {
         ]}
       />
 
-      {/* Sección de testimonios */}
       <h2 className="testimonials-title">Testimonios</h2>
       <div className="testimonial-carousel">
         <Carousel
@@ -96,7 +96,6 @@ function Home() {
               <p>{slide.subtitle}</p>
             </div>
           )}
-          showDots={false} // sin dots
         />
       </div>
     </div>
