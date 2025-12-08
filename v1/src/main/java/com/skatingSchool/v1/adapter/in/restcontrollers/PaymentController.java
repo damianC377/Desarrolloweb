@@ -11,6 +11,7 @@ import com.skatingSchool.v1.adapter.rest.request.PaymentRequest;
 import com.skatingSchool.v1.adapter.rest.response.PaymentResponse;
 import com.skatingSchool.v1.application.usecases.PaymentUseCase;
 import com.skatingSchool.v1.domain.model.Payment;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/payments")
