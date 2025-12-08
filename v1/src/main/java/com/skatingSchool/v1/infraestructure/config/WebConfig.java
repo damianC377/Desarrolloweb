@@ -1,4 +1,4 @@
-package com.skatingSchool.v1.config;
+package com.skatingSchool.v1.infraestructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
