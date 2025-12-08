@@ -1,5 +1,8 @@
 import "./Services.css";
-import { Clock, Users, Target, Activity } from "lucide-react";
+
+import event1 from "../assets/img/event1.jpg";
+import event2 from "../assets/img/event2.jpg";
+import event3 from "../assets/img/event3.jpg";
 
 function Services() {
   const services = [
@@ -13,8 +16,7 @@ function Services() {
       schedule: "Lunes a Viernes: 3:00 PM - 5:00 PM",
       duration: "2 meses",
       ages: "6 años en adelante",
-      icon: <Activity size={36} />,
-      color: "var(--accent)",
+      image: event1,
     },
     {
       id: 2,
@@ -26,8 +28,7 @@ function Services() {
       schedule: "Martes y Jueves: 5:00 PM - 7:00 PM",
       duration: "3 meses",
       ages: "10 años en adelante",
-      icon: <Target size={36} />,
-      color: "var(--primary)",
+      image: event2,
     },
     {
       id: 3,
@@ -39,8 +40,7 @@ function Services() {
       schedule: "Lunes a Sábado: 6:00 AM - 8:00 AM",
       duration: "6 meses",
       ages: "12 años en adelante",
-      icon: <Users size={36} />,
-      color: "var(--secondary)",
+      image: event3,
     },
   ];
 
@@ -63,17 +63,14 @@ function Services() {
               key={service.id}
               className={`service-section ${isReverse ? "reverse" : ""}`}
             >
-              {/* Tarjetica pequeña al lado del texto */}
+              {/* Imagen */}
               <div className="service-image">
-                <div
-                  className="service-image-placeholder small"
-                  style={{ backgroundColor: service.color }}
-                >
-                  {service.icon}
+                <div className="service-image-wrapper">
+                  <img src={service.image} alt={service.title} />
                 </div>
               </div>
 
-              {/* Texto del servicio */}
+              {/* Texto */}
               <div className="service-text">
                 <h2>{service.title}</h2>
                 <p className="service-main-desc">{service.description}</p>
@@ -81,19 +78,18 @@ function Services() {
 
                 <div className="service-meta">
                   <div className="meta-item">
-                    <Clock size={18} />
                     <div>
                       <strong>Horario:</strong> {service.schedule}
                     </div>
                   </div>
+
                   <div className="meta-item">
-                    <Users size={18} />
                     <div>
                       <strong>Edades:</strong> {service.ages}
                     </div>
                   </div>
+
                   <div className="meta-item">
-                    <Target size={18} />
                     <div>
                       <strong>Duración:</strong> {service.duration}
                     </div>
@@ -105,17 +101,15 @@ function Services() {
         })}
 
         <div className="services-cta-section">
-          <h2>¿Listo para comenzar tu aventura sobre ruedas?</h2>
+          <h2>¿Listo para unirte a Roller Speed?</h2>
           <p>
-            Contáctanos para más información sobre nuestros programas, horarios
-            y descubre nuestras noticias y testimonios.
+            Inscríbete en línea, selecciona tu programa ideal y comienza tu
+            proceso de aprendizaje con instructores certificados.
           </p>
+
           <div className="cta-buttons">
-            <a href="/about" className="btn-primary">
-              Quiénes Somos
-            </a>
-            <a href="/newsEvents" className="btn-secondary">
-              Eventos
+            <a href="/signUp" className="btn-primary">
+              Inscribirme Ahora
             </a>
           </div>
         </div>

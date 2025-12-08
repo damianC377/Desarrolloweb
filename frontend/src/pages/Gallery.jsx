@@ -94,9 +94,6 @@ const Gallery = () => {
               <div className="gallery-text">
                 <span>{item.alt}</span>
               </div>
-              <div className="gallery-overlay">
-                <button className="view-btn">Ver completo</button>
-              </div>
             </div>
           ))}
         </div>

@@ -10,7 +10,7 @@ import NewsEvents from "./pages/NewsEvents";
 import SignUp from "./pages/SignUp";
 import PaymentForm from "./pages/PaymentForm";
 import Login from "./pages/Login";
-import StudentDashboard from "./pages/StudentDasboard";
+import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboard from "./pages/AdminDasboard";
 
 function App() {
@@ -90,7 +90,7 @@ function App() {
         />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/studentDasboard" element={<StudentDashboard />} />
+        <Route path="/studentDashboard" element={<StudentDashboard />} />
         <Route path="/adminDasboard" element={<AdminDashboard />} />
       </Routes>
     </Router>

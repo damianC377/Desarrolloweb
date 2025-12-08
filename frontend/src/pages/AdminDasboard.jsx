@@ -403,7 +403,7 @@ function AdminDashboard() {
     <div className="admin-dashboard">
       <aside className={`admin-sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <h1 className="sidebar-title">Admin Panel</h1>
+          <h1 className="sidebar-title">Roller Speed</h1>
           <button
             className="sidebar-close"
             onClick={() => setSidebarOpen(false)}
@@ -460,7 +460,7 @@ function AdminDashboard() {
           <button className="menu-toggle" onClick={() => setSidebarOpen(true)}>
             <Menu size={24} />
           </button>
-          <h2>Roller Speed - Administración</h2>
+          <h2>Panel Administración</h2>
           <div className="header-user">
             <span>Admin</span>
             <div className="user-avatar">A</div>

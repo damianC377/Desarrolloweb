@@ -11,7 +11,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import "./StudentDasboard.css";
+import "./StudentDashboard.css";
 
 function StudentDashboard() {
   const [activeSection, setActiveSection] = useState("perfil");
