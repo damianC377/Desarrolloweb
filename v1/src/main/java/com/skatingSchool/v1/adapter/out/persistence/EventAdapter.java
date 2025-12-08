@@ -30,7 +30,7 @@ public class EventAdapter implements CreateEventPort, FindEventPort {
 
     @Override
     public Event findById(Long id) {
-        EventEntity entity = eventRepository.findById(id).orElse(null);
+        EventEntity entity = eventRepository.findByEventId(id);
         return EventMapper.toDomain(entity);
     }
 
