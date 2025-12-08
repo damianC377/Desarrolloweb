@@ -1,5 +1,9 @@
 package com.skatingSchool.v1.adapter.in.validator;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import com.skatingSchool.v1.application.exceptions.InputsException;
 
 public class SimpleValidator {
@@ -40,5 +44,16 @@ public class SimpleValidator {
         }
     }
 
-   
+    public LocalDate dateValidator(String element, String value) throws Exception {
+        if (value == null || value.isBlank()) {
+        throw new InputsException(element + " no puede ser nulo ni vacío");
+        }
+
+        try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(value, formatter);
+        } catch (DateTimeParseException e) {
+        throw new InputsException(element + " no tiene un formato de fecha válido (dd/MM/yyyy)");
+        }
+    }
 }
