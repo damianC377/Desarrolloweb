@@ -5,7 +5,7 @@ import com.skatingSchool.v1.infraestructure.persistence.entities.EventEntity;
 
 public class EventMapper {
     
-    public EventEntity toEntity(Event event) {
+    public static EventEntity toEntity(Event event) {
         if (event == null) {
             return null;
         }
@@ -22,7 +22,7 @@ public class EventMapper {
         return eventEntity;
     }
 
-    public Event toDomain(EventEntity eventEntity) {
+    public static Event toDomain(EventEntity eventEntity) {
         if (eventEntity == null) {
             return null;
         }

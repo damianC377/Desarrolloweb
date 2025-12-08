@@ -1,6 +1,5 @@
 package com.skatingSchool.v1.application.usecases;
 
-import com.skatingSchool.v1.domain.service.CreateInstructorService;
 import com.skatingSchool.v1.domain.service.CreateStudentService;
 import com.skatingSchool.v1.domain.service.CreateUserService;
 

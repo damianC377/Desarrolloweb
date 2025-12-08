@@ -2,7 +2,6 @@ package com.skatingSchool.v1.application.usecases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.skatingSchool.v1.domain.model.Event;
 import com.skatingSchool.v1.domain.model.Instructor;
