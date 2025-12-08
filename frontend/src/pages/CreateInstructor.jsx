@@ -8,14 +8,15 @@ import {
   CreditCard,
   Lock,
   UserCircle,
+  X,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const api_url =
+  import.meta.env.VITE_API_URL ??
+  "https://backend-desrrollo-production.up.railway.app";
 
-function SignUpInstructor() {
-  const navigate = useNavigate();
+export default function CreateInstructorModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,6 +95,15 @@ function SignUpInstructor() {
       icon: Lock,
       colSpan: "full",
     },
+    {
+      name: "experience",
+      label: "Experiencia",
+      type: "text",
+      placeholder: "Ej: 5 años enseñando patinaje",
+      required: true,
+      icon: UserCircle,
+      colSpan: "full",
+    },
   ];
 
   const handleChange = (e) => {
@@ -105,11 +115,8 @@ function SignUpInstructor() {
   const handleKeyDown = (e, index) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (index < formFields.length - 1) {
-        inputRefs.current[index + 1].focus();
-      } else {
-        handleSubmit();
-      }
+      if (index < formFields.length - 1) inputRefs.current[index + 1].focus();
+      else handleSubmit();
     }
   };
 
@@ -146,44 +153,47 @@ function SignUpInstructor() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(`${api_url}/api/v1/users/register`, {
+      const res = await fetch(`${api_url}/api/v1/users/register-instructor`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(errorData.message || "Error en el registro");
+        setIsSubmitting(false);
+        return;
+      }
+
       const data = await res.json();
 
       if (data.instructorId) {
-        localStorage.setItem("instructorId", data.instructorId);
-        navigate("/dashboard-instructor");
+        onSuccess && onSuccess(data);
+        onClose();
       } else {
-        alert("Error en el registro. Intenta nuevamente.");
+        alert("Error en el registro del instructor");
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err) {
+      console.error(err);
       alert("No se pudo registrar el instructor.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className="registro-page">
-      <div className="form-container">
-        <div className="form-header">
-          <div className="form-icon">
-            <UserCircle size={64} />
-          </div>
-          <h2 className="form-title">
-            ¡Únete a nuestro equipo de instructores!
-          </h2>
-          <p className="form-subtitle">
-            Completa el formulario para registrarte como instructor en la
-            escuela de patinaje.
-          </p>
+    <div className="modal-overlay">
+      <div className="modal">
+        <div className="modal-header">
+          <h3>Crear Instructor</h3>
+          <button className="close-btn" onClick={onClose}>
+            <X size={20} />
+          </button>
         </div>
-        <div className="contact-form">
+        <div className="modal-body">
           <div className="form-grid">
             {formFields.map((field, index) => {
               const Icon = field.icon;
@@ -195,7 +205,7 @@ function SignUpInstructor() {
                   }`}
                 >
                   <label htmlFor={field.name} className="form-label">
-                    {field.label}
+                    {field.label}{" "}
                     {field.required && <span className="required">*</span>}
                   </label>
                   <div className="input-wrapper">
@@ -232,7 +242,7 @@ function SignUpInstructor() {
               "Registrando..."
             ) : (
               <>
-                Registrarme como Instructor <Send size={18} />
+                Crear Instructor <Send size={18} />
               </>
             )}
           </button>
@@ -241,5 +251,3 @@ function SignUpInstructor() {
     </div>
   );
 }
-
-export default SignUpInstructor;

@@ -1,11 +1,13 @@
 package com.skatingSchool.v1.application.usecases;
 
+import com.skatingSchool.v1.domain.service.CreateInstructorService;
 import com.skatingSchool.v1.domain.service.CreateStudentService;
 import com.skatingSchool.v1.domain.service.CreateUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skatingSchool.v1.domain.model.Instructor;
 import com.skatingSchool.v1.domain.model.Student;
 import com.skatingSchool.v1.domain.model.User;
 import com.skatingSchool.v1.domain.model.enums.Rol;
@@ -25,7 +27,8 @@ public class UserUseCase {
     @Autowired
     private CreateStudentService createStudentService;
 
-
+    @Autowired
+    private CreateInstructorService createInstructorService; ;
 
     public Long createUserStudent(User user) throws Exception {
     user.setRol(Rol.STUDENT);
@@ -40,5 +43,8 @@ public class UserUseCase {
     // Usa el estudiante que YA TE DEVOLVIÓ el servicio, no lo busques
     return createdStudent.getStudentId();
 }
+
+
+
 
 }

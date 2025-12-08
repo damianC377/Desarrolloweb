@@ -10,7 +10,7 @@ public class FindUserService {
 
     @Autowired
     private FindUserPort findUserPort;
-
+ 
     public User findById(Long userId) throws Exception {
         User user = findUserPort.findById(userId);
         

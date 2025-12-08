@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   Users,
@@ -14,49 +14,42 @@ import {
   Filter,
   Eye,
 } from "lucide-react";
+import ModalEvent from "./ModalEvent"; // Modal específico para crear eventos
 import "./AdminDashboard.css";
+
+const api_url =
+  import.meta.env.VITE_API_URL ??
+  "https://backend-desrrollo-production.up.railway.app";
 
 function AdminDashboard() {
   const [activeSection, setActiveSection] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false); // Modal genérico
   const [modalType, setModalType] = useState("");
+  const [showEventoModal, setShowEventoModal] = useState(false); // Modal de eventos
+  const [alumnos, setAlumnos] = useState([]); // lista de alumnos
+  const [eventos, setEventos] = useState([
+    {
+      id: 1,
+      titulo: "Campeonato Regional",
+      fecha: "15 Feb 2026",
+      tipo: "Evento",
+      estado: "Próximo",
+    },
+    {
+      id: 2,
+      titulo: "Nuevos Horarios Marzo",
+      fecha: "28 Feb 2026",
+      tipo: "Noticia",
+      estado: "Publicado",
+    },
+  ]);
 
   const stats = {
     totalAlumnos: 87,
     totalInstructores: 8,
     clasesActivas: 24,
   };
-
-  const alumnos = [
-    {
-      id: 1,
-      nombre: "Ana María García",
-      email: "ana.garcia@email.com",
-      nivel: "Intermedio",
-      instructor: "Carlos Rodríguez",
-      estado: "Activo",
-      ultimoPago: "05 Ene 2026",
-    },
-    {
-      id: 2,
-      nombre: "Juan Pérez López",
-      email: "juan.perez@email.com",
-      nivel: "Avanzado",
-      instructor: "María Fernández",
-      estado: "Activo",
-      ultimoPago: "03 Ene 2026",
-    },
-    {
-      id: 3,
-      nombre: "Sofia Ramírez",
-      email: "sofia.ramirez@email.com",
-      nivel: "Principiante",
-      instructor: "Carlos Rodríguez",
-      estado: "Pendiente",
-      ultimoPago: "20 Dic 2025",
-    },
-  ];
 
   const instructores = [
     {
@@ -88,22 +81,19 @@ function AdminDashboard() {
     },
   ];
 
-  const eventos = [
-    {
-      id: 1,
-      titulo: "Campeonato Regional",
-      fecha: "15 Feb 2026",
-      tipo: "Evento",
-      estado: "Próximo",
-    },
-    {
-      id: 2,
-      titulo: "Nuevos Horarios Marzo",
-      fecha: "28 Feb 2026",
-      tipo: "Noticia",
-      estado: "Publicado",
-    },
-  ];
+  useEffect(() => {
+    const fetchAlumnos = async () => {
+      try {
+        const res = await fetch(`${api_url}/api/v1/administrative/students`);
+        if (!res.ok) return;
+        const data = await res.json();
+        setAlumnos(data);
+      } catch (e) {
+        console.error("Error fetching alumnos:", e);
+      }
+    };
+    fetchAlumnos();
+  }, []);
 
   const openModal = (type) => {
     setModalType(type);
@@ -112,6 +102,26 @@ function AdminDashboard() {
   const closeModal = () => {
     setShowModal(false);
     setModalType("");
+  };
+
+  const openEventoModal = () => setShowEventoModal(true);
+  const closeEventoModal = () => setShowEventoModal(false);
+
+  // Función que envía el nuevo evento al backend y actualiza la lista
+  const handleSaveEvento = async (eventoData) => {
+    try {
+      const res = await fetch(`${api_url}/api/v1/administrative/events`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(eventoData),
+      });
+      if (!res.ok) throw new Error("Error al crear evento");
+      const newEvent = await res.json();
+      setEventos((prev) => [...prev, newEvent]); // Agrega el nuevo evento a la lista
+    } catch (e) {
+      console.error(e);
+      alert("No se pudo crear el evento");
+    }
   };
 
   const renderContent = () => {
@@ -181,8 +191,7 @@ function AdminDashboard() {
                 className="btn-primary"
                 onClick={() => openModal("alumno")}
               >
-                <Plus size={20} />
-                Nuevo Alumno
+                <Plus size={20} /> Nuevo Alumno
               </button>
             </div>
             <div className="table-controls">
@@ -191,8 +200,7 @@ function AdminDashboard() {
                 <input type="text" placeholder="Buscar alumno..." />
               </div>
               <button className="btn-filter">
-                <Filter size={20} />
-                Filtros
+                <Filter size={20} /> Filtros
               </button>
             </div>
             <div className="data-table">
@@ -208,35 +216,38 @@ function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {alumnos.map((alumno) => (
-                    <tr key={alumno.id}>
-                      <td className="name-cell">{alumno.nombre}</td>
-                      <td>{alumno.email}</td>
-                      <td>
-                        <span className="badge level">{alumno.nivel}</span>
+                  {alumnos.length === 0 ? (
+                    <tr>
+                      <td colSpan="6" style={{ textAlign: "center" }}>
+                        No hay alumnos disponibles
                       </td>
-                      <td>{alumno.instructor}</td>
-                      <td>
-                        <span
-                          className={`badge ${alumno.estado.toLowerCase()}`}
-                        >
-                          {alumno.estado}
-                        </span>
-                      </td>
-                      <td>{alumno.ultimoPago}</td>
-                      {/* <td className="action-buttons">
-                        <button className="btn-icon">
-                          <Eye size={18} />
-                        </button>
-                        <button className="btn-icon">
-                          <Edit size={18} />
-                        </button>
-                        <button className="btn-icon danger">
-                          <Trash2 size={18} />
-                        </button>
-                      </td> */}
                     </tr>
-                  ))}
+                  ) : (
+                    alumnos.map((alumno) => (
+                      <tr key={alumno.studentId}>
+                        <td className="name-cell">
+                          {alumno.user?.name || "Sin nombre"}
+                        </td>
+                        <td>{alumno.user?.email || ""}</td>
+                        <td>
+                          <span className="badge level">
+                            {alumno.level || "Desconocido"}
+                          </span>
+                        </td>
+                        <td>{alumno.instructor || "Desconocido"}</td>
+                        <td>
+                          <span
+                            className={`badge ${
+                              alumno.active ? "activo" : "inactivo"
+                            }`}
+                          >
+                            {alumno.active ? "Activo" : "Inactivo"}
+                          </span>
+                        </td>
+                        <td>{alumno.lastPaymentDate || "-"}</td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -251,8 +262,7 @@ function AdminDashboard() {
                 className="btn-primary"
                 onClick={() => openModal("instructor")}
               >
-                <Plus size={20} />
-                Nuevo Instructor
+                <Plus size={20} /> Nuevo Instructor
               </button>
             </div>
             <div className="instructores-grid">
@@ -289,15 +299,6 @@ function AdminDashboard() {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="instructor-actions">
-                    <button className="btn-secondary">
-                      <Edit size={18} />
-                      Editar
-                    </button>
-                    <button className="btn-icon danger">
-                      <Trash2 size={18} />
-                    </button>
-                  </div> */}
                 </div>
               ))}
             </div>
@@ -308,12 +309,8 @@ function AdminDashboard() {
           <div className="dashboard-content">
             <div className="content-header">
               <h2 className="section-title">Gestión de eventos</h2>
-              <button
-                className="btn-primary"
-                onClick={() => openModal("evento")}
-              >
-                <Plus size={20} />
-                Publicar
+              <button className="btn-primary" onClick={() => openEventoModal()}>
+                <Plus size={20} /> Publicar
               </button>
             </div>
             <div className="eventos-list">
@@ -325,7 +322,7 @@ function AdminDashboard() {
                   <div className="evento-content">
                     <div className="evento-header">
                       <h3>{evento.titulo}</h3>
-                      <span className={`badge ${evento.estado.toLowerCase()}`}>
+                      <span className={`badge ${evento.estado?.toLowerCase()}`}>
                         {evento.estado}
                       </span>
                     </div>
@@ -367,10 +364,7 @@ function AdminDashboard() {
             className={`nav-item ${
               activeSection === "dashboard" ? "active" : ""
             }`}
-            onClick={() => {
-              setActiveSection("dashboard");
-              setSidebarOpen(false);
-            }}
+            onClick={() => setActiveSection("dashboard")}
           >
             <LayoutDashboard size={20} />
             <span>Dashboard</span>
@@ -379,10 +373,7 @@ function AdminDashboard() {
             className={`nav-item ${
               activeSection === "alumnos" ? "active" : ""
             }`}
-            onClick={() => {
-              setActiveSection("alumnos");
-              setSidebarOpen(false);
-            }}
+            onClick={() => setActiveSection("alumnos")}
           >
             <Users size={20} />
             <span>Alumnos</span>
@@ -391,10 +382,7 @@ function AdminDashboard() {
             className={`nav-item ${
               activeSection === "instructores" ? "active" : ""
             }`}
-            onClick={() => {
-              setActiveSection("instructores");
-              setSidebarOpen(false);
-            }}
+            onClick={() => setActiveSection("instructores")}
           >
             <GraduationCap size={20} />
             <span>Instructores</span>
@@ -403,10 +391,7 @@ function AdminDashboard() {
             className={`nav-item ${
               activeSection === "eventos" ? "active" : ""
             }`}
-            onClick={() => {
-              setActiveSection("eventos");
-              setSidebarOpen(false);
-            }}
+            onClick={() => setActiveSection("eventos")}
           >
             <Megaphone size={20} />
             <span>Eventos</span>
@@ -429,9 +414,11 @@ function AdminDashboard() {
             <div className="user-avatar">A</div>
           </div>
         </header>
+
         {renderContent()}
       </main>
 
+      {/* Modal genérico */}
       {showModal && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -457,6 +444,13 @@ function AdminDashboard() {
           </div>
         </div>
       )}
+
+      {/* Modal específico para crear eventos */}
+      <ModalEvent
+        isOpen={showEventoModal}
+        onClose={closeEventoModal}
+        onSave={handleSaveEvento}
+      />
     </div>
   );
 }

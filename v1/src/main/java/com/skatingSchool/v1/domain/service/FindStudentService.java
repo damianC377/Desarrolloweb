@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.skatingSchool.v1.domain.model.Student;
 import com.skatingSchool.v1.domain.port.FindStudentPort;
 
+import java.util.List;
+
 @Service
 public class FindStudentService {
 
@@ -31,4 +33,13 @@ public class FindStudentService {
         
         return student;
     }
+
+    public List<Student> findAllStudents() throws Exception {
+    List<Student> students = findStudentPort.findAll();
+    if (students == null || students.isEmpty()) {
+        throw new Exception("No se encontraron estudiantes.");
+    }
+    return students;
+}
+
 }
