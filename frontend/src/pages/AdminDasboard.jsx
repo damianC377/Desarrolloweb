@@ -12,7 +12,6 @@ import {
   Trash2,
   Search,
   Filter,
-  Eye,
 } from "lucide-react";
 import ModalEvent from "./ModalEvent"; // Modal específico para crear eventos
 import "./AdminDashboard.css";
@@ -28,6 +27,7 @@ function AdminDashboard() {
   const [modalType, setModalType] = useState("");
   const [showEventoModal, setShowEventoModal] = useState(false); // Modal de eventos
   const [alumnos, setAlumnos] = useState([]); // lista de alumnos
+  const [payments, setPayments] = useState([]); // lista de todos los pagos
   const [eventos, setEventos] = useState([
     {
       id: 1,
@@ -81,6 +81,7 @@ function AdminDashboard() {
     },
   ];
 
+  // Fetch de alumnos y pagos
   useEffect(() => {
     const fetchAlumnos = async () => {
       try {
@@ -92,7 +93,20 @@ function AdminDashboard() {
         console.error("Error fetching alumnos:", e);
       }
     };
+
+    const fetchPayments = async () => {
+      try {
+        const res = await fetch(`${api_url}/api/v1/payments`);
+        if (!res.ok) return;
+        const data = await res.json();
+        setPayments(data);
+      } catch (e) {
+        console.error("Error fetching payments:", e);
+      }
+    };
+
     fetchAlumnos();
+    fetchPayments();
   }, []);
 
   const openModal = (type) => {
@@ -182,6 +196,7 @@ function AdminDashboard() {
             </div>
           </div>
         );
+
       case "alumnos":
         return (
           <div className="dashboard-content">
@@ -223,36 +238,57 @@ function AdminDashboard() {
                       </td>
                     </tr>
                   ) : (
-                    alumnos.map((alumno) => (
-                      <tr key={alumno.studentId}>
-                        <td className="name-cell">
-                          {alumno.user?.name || "Sin nombre"}
-                        </td>
-                        <td>{alumno.user?.email || ""}</td>
-                        <td>
-                          <span className="badge level">
-                            {alumno.level || "Desconocido"}
-                          </span>
-                        </td>
-                        <td>{alumno.instructor || "Desconocido"}</td>
-                        <td>
-                          <span
-                            className={`badge ${
-                              alumno.active ? "activo" : "inactivo"
-                            }`}
-                          >
-                            {alumno.active ? "Activo" : "Inactivo"}
-                          </span>
-                        </td>
-                        <td>{alumno.lastPaymentDate || "-"}</td>
-                      </tr>
-                    ))
+                    alumnos.map((alumno) => {
+                      // Filtrar pagos del alumno
+                      const alumnoPayments = payments.filter(
+                        (p) => p.studentId === alumno.studentId
+                      );
+                      // Tomar el último pago según paymentDate
+                      const lastPayment =
+                        alumnoPayments.length > 0
+                          ? alumnoPayments.sort(
+                              (a, b) =>
+                                new Date(b.paymentDate) -
+                                new Date(a.paymentDate)
+                            )[0].paymentDate
+                          : null;
+
+                      return (
+                        <tr key={alumno.studentId}>
+                          <td className="name-cell">
+                            {alumno.user?.name || "Sin nombre"}
+                          </td>
+                          <td>{alumno.user?.email || ""}</td>
+                          <td>
+                            <span className="badge level">
+                              {alumno.level || "Desconocido"}
+                            </span>
+                          </td>
+                          <td>{alumno.instructor || "Desconocido"}</td>
+                          <td>
+                            <span
+                              className={`badge ${
+                                alumno.active ? "activo" : "inactivo"
+                              }`}
+                            >
+                              {alumno.active ? "Activo" : "Inactivo"}
+                            </span>
+                          </td>
+                          <td>
+                            {lastPayment
+                              ? new Date(lastPayment).toLocaleDateString()
+                              : "-"}
+                          </td>
+                        </tr>
+                      );
+                    })
                   )}
                 </tbody>
               </table>
             </div>
           </div>
         );
+
       case "instructores":
         return (
           <div className="dashboard-content">
@@ -304,6 +340,7 @@ function AdminDashboard() {
             </div>
           </div>
         );
+
       case "eventos":
         return (
           <div className="dashboard-content">
@@ -342,6 +379,7 @@ function AdminDashboard() {
             </div>
           </div>
         );
+
       default:
         return null;
     }
