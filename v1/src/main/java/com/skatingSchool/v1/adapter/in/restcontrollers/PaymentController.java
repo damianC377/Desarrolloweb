@@ -3,6 +3,7 @@ package com.skatingSchool.v1.adapter.in.restcontrollers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.skatingSchool.v1.adapter.rest.mapper.PaymentRestMapper;
@@ -33,4 +34,16 @@ public class PaymentController {
                 HttpStatus.CREATED
         );
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping
+    public ResponseEntity<List<PaymentResponse>> getAllPayments() throws Exception {
+        List<Payment> payments = paymentUseCase.findAllPayments();
+        
+        List<PaymentResponse> response = payments.stream()
+                .map(paymentRestMapper::toResponse)
+                .toList();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

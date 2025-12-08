@@ -34,6 +34,14 @@ public class PaymentAdapter implements CreatePaymentPort, FindPaymentPort {
 
     @Override
     public List<Payment> findByStudentId(Long studentId) {
+        // 🔥 SI studentId ES NULL, DEVUELVE TODOS
+        if (studentId == null) {
+            return paymentRepository.findAll()
+                    .stream()
+                    .map(PaymentMapper::toDomain)
+                    .collect(Collectors.toList());
+        }
+        
         return paymentRepository.findByStudentId(studentId)
                 .stream()
                 .map(PaymentMapper::toDomain)

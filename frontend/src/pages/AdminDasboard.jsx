@@ -87,8 +87,30 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchAlumnos = async () => {
       try {
-        const res = await fetch(`${api_url}/api/v1/administrative/students`);
-        if (!res.ok) return;
+        const token = localStorage.getItem("token"); // 🔥 OBTENER TOKEN
+        
+        if (!token) {
+          alert("No hay token. Redirigiendo al login...");
+          window.location.href = "/login";
+          return;
+        }
+
+        const res = await fetch(`${api_url}/api/v1/administrative/students`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`, // 🔥 ENVIAR TOKEN
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (!res.ok) {
+          console.error("Error al obtener estudiantes:", res.status);
+          if (res.status === 403) {
+            alert("No tienes permisos de administrador");
+          }
+          return;
+        }
+
         const data = await res.json();
         setAlumnos(data);
       } catch (e) {
@@ -98,8 +120,23 @@ function AdminDashboard() {
 
     const fetchPayments = async () => {
       try {
-        const res = await fetch(`${api_url}/api/v1/payments`);
-        if (!res.ok) return;
+        const token = localStorage.getItem("token");
+        
+        if (!token) return;
+
+        const res = await fetch(`${api_url}/api/v1/payments`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (!res.ok) {
+          console.error("Error al obtener pagos:", res.status);
+          return;
+        }
+
         const data = await res.json();
         setPayments(data);
       } catch (e) {

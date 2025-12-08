@@ -16,14 +16,14 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        // ✅ URLs correctas de Railway
                         .allowedOrigins(
                             "https://frontend-desarollo-production.up.railway.app",
                             "https://backend-desrrollo-production.up.railway.app",
-                            "http://localhost:5173" // Para desarrollo local
+                            "http://localhost:5173"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
+                        .exposedHeaders("Authorization") // 🔥 IMPORTANTE
                         .allowCredentials(true)
                         .maxAge(3600);
             }
@@ -36,7 +36,7 @@ public class WebConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> {})
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()
+                .anyRequest().permitAll() // ⚠️ TEMPORALMENTE PERMISIVO
             );
 
         return http.build();
