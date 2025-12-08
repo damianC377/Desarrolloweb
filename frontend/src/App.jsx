@@ -89,7 +89,6 @@ function App() {
           }
         />
 
-        {/* Login independiente sin Nav ni Footer */}
         <Route path="/login" element={<Login />} />
         <Route path="/studentDasboard" element={<StudentDashboard />} />
         <Route path="/adminDasboard" element={<AdminDashboard />} />

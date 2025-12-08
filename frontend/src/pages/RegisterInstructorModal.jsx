@@ -10,13 +10,18 @@ import {
   UserCircle,
   X,
 } from "lucide-react";
-import "./SignUp.css";
+
+import "./RegisterInstructorModal.css";
 
 const api_url =
   import.meta.env.VITE_API_URL ??
   "https://backend-desrrollo-production.up.railway.app";
 
-export default function CreateInstructorModal({ isOpen, onClose, onSuccess }) {
+export default function RegisterInstructorModal({
+  isOpen,
+  onClose,
+  onSuccess,
+}) {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);

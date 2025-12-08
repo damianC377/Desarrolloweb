@@ -13,7 +13,8 @@ import {
   Search,
   Filter,
 } from "lucide-react";
-import ModalEvent from "./ModalEvent"; // Modal específico para crear eventos
+import ModalEvent from "./ModalEvent";
+import RegisterInstructorModal from "./RegisterInstructorModal";
 import "./AdminDashboard.css";
 
 const api_url =
@@ -23,11 +24,13 @@ const api_url =
 function AdminDashboard() {
   const [activeSection, setActiveSection] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false); // Modal genérico
+  const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
-  const [showEventoModal, setShowEventoModal] = useState(false); // Modal de eventos
-  const [alumnos, setAlumnos] = useState([]); // lista de alumnos
-  const [payments, setPayments] = useState([]); // lista de todos los pagos
+  const [showEventoModal, setShowEventoModal] = useState(false);
+  const [showInstructorModal, setShowInstructorModal] = useState(false);
+
+  const [alumnos, setAlumnos] = useState([]);
+  const [payments, setPayments] = useState([]);
   const [eventos, setEventos] = useState([
     {
       id: 1,
@@ -45,13 +48,7 @@ function AdminDashboard() {
     },
   ]);
 
-  const stats = {
-    totalAlumnos: 87,
-    totalInstructores: 8,
-    clasesActivas: 24,
-  };
-
-  const instructores = [
+  const [instructores, setInstructores] = useState([
     {
       id: 1,
       nombre: "Carlos Rodríguez",
@@ -79,9 +76,14 @@ function AdminDashboard() {
       alumnosActivos: 27,
       estado: "Activo",
     },
-  ];
+  ]);
 
-  // Fetch de alumnos y pagos
+  const stats = {
+    totalAlumnos: alumnos.length,
+    totalInstructores: instructores.length,
+    clasesActivas: 24,
+  };
+
   useEffect(() => {
     const fetchAlumnos = async () => {
       try {
@@ -113,6 +115,7 @@ function AdminDashboard() {
     setModalType(type);
     setShowModal(true);
   };
+
   const closeModal = () => {
     setShowModal(false);
     setModalType("");
@@ -121,7 +124,9 @@ function AdminDashboard() {
   const openEventoModal = () => setShowEventoModal(true);
   const closeEventoModal = () => setShowEventoModal(false);
 
-  // Función que envía el nuevo evento al backend y actualiza la lista
+  const openInstructorModal = () => setShowInstructorModal(true);
+  const closeInstructorModal = () => setShowInstructorModal(false);
+
   const handleSaveEvento = async (eventoData) => {
     try {
       const res = await fetch(`${api_url}/api/v1/administrative/events`, {
@@ -131,11 +136,25 @@ function AdminDashboard() {
       });
       if (!res.ok) throw new Error("Error al crear evento");
       const newEvent = await res.json();
-      setEventos((prev) => [...prev, newEvent]); // Agrega el nuevo evento a la lista
+      setEventos((prev) => [...prev, newEvent]);
     } catch (e) {
       console.error(e);
       alert("No se pudo crear el evento");
     }
+  };
+
+  const handleInstructorSuccess = (data) => {
+    const newInstructor = {
+      id: data.instructorId || Date.now(),
+      nombre: `${data.name} ${data.lastname}`,
+      email: data.email,
+      especialidad: "Por asignar",
+      clasesAsignadas: 0,
+      alumnosActivos: 0,
+      estado: "Activo",
+    };
+    setInstructores((prev) => [...prev, newInstructor]);
+    alert(`Instructor ${data.name} ${data.lastname} creado correctamente`);
   };
 
   const renderContent = () => {
@@ -239,11 +258,9 @@ function AdminDashboard() {
                     </tr>
                   ) : (
                     alumnos.map((alumno) => {
-                      // Filtrar pagos del alumno
                       const alumnoPayments = payments.filter(
                         (p) => p.studentId === alumno.studentId
                       );
-                      // Tomar el último pago según paymentDate
                       const lastPayment =
                         alumnoPayments.length > 0
                           ? alumnoPayments.sort(
@@ -261,7 +278,7 @@ function AdminDashboard() {
                           <td>{alumno.user?.email || ""}</td>
                           <td>
                             <span className="badge level">
-                              {alumno.level || "Desconocido"}
+                              {alumno.level || "Pendiente"}
                             </span>
                           </td>
                           <td>{alumno.instructor || "Desconocido"}</td>
@@ -294,10 +311,7 @@ function AdminDashboard() {
           <div className="dashboard-content">
             <div className="content-header">
               <h2 className="section-title">Gestión de Instructores</h2>
-              <button
-                className="btn-primary"
-                onClick={() => openModal("instructor")}
-              >
+              <button className="btn-primary" onClick={openInstructorModal}>
                 <Plus size={20} /> Nuevo Instructor
               </button>
             </div>
@@ -346,7 +360,7 @@ function AdminDashboard() {
           <div className="dashboard-content">
             <div className="content-header">
               <h2 className="section-title">Gestión de eventos</h2>
-              <button className="btn-primary" onClick={() => openEventoModal()}>
+              <button className="btn-primary" onClick={openEventoModal}>
                 <Plus size={20} /> Publicar
               </button>
             </div>
@@ -456,7 +470,6 @@ function AdminDashboard() {
         {renderContent()}
       </main>
 
-      {/* Modal genérico */}
       {showModal && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -483,11 +496,16 @@ function AdminDashboard() {
         </div>
       )}
 
-      {/* Modal específico para crear eventos */}
       <ModalEvent
         isOpen={showEventoModal}
         onClose={closeEventoModal}
         onSave={handleSaveEvento}
+      />
+
+      <RegisterInstructorModal
+        isOpen={showInstructorModal}
+        onClose={closeInstructorModal}
+        onSuccess={handleInstructorSuccess}
       />
     </div>
   );

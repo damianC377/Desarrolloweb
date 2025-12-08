@@ -6,7 +6,6 @@ export default function ModalEvent({ isOpen, onClose, onSave }) {
   const [form, setForm] = useState({
     title: "",
     date: "",
-    type: "Evento",
     description: "",
     details: "",
     location: "",
@@ -27,7 +26,6 @@ export default function ModalEvent({ isOpen, onClose, onSave }) {
     setForm({
       title: "",
       date: "",
-      type: "Evento",
       description: "",
       details: "",
       location: "",
@@ -64,13 +62,6 @@ export default function ModalEvent({ isOpen, onClose, onSave }) {
               value={form.date}
               onChange={handleChange}
             />
-          </label>
-          <label>
-            Tipo
-            <select name="type" value={form.type} onChange={handleChange}>
-              <option value="Evento">Evento</option>
-              <option value="Noticia">Noticia</option>
-            </select>
           </label>
           <label>
             Descripción
