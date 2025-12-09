@@ -3,7 +3,9 @@ import { Lock, UserCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "https://backend-desrrollo-production.up.railway.app";
+const api_url =
+  import.meta.env.VITE_API_URL ??
+  "https://backend-desrrollo-production.up.railway.app";
 
 function Login() {
   const navigate = useNavigate();
@@ -69,9 +71,7 @@ function Login() {
     try {
       const response = await fetch(`${api_url}/api/auth/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: formData.username,
           password: formData.password,
@@ -80,8 +80,11 @@ function Login() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.log(
+          "Error de login:",
+          errorData.message || "Credenciales incorrectas"
+        );
         setIsSubmitting(false);
-        alert(errorData.message || "Credenciales incorrectas");
         return;
       }
 
@@ -91,14 +94,25 @@ function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("id", data.id);
 
+      // Decodifica token para obtener rol
+      const payload = JSON.parse(atob(data.token.split(".")[1]));
+      const role = payload.role;
+
       setIsSubmitting(false);
 
-      navigate("/adminDasboard");
-
+      // Redirige según rol
+      if (role === "ADMIN") {
+        navigate("/adminDasboard");
+        console.log("Login exitoso: ADMIN");
+      } else if (role === "STUDENT") {
+        navigate("/studentDashboard");
+        console.log("Login exitoso: STUDENT");
+      } else {
+        console.log("Rol no permitido:", role);
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error al conectar con el servidor:", error);
       setIsSubmitting(false);
-      alert("Error al conectar con el servidor");
     }
   };
 
@@ -154,7 +168,6 @@ function Login() {
               );
             })}
           </div>
-
           <button
             onClick={handleSubmit}
             className="form-submit"

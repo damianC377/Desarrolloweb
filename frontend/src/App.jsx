@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
@@ -13,11 +18,24 @@ import Login from "./pages/Login";
 import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboard from "./pages/AdminDasboard";
 
+// Componente de ruta protegida por rol
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const token = localStorage.getItem("token");
+  if (!token) return <Navigate to="/login" />;
+
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  const userRole = payload.role;
+
+  if (!allowedRoles.includes(userRole)) return <Navigate to="/login" />;
+
+  return children;
+};
+
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Páginas públicas con Nav y Footer */}
+        {/* Páginas públicas */}
         <Route
           path="/"
           element={
@@ -89,9 +107,26 @@ function App() {
           }
         />
 
+        {/* Login */}
         <Route path="/login" element={<Login />} />
-        <Route path="/studentDashboard" element={<StudentDashboard />} />
-        <Route path="/adminDasboard" element={<AdminDashboard />} />
+
+        {/* Dashboards protegidos */}
+        <Route
+          path="/studentDashboard"
+          element={
+            <ProtectedRoute allowedRoles={["STUDENT"]}>
+              <StudentDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/adminDasboard"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

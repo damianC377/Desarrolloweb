@@ -31,22 +31,6 @@ function AdminDashboard() {
 
   const [alumnos, setAlumnos] = useState([]);
   const [payments, setPayments] = useState([]);
-  const [eventos, setEventos] = useState([
-    {
-      id: 1,
-      titulo: "Campeonato Regional",
-      fecha: "15 Feb 2026",
-      tipo: "Evento",
-      estado: "Próximo",
-    },
-    {
-      id: 2,
-      titulo: "Nuevos Horarios Marzo",
-      fecha: "28 Feb 2026",
-      tipo: "Noticia",
-      estado: "Publicado",
-    },
-  ]);
 
   const [instructores, setInstructores] = useState([
     {
@@ -84,92 +68,108 @@ function AdminDashboard() {
     clasesActivas: 24,
   };
 
-  useEffect(() => {
-    const fetchAlumnos = async () => {
-      try {
-        const token = localStorage.getItem("token"); // 🔥 OBTENER TOKEN
-        
-        if (!token) {
-          alert("No hay token. Redirigiendo al login...");
-          window.location.href = "/login";
-          return;
-        }
+  const [eventos, setEventos] = useState([
+    {
+      id: 1,
+      titulo: "Campeonato Regional",
+      fecha: "15 Feb 2026",
+      tipo: "Competencia",
+      estado: "Próximo",
+    },
+    {
+      id: 2,
+      titulo: "Clase Especial",
+      fecha: "20 Feb 2026",
+      tipo: "Clase",
+      estado: "Próximo",
+    },
+    {
+      id: 3,
+      titulo: "Reunión de Padres",
+      fecha: "25 Feb 2026",
+      tipo: "Evento",
+      estado: "Próximo",
+    },
+  ]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    const fetchAlumnos = async () => {
+      if (!token) return;
+      try {
         const res = await fetch(`${api_url}/api/v1/administrative/students`, {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`, // 🔥 ENVIAR TOKEN
-            "Content-Type": "application/json"
-          }
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         });
-
-        if (!res.ok) {
-          console.error("Error al obtener estudiantes:", res.status);
-          if (res.status === 403) {
-            alert("No tienes permisos de administrador");
-          }
-          return;
+        if (res.ok) {
+          const data = await res.json();
+          setAlumnos(data);
         }
-
-        const data = await res.json();
-        setAlumnos(data);
       } catch (e) {
-        console.error("Error fetching alumnos:", e);
+        console.error(e);
       }
     };
 
     const fetchPayments = async () => {
+      if (!token) return;
       try {
-        const token = localStorage.getItem("token");
-        
-        if (!token) return;
-
         const res = await fetch(`${api_url}/api/v1/payments`, {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         });
-
-        if (!res.ok) {
-          console.error("Error al obtener pagos:", res.status);
-          return;
+        if (res.ok) {
+          const data = await res.json();
+          setPayments(data);
         }
-
-        const data = await res.json();
-        setPayments(data);
       } catch (e) {
-        console.error("Error fetching payments:", e);
+        console.error(e);
       }
     };
 
+    //   const fetchEventos = async () => {
+    //     try {
+    //       const res = await fetch(`${api_url}/api/v1/administrative/showevents`);
+    //       if (res.ok) {
+    //         const data = await res.json();
+    //         setEventos(data);
+    //       }
+    //     } catch (e) {
+    //       console.error(e);
+    //     }
+    //   };
+
     fetchAlumnos();
     fetchPayments();
+    //   fetchEventos();
   }, []);
 
   const openModal = (type) => {
     setModalType(type);
     setShowModal(true);
   };
-
   const closeModal = () => {
     setShowModal(false);
     setModalType("");
   };
-
   const openEventoModal = () => setShowEventoModal(true);
   const closeEventoModal = () => setShowEventoModal(false);
-
   const openInstructorModal = () => setShowInstructorModal(true);
   const closeInstructorModal = () => setShowInstructorModal(false);
 
   const handleSaveEvento = async (eventoData) => {
     try {
+      const payload = { ...eventoData, userId: 1 };
       const res = await fetch(`${api_url}/api/v1/administrative/events`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(eventoData),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Error al crear evento");
       const newEvent = await res.json();
@@ -241,10 +241,16 @@ function AdminDashboard() {
                         <Megaphone size={20} />
                       </div>
                       <div className="activity-details">
-                        <p className="activity-main">{evento.titulo}</p>
-                        <p className="activity-sub">{evento.tipo}</p>
+                        <p className="activity-main">
+                          {evento.titulo || evento.title}
+                        </p>
+                        <p className="activity-sub">
+                          {evento.tipo || "Evento"}
+                        </p>
                       </div>
-                      <span className="activity-time">{evento.fecha}</span>
+                      <span className="activity-time">
+                        {evento.fecha || evento.date}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -252,7 +258,6 @@ function AdminDashboard() {
             </div>
           </div>
         );
-
       case "alumnos":
         return (
           <div className="dashboard-content">
@@ -306,7 +311,6 @@ function AdminDashboard() {
                                 new Date(a.paymentDate)
                             )[0].paymentDate
                           : null;
-
                       return (
                         <tr key={alumno.studentId}>
                           <td className="name-cell">
@@ -318,7 +322,7 @@ function AdminDashboard() {
                               {alumno.level || "Pendiente"}
                             </span>
                           </td>
-                          <td>{alumno.instructor || "Desconocido"}</td>
+                          <td>{alumno.instructor || "Pendiente"}</td>
                           <td>
                             <span
                               className={`badge ${
@@ -342,7 +346,6 @@ function AdminDashboard() {
             </div>
           </div>
         );
-
       case "instructores":
         return (
           <div className="dashboard-content">
@@ -391,7 +394,6 @@ function AdminDashboard() {
             </div>
           </div>
         );
-
       case "eventos":
         return (
           <div className="dashboard-content">
@@ -409,13 +411,15 @@ function AdminDashboard() {
                   </div>
                   <div className="evento-content">
                     <div className="evento-header">
-                      <h3>{evento.titulo}</h3>
+                      <h3>{evento.titulo || evento.title}</h3>
                       <span className={`badge ${evento.estado?.toLowerCase()}`}>
-                        {evento.estado}
+                        {evento.estado || "Próximo"}
                       </span>
                     </div>
-                    <p className="evento-date">{evento.fecha}</p>
-                    <span className="evento-type">{evento.tipo}</span>
+                    <p className="evento-date">{evento.fecha || evento.date}</p>
+                    <span className="evento-type">
+                      {evento.tipo || "Evento"}
+                    </span>
                   </div>
                   <div className="evento-actions">
                     <button className="btn-icon danger">
@@ -430,7 +434,6 @@ function AdminDashboard() {
             </div>
           </div>
         );
-
       default:
         return null;
     }
@@ -507,38 +510,11 @@ function AdminDashboard() {
         {renderContent()}
       </main>
 
-      {showModal && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3>
-                {modalType === "alumno" && "Nuevo Alumno"}
-                {modalType === "instructor" && "Nuevo Instructor"}
-                {modalType === "evento" && "Publicar Evento/Noticia"}
-              </h3>
-              <button className="btn-close" onClick={closeModal}>
-                <X size={24} />
-              </button>
-            </div>
-            <div className="modal-body">
-              <p>Formulario para {modalType} - Implementar según necesidades</p>
-            </div>
-            <div className="modal-footer">
-              <button className="btn-secondary" onClick={closeModal}>
-                Cancelar
-              </button>
-              <button className="btn-primary">Guardar</button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <ModalEvent
         isOpen={showEventoModal}
         onClose={closeEventoModal}
         onSave={handleSaveEvento}
       />
-
       <RegisterInstructorModal
         isOpen={showInstructorModal}
         onClose={closeInstructorModal}

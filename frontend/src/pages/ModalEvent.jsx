@@ -22,7 +22,6 @@ export default function ModalEvent({ isOpen, onClose, onSave }) {
       return;
     }
     onSave(form);
-    onClose();
     setForm({
       title: "",
       date: "",
@@ -30,6 +29,7 @@ export default function ModalEvent({ isOpen, onClose, onSave }) {
       details: "",
       location: "",
     });
+    onClose();
   };
 
   if (!isOpen) return null;
