@@ -421,14 +421,14 @@ function AdminDashboard() {
                       {evento.tipo || "Evento"}
                     </span>
                   </div>
-                  <div className="evento-actions">
+                  {/* <div className="evento-actions">
                     <button className="btn-icon danger">
                       <Edit size={18} />
                     </button>
                     <button className="btn-icon danger">
                       <Trash2 size={18} />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
