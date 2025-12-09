@@ -87,7 +87,7 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchAlumnos = async () => {
       try {
-        const token = localStorage.getItem("token"); // 🔥 OBTENER TOKEN
+        const token = localStorage.getItem("token"); 
         
         if (!token) {
           alert("No hay token. Redirigiendo al login...");
@@ -98,7 +98,7 @@ function AdminDashboard() {
         const res = await fetch(`${api_url}/api/v1/administrative/students`, {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`, // 🔥 ENVIAR TOKEN
+            "Authorization": `Bearer ${token}`, // ENVIAR TOKEN
             "Content-Type": "application/json"
           }
         });
