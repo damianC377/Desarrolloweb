@@ -16,6 +16,7 @@ import {
 import ModalEvent from "./ModalEvent";
 import RegisterInstructorModal from "./RegisterInstructorModal";
 import "./AdminDashboard.css";
+import { useNavigate } from "react-router-dom";
 
 const api_url =
   import.meta.env.VITE_API_URL ??
@@ -107,7 +108,17 @@ function AdminDashboard() {
         });
         if (res.ok) {
           const data = await res.json();
-          setAlumnos(data);
+
+          // Filtrar solo estudiantes con usuario válido
+          const alumnosValidos = data.filter(
+            (alumno) =>
+              alumno.user !== null &&
+              alumno.userId > 0 &&
+              alumno.user.name &&
+              alumno.user.email
+          );
+
+          setAlumnos(alumnosValidos);
         }
       } catch (e) {
         console.error(e);
@@ -158,6 +169,14 @@ function AdminDashboard() {
     setShowModal(false);
     setModalType("");
   };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   const openEventoModal = () => setShowEventoModal(true);
   const closeEventoModal = () => setShowEventoModal(false);
   const openInstructorModal = () => setShowInstructorModal(true);
@@ -264,6 +283,7 @@ function AdminDashboard() {
             <div className="content-header">
               <h2 className="section-title">Gestión de Alumnos</h2>
             </div>
+
             <div className="table-controls">
               <div className="search-box">
                 <Search size={20} />
@@ -273,6 +293,7 @@ function AdminDashboard() {
                 <Filter size={20} /> Filtros
               </button>
             </div>
+
             <div className="data-table">
               <table>
                 <thead>
@@ -285,6 +306,7 @@ function AdminDashboard() {
                     <th>Último Pago</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {alumnos.length === 0 ? (
                     <tr>
@@ -297,6 +319,7 @@ function AdminDashboard() {
                       const alumnoPayments = payments.filter(
                         (p) => p.studentId === alumno.studentId
                       );
+
                       const lastPayment =
                         alumnoPayments.length > 0
                           ? alumnoPayments.sort(
@@ -305,18 +328,26 @@ function AdminDashboard() {
                                 new Date(a.paymentDate)
                             )[0].paymentDate
                           : null;
+
                       return (
                         <tr key={alumno.studentId}>
+                          {/* ⭐ CAMBIO APLICADO AQUÍ ⭐ */}
                           <td className="name-cell">
-                            {alumno.user?.name || "Sin nombre"}
+                            {alumno.user
+                              ? `${alumno.user.name} ${alumno.user.lastname}`
+                              : "Sin usuario"}
                           </td>
-                          <td>{alumno.user?.email || ""}</td>
+
+                          <td>{alumno.user?.email || "Sin email"}</td>
+
                           <td>
                             <span className="badge level">
                               {alumno.level || "Pendiente"}
                             </span>
                           </td>
+
                           <td>{alumno.instructor || "Pendiente"}</td>
+
                           <td>
                             <span
                               className={`badge ${
@@ -326,6 +357,7 @@ function AdminDashboard() {
                               {alumno.active ? "Activo" : "Inactivo"}
                             </span>
                           </td>
+
                           <td>
                             {lastPayment
                               ? new Date(lastPayment).toLocaleDateString()
@@ -340,6 +372,7 @@ function AdminDashboard() {
             </div>
           </div>
         );
+
       case "instructores":
         return (
           <div className="dashboard-content">
@@ -483,7 +516,7 @@ function AdminDashboard() {
             <span>Eventos</span>
           </button>
         </nav>
-        <button className="nav-item logout">
+        <button className="nav-item logout" onClick={handleLogout}>
           <LogOut size={20} />
           <span>Cerrar Sesión</span>
         </button>
