@@ -733,6 +733,12 @@ VITE_API_URL=https://backend-desrrollo-production.up.railway.app
 
 ## 📝 Notas Importantes
 
+### Usuario Admin
+- Juan.1 
+- Juan123456
+
+el usuario admin es el que puede ver las listas gracias a que se hizo una anotación @PreAuthorize, si no accede con el no verá las listas
+
 ### Validaciones
 - Todos los endpoints validan los datos de entrada usando `Validators`
 - Los builders (`UserBuilder`, `StudentBuilder`, etc.) aseguran consistencia
