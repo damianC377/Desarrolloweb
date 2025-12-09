@@ -1,23 +1,32 @@
 package com.skatingSchool.v1.domain.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skatingSchool.v1.domain.model.Payment;
+import com.skatingSchool.v1.domain.model.Student;
 import com.skatingSchool.v1.domain.port.CreatePaymentPort;
 import com.skatingSchool.v1.domain.port.FindPaymentPort;
+import com.skatingSchool.v1.domain.port.FindStudentPort;
+import com.skatingSchool.v1.domain.port.CreateStudentPort;
 
 @Service
 public class CreatePaymentService {
 
-    private final CreatePaymentPort createPaymentPort;
-    private final FindPaymentPort findPaymentPort;
+    @Autowired
+    private CreatePaymentPort createPaymentPort;
 
-    public CreatePaymentService(CreatePaymentPort createPaymentPort, FindPaymentPort findPaymentPort) {
-        this.createPaymentPort = createPaymentPort;
-        this.findPaymentPort = findPaymentPort;
-    }
+    @Autowired
+    private FindPaymentPort findPaymentPort;
+
+    @Autowired
+    private FindStudentPort findStudentPort;
+
+    @Autowired
+    private CreateStudentPort createStudentPort;
 
     public void createPayment(Payment payment) throws Exception {
+        // Validaciones existentes
         if (payment.getPaymentId() != null &&
                 findPaymentPort.findById(payment.getPaymentId()) != null) {
             throw new Exception("El pago con ID " + payment.getPaymentId() + " ya existe.");
@@ -39,6 +48,7 @@ public class CreatePaymentService {
             throw new Exception("La fecha del pago no puede estar vacía.");
         }
 
+        // Verificar pagos duplicados del mes
         Payment lastPayment = findPaymentPort.findLatestPaymentByStudent(payment.getStudentId());
 
         if (lastPayment != null) {
@@ -52,6 +62,20 @@ public class CreatePaymentService {
                     payment.getPaymentDate().getYear() + "."
                 );
             }
+        }
+
+        // 🔥 NUEVO: Activar al estudiante si es su primer pago
+        Student student = findStudentPort.findById(payment.getStudentId());
+        
+        if (student == null) {
+            throw new Exception("Estudiante con ID " + payment.getStudentId() + " no encontrado.");
+        }
+
+        // Si el estudiante está inactivo, activarlo
+        if (!student.getActive()) {
+            student.setActive(true);
+            createStudentPort.save(student); // Actualizar el estado
+            System.out.println("✅ Estudiante ID " + student.getStudentId() + " activado tras primer pago");
         }
 
         // Guardar el pago
