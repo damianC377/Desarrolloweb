@@ -32,22 +32,107 @@ Características principales:
 
 
 ## 🏗️ Arquitectura del Sistema
-La aplicación sigue una Arquitectura Hexagonal (Puertos y Adaptadores) con Clean Architecture:
-graph TD
-    A[CAPA DE PRESENTACIÓN<br/>Controllers REST API] --> B[CAPA DE APLICACIÓN<br/>Use Cases]
-    B --> C[CAPA DE DOMINIO<br/>Modelos, Services y Ports]
-    C --> D[CAPA DE INFRAESTRUCTURA<br/>Adapters y Repositories]
-    D --> E[MySQL Database]
-    
-    style A fill:#e1f5ff
-    style B fill:#fff4e1
-    style C fill:#ffe1f5
-    style D fill:#e1ffe1
-    style E fill:#f0f0f0
-    # Arquitectura del Sistema
 
 La aplicación sigue una **Arquitectura Hexagonal** (Puertos y Adaptadores) con **Clean Architecture**.
 
+### 📋 Estructura por Capas
+
+### 🎯 Capa de Presentación
+> Controllers (REST API)
+
+- `UserController`
+- `AuthController`
+- `StudentController`
+- `PaymentController`
+- `AdministrativeController`
+
+**↓**
+
+### 📦 Capa de Aplicación
+> Use Cases
+
+- `UserUseCase`
+- `LoginUseCase`
+- `StudentUseCase`
+- `PaymentUseCase`
+- `AdministrativeUseCase`
+
+**↓**
+
+### 💎 Capa de Dominio
+
+#### Modelos
+- `User`
+- `Student`
+- `Instructor`
+- `Payment`
+- `Class`
+- `Attendance`
+
+#### Services
+- `CreateUserService`
+- `FindUserService`
+- `AuthService`
+- `CreateStudentService`
+
+#### Ports (Interfaces)
+- `CreateUserPort`, `FindUserPort`
+- `AuthenticationPort`
+- `CreateStudentPort`, `FindStudentPort`
+
+**↓**
+
+### 🔧 Capa de Infraestructura
+
+#### Adapters (Implementaciones)
+- `UserAdapter`
+- `StudentAdapter`
+- `JwtAdapter`
+- `PaymentAdapter`
+
+#### Entities JPA
+- `UserEntity`
+- `StudentEntity`
+- `InstructorEntity`
+
+#### Repositories
+- `UserRepository`
+- `StudentRepository`
+
+**↓**
+
+### 🗄️ Base de Datos
+- **MySQL**
+
+---
+
+### 🔄 Flujo de Datos
+```
+HTTP Request
+    ↓
+Controllers (Presentación)
+    ↓
+Use Cases (Aplicación)
+    ↓
+Domain Services (Dominio)
+    ↓
+Ports/Interfaces (Dominio)
+    ↓
+Adapters (Infraestructura)
+    ↓
+Repositories (Infraestructura)
+    ↓
+MySQL Database
+```
+
+### ✨ Principios de Diseño
+
+| Principio | Descripción |
+|-----------|-------------|
+| **Arquitectura Hexagonal** | Separación clara entre lógica de negocio e infraestructura |
+| **Clean Architecture** | Las dependencias apuntan hacia el dominio |
+| **Inversión de Dependencias** | Las capas externas dependen de las internas |
+| **Puertos y Adaptadores** | Interfaces definidas en dominio, implementadas en infraestructura |
 ---
 
 ## 📋 Estructura por Capas
