@@ -1,11 +1,5 @@
 # Desarrolloweb
 
-# Integrantes
-Manuela Bolivar
-Juan Esteban Martinez
-Damian Cardenas
-# Desarrolloweb
-
 ## Integrantes
 - Manuela Bolivar
 - Juan Esteban Martinez
@@ -29,14 +23,13 @@ Damian Cardenas
 
 ## 🎯 Descripción General
 
-**Rolling Skate** es una aplicación web para la gestión integral de una escuela de patinaje. Permite administrar usuarios, estudiantes, instructores, clases, pagos y asistencias.
+**Rolling Skate** es una aplicación web para la gestión integral de una escuela de patinaje. Permite administrar usuarios, estudiantes y pagos.
 
 ### Características principales:
 - ✅ Sistema de autenticación con JWT
-- ✅ Gestión de roles (Admin, Instructor, Estudiante)
-- ✅ CRUD completo para todas las entidades
-- ✅ Sistema de pagos mensuales
-- ✅ Control de asistencia a clases
+- ✅ Gestión de roles (Admin, Estudiante)
+- ✅ Registro en línea de aspirantes y alumnos
+- ✅ Gestión de pagos: registro de transacciones y visualización de pagos actuales
 - ✅ Frontend React + Backend Spring Boot
 - ✅ Base de datos MySQL
 
@@ -732,6 +725,12 @@ VITE_API_URL=https://backend-desrrollo-production.up.railway.app
 ---
 
 ## 📝 Notas Importantes
+
+### Usuario Admin
+- Juan.1 
+- Juan123456
+
+el usuario admin es el que puede ver las listas gracias a que se hizo una anotación @PreAuthorize, si no accede con el no verá las listas
 
 ### Validaciones
 - Todos los endpoints validan los datos de entrada usando `Validators`
