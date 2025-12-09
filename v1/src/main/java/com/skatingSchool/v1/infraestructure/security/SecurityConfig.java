@@ -32,7 +32,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/v1/administrative/showevents").permitAll()
-                .requestMatchers("/api/v1/administrative/events").hasAnyAuthority("ADMIN")
+                .requestMatchers("/api/v1/administrative/events").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
 
