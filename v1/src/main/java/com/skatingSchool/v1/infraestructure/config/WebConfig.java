@@ -23,7 +23,7 @@ public class WebConfig {
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .exposedHeaders("Authorization") // 🔥 IMPORTANTE
+                        .exposedHeaders("Authorization") //IMPORTANTE
                         .allowCredentials(true)
                         .maxAge(3600);
             }

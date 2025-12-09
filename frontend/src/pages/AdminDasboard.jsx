@@ -184,19 +184,32 @@ function AdminDashboard() {
 
   const handleSaveEvento = async (eventoData) => {
     try {
-      const payload = { ...eventoData, userId: 1 };
-      const res = await fetch(`${api_url}/api/v1/administrative/events`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("Error al crear evento");
-      const newEvent = await res.json();
-      setEventos((prev) => [...prev, newEvent]);
-    } catch (e) {
-      console.error(e);
-      alert("No se pudo crear el evento");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("No hay token, inicia sesión");
+      return;
     }
+
+    const payload = { ...eventoData, userId: 1 };
+
+    const res = await fetch(`${api_url}/api/v1/administrative/events`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,   // FALTABA ESTO
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) throw new Error("Error al crear evento");
+
+    const newEvent = await res.json();
+    setEventos((prev) => [...prev, newEvent]);
+
+  } catch (e) {
+    console.error(e);
+    alert("No se pudo crear el evento");
+  }
   };
 
   const handleInstructorSuccess = (data) => {
