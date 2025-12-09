@@ -263,12 +263,6 @@ function AdminDashboard() {
           <div className="dashboard-content">
             <div className="content-header">
               <h2 className="section-title">Gestión de Alumnos</h2>
-              <button
-                className="btn-primary"
-                onClick={() => openModal("alumno")}
-              >
-                <Plus size={20} /> Nuevo Alumno
-              </button>
             </div>
             <div className="table-controls">
               <div className="search-box">
