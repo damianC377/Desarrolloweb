@@ -44,72 +44,86 @@ graph TD
     style C fill:#ffe1f5
     style D fill:#e1ffe1
     style E fill:#f0f0f0
-🔷 Capa de Presentación
-Controllers (REST API)
+    # Arquitectura del Sistema
 
-UserController
-AuthController
-StudentController
-PaymentController
-AdministrativeController
+La aplicación sigue una **Arquitectura Hexagonal** (Puertos y Adaptadores) con **Clean Architecture**.
 
-🔷 Capa de Aplicación
-Use Cases
+---
 
-UserUseCase
-LoginUseCase
-StudentUseCase
-PaymentUseCase
-AdministrativeUseCase
+## 📋 Estructura por Capas
 
-🔷 Capa de Dominio
-Modelos
+### 🎯 Capa de Presentación
+> Controllers (REST API)
 
-User
-Student
-Instructor
-Payment
-Class
-Attendance
+- `UserController`
+- `AuthController`
+- `StudentController`
+- `PaymentController`
+- `AdministrativeController`
 
-Services
+**↓**
 
-CreateUserService
-FindUserService
-AuthService
-CreateStudentService
+### 📦 Capa de Aplicación
+> Use Cases
 
-Ports (Interfaces)
+- `UserUseCase`
+- `LoginUseCase`
+- `StudentUseCase`
+- `PaymentUseCase`
+- `AdministrativeUseCase`
 
-CreateUserPort, FindUserPort
-AuthenticationPort
-CreateStudentPort, FindStudentPort
+**↓**
 
-🔷 Capa de Infraestructura
-Adapters (Implementaciones)
+### 💎 Capa de Dominio
 
-UserAdapter
-StudentAdapter
-JwtAdapter
-PaymentAdapter
+#### Modelos
+- `User`
+- `Student`
+- `Instructor`
+- `Payment`
+- `Class`
+- `Attendance`
 
-Entities JPA
+#### Services
+- `CreateUserService`
+- `FindUserService`
+- `AuthService`
+- `CreateStudentService`
 
-UserEntity
-StudentEntity
-InstructorEntity
+#### Ports (Interfaces)
+- `CreateUserPort`, `FindUserPort`
+- `AuthenticationPort`
+- `CreateStudentPort`, `FindStudentPort`
 
-Repositories
+**↓**
 
-UserRepository
-StudentRepository
+### 🔧 Capa de Infraestructura
 
-🔷 Base de Datos
+#### Adapters (Implementaciones)
+- `UserAdapter`
+- `StudentAdapter`
+- `JwtAdapter`
+- `PaymentAdapter`
 
-MySQL
+#### Entities JPA
+- `UserEntity`
+- `StudentEntity`
+- `InstructorEntity`
 
+#### Repositories
+- `UserRepository`
+- `StudentRepository`
 
-🔄 Flujo de Datos
+**↓**
+
+### 🗄️ Base de Datos
+- **MySQL**
+
+---
+
+## 🔄 Flujo de Datos
+
+```
 HTTP Request
     ↓
 Controllers (Presentación)
@@ -125,13 +139,27 @@ Adapters (Infraestructura)
 Repositories (Infraestructura)
     ↓
 MySQL Database
+```
 
-✨ Principios Aplicados
+---
 
-Arquitectura Hexagonal: Separación entre lógica de negocio e infraestructura
-Clean Architecture: Dependencias apuntando hacia el dominio
-Inversión de Dependencias: Las capas externas dependen de las internas
-Puertos y Adaptadores: Interfaces en dominio, implementaciones en infraestructura
+## ✨ Principios de Diseño
+
+| Principio | Descripción |
+|-----------|-------------|
+| **Arquitectura Hexagonal** | Separación clara entre lógica de negocio e infraestructura |
+| **Clean Architecture** | Las dependencias apuntan hacia el dominio |
+| **Inversión de Dependencias** | Las capas externas dependen de las internas |
+| **Puertos y Adaptadores** | Interfaces definidas en dominio, implementadas en infraestructura |
+
+---
+
+## 📝 Notas
+
+- La capa de **Dominio** es independiente de frameworks y librerías externas
+- Los **Ports** actúan como contratos que la infraestructura debe cumplir
+- Los **Adapters** conectan el dominio con tecnologías específicas (JPA, JWT, etc.)
+- El flujo de datos siempre va de afuera hacia adentro (hacia el dominio)
 
 # 🛠️ Tecnologías Utilizadas
 ## Backend
