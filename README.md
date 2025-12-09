@@ -44,6 +44,94 @@ graph TD
     style C fill:#ffe1f5
     style D fill:#e1ffe1
     style E fill:#f0f0f0
+🔷 Capa de Presentación
+Controllers (REST API)
+
+UserController
+AuthController
+StudentController
+PaymentController
+AdministrativeController
+
+🔷 Capa de Aplicación
+Use Cases
+
+UserUseCase
+LoginUseCase
+StudentUseCase
+PaymentUseCase
+AdministrativeUseCase
+
+🔷 Capa de Dominio
+Modelos
+
+User
+Student
+Instructor
+Payment
+Class
+Attendance
+
+Services
+
+CreateUserService
+FindUserService
+AuthService
+CreateStudentService
+
+Ports (Interfaces)
+
+CreateUserPort, FindUserPort
+AuthenticationPort
+CreateStudentPort, FindStudentPort
+
+🔷 Capa de Infraestructura
+Adapters (Implementaciones)
+
+UserAdapter
+StudentAdapter
+JwtAdapter
+PaymentAdapter
+
+Entities JPA
+
+UserEntity
+StudentEntity
+InstructorEntity
+
+Repositories
+
+UserRepository
+StudentRepository
+
+🔷 Base de Datos
+
+MySQL
+
+
+🔄 Flujo de Datos
+HTTP Request
+    ↓
+Controllers (Presentación)
+    ↓
+Use Cases (Aplicación)
+    ↓
+Domain Services (Dominio)
+    ↓
+Ports/Interfaces (Dominio)
+    ↓
+Adapters (Infraestructura)
+    ↓
+Repositories (Infraestructura)
+    ↓
+MySQL Database
+
+✨ Principios Aplicados
+
+Arquitectura Hexagonal: Separación entre lógica de negocio e infraestructura
+Clean Architecture: Dependencias apuntando hacia el dominio
+Inversión de Dependencias: Las capas externas dependen de las internas
+Puertos y Adaptadores: Interfaces en dominio, implementaciones en infraestructura
 
 # 🛠️ Tecnologías Utilizadas
 ## Backend
