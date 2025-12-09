@@ -55,6 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String username = authenticationPort.extractUsername(token);
             String role = authenticationPort.extractRole(token);
+            Long userId = authenticationPort.extractId(token);
 
             if (role == null || role.trim().isEmpty()) {
                 return; // No role -> no authentication
@@ -75,6 +76,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             null, 
                             authorities
                     );
+
+            auth.setDetails(userId);
 
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
