@@ -6,9 +6,12 @@ import {
   DollarSign,
   CheckCircle,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import "./PaymentForm.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "https://backend-desrrollo-production.up.railway.app";
+const api_url =
+  import.meta.env.VITE_API_URL ??
+  "https://backend-desrrollo-production.up.railway.app";
 
 function PaymentForm() {
   const [formData, setFormData] = useState({ paymentMethod: "" });
@@ -129,6 +132,13 @@ function PaymentForm() {
                 {formatCurrency(inscriptionCost)}
               </span>
             </div>
+          </div>
+          <div className="form-footer">
+            <p>
+              <Link to="/login" className="form-link">
+                Inicia sesión
+              </Link>
+            </p>
           </div>
         </div>
       </div>

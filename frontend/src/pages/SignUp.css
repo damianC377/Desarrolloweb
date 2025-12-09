@@ -208,3 +208,43 @@ body {
     font-size: 0.95rem;
   }
 }
+
+.error-alert {
+  padding: 1rem;
+  margin-bottom: 1.35rem;
+  background: #fee;
+  border: 2px solid #fcc;
+  border-radius: 10px;
+  color: #c33;
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.error-message {
+  font-size: 0.85rem;
+  color: #c33;
+  font-weight: 500;
+  margin-top: 0.3rem;
+}
+
+.form-input.error {
+  border-color: #fcc;
+  background: #fff5f5;
+}
+
+.form-input.error:focus {
+  border-color: #c33;
+  box-shadow: 0 0 0 3px rgba(204, 51, 51, 0.12);
+}
+
+.required {
+  color: #c33;
+  margin-left: 0.2rem;
+}
+
+.form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}

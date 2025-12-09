@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Lock, UserCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./SignUp.css";
 
 const api_url =
@@ -12,6 +12,7 @@ function Login() {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loginError, setLoginError] = useState("");
   const inputRefs = useRef([]);
 
   const formFields = [
@@ -39,6 +40,7 @@ function Login() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+    if (loginError) setLoginError("");
   };
 
   const handleKeyDown = (e, index) => {
@@ -67,6 +69,7 @@ function Login() {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setLoginError("");
 
     try {
       const response = await fetch(`${api_url}/api/auth/login`, {
@@ -80,10 +83,7 @@ function Login() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log(
-          "Error de login:",
-          errorData.message || "Credenciales incorrectas"
-        );
+        setLoginError(errorData.message || "Usuario o contraseña incorrectos");
         setIsSubmitting(false);
         return;
       }
@@ -103,15 +103,14 @@ function Login() {
       // Redirige según rol
       if (role === "ADMIN") {
         navigate("/adminDasboard");
-        console.log("Login exitoso: ADMIN");
       } else if (role === "STUDENT") {
         navigate("/studentDashboard");
-        console.log("Login exitoso: STUDENT");
       } else {
-        console.log("Rol no permitido:", role);
+        setLoginError("Rol no permitido para acceder");
       }
     } catch (error) {
       console.error("Error al conectar con el servidor:", error);
+      setLoginError("Error al conectar con el servidor. Intenta de nuevo.");
       setIsSubmitting(false);
     }
   };
@@ -129,6 +128,7 @@ function Login() {
           </p>
         </div>
         <div className="contact-form">
+          {loginError && <div className="error-alert">{loginError}</div>}
           <div className="form-grid">
             {formFields.map((field, index) => {
               const Icon = field.icon;
@@ -175,6 +175,14 @@ function Login() {
           >
             {isSubmitting ? "Ingresando..." : "Iniciar Sesión"}
           </button>
+          <div className="form-footer">
+            <p>
+              ¿No tienes cuenta?{" "}
+              <Link to="/signup" className="form-link">
+                Regístrate aquí
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
