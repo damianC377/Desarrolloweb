@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   User,
   Calendar,
@@ -13,12 +13,16 @@ import {
 } from "lucide-react";
 import "./StudentDashboard.css";
 
+const api_url =
+  import.meta.env.VITE_API_URL ??
+  "https://backend-desrrollo-production.up.railway.app";
+
 function StudentDashboard() {
   const [activeSection, setActiveSection] = useState("perfil");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Datos de ejemplo del estudiante
-  const studentData = {
+  const [studentData] = useState({
     nombre: "Ana María García",
     email: "ana.garcia@email.com",
     telefono: "+57 300 1234567",
@@ -26,9 +30,9 @@ function StudentDashboard() {
     instructor: "Carlos Rodríguez",
     fechaInscripcion: "15 Ene 2025",
     foto: "👩‍🎓",
-  };
+  });
 
-  const horarios = [
+  const [horarios] = useState([
     {
       id: 1,
       dia: "Lunes",
@@ -53,9 +57,9 @@ function StudentDashboard() {
       instructor: "Carlos Rodríguez",
       salon: "Pista Principal",
     },
-  ];
+  ]);
 
-  const pagos = [
+  const [pagos] = useState([
     {
       id: 1,
       concepto: "Mensualidad Enero 2026",
@@ -80,9 +84,9 @@ function StudentDashboard() {
       estado: "Pagado",
       metodo: "Efectivo",
     },
-  ];
+  ]);
 
-  const notificaciones = [
+  const [notificaciones] = useState([
     {
       id: 1,
       tipo: "pago",
@@ -104,7 +108,27 @@ function StudentDashboard() {
       fecha: "Hace 3 días",
       leida: true,
     },
-  ];
+  ]);
+
+  // Verificar token al montar el componente
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // Si no hay token, redirigir al login
+      window.location.href = "/login";
+      return;
+    }
+
+    // Aquí podrías hacer una validación del token con el backend
+    // Por ahora solo verificamos que exista
+    console.log("Usuario autenticado con token:", token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -336,7 +360,7 @@ function StudentDashboard() {
           </button>
         </nav>
 
-        <button className="nav-item logout">
+        <button className="nav-item logout" onClick={handleLogout}>
           <LogOut size={20} />
           <span>Cerrar Sesión</span>
         </button>
