@@ -63,10 +63,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String normalized = role.trim().toUpperCase();
 
-            if (!normalized.startsWith("ROLE_")) {
-                normalized = "ROLE_" + normalized;
-            }
-
             ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(normalized));
 
