@@ -75,6 +75,20 @@
   transform: translateX(5px);
 }
 
+.footer-section ul li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.footer-section ul li a:hover {
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
 /* Text */
 .footer-section p {
   font-size: 0.95rem;

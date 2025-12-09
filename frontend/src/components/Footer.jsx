@@ -1,7 +1,10 @@
 import "./Footer.css";
 import { Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Footer() {
+  const goTop = () => window.scrollTo(0, 0);
+
   return (
     <footer className="footer">
       <div className="footer-logo">
@@ -22,12 +25,36 @@ function Footer() {
         <div className="footer-section">
           <h3>Navegación</h3>
           <ul>
-            <li>Inicio</li>
-            <li>Quiénes Somos</li>
-            <li>Servicios</li>
-            <li>Horarios</li>
-            <li>Galería</li>
-            <li>Contacto</li>
+            <li>
+              <Link to="/" onClick={goTop}>
+                Inicio
+              </Link>
+            </li>
+            <li>
+              <Link to="/about" onClick={goTop}>
+                Quiénes Somos
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" onClick={goTop}>
+                Servicios
+              </Link>
+            </li>
+            <li>
+              <Link to="/newsEvents" onClick={goTop}>
+                Eventos
+              </Link>
+            </li>
+            <li>
+              <Link to="/gallery" onClick={goTop}>
+                Galería
+              </Link>
+            </li>
+            <li>
+              <Link to="/signUp" onClick={goTop}>
+                Inscripción
+              </Link>
+            </li>
           </ul>
         </div>
 
