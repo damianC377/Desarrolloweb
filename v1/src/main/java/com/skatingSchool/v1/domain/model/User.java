@@ -93,7 +93,7 @@ public class User {
     }
 
     public void setRol(Rol rol) {
-        this.rol =  rol.ADMIN;
+        this.rol =  rol;
     }
 
     public boolean verifyPassword(String rawPassword) {
