@@ -4,32 +4,43 @@
 Manuela Bolivar
 Juan Esteban Martinez
 Damian Cardenas
+# Desarrolloweb
+
+## Integrantes
+- Manuela Bolivar
+- Juan Esteban Martinez
+- Damian Cardenas
+
+---
 
 # API Rolling Skate
+
 ## 📋 Tabla de Contenidos
+- [Descripción General](#-descripción-general)
+- [Arquitectura del Sistema](#️-arquitectura-del-sistema)
+- [Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [Modelo de Datos](#-modelo-de-datos)
+- [Endpoints de la API](#-endpoints-de-la-api)
+- [Flujo de Ejecución del Código](#-flujo-de-ejecución-del-código)
+- [Seguridad y Autenticación](#-seguridad-y-autenticación)
+- [Despliegue](#-despliegue)
 
-## Descripción General
-Arquitectura del Sistema
-Tecnologías Utilizadas
-Modelo de Datos
-Endpoints de la API
-Flujo de Ejecución del Código
-Seguridad y Autenticación
-Despliegue
-
+---
 
 ## 🎯 Descripción General
-Rolling Skate es una aplicación web para la gestión integral de una escuela de patinaje. Permite administrar usuarios, estudiantes, instructores, clases, pagos y asistencias.
-Características principales:
 
-✅ Sistema de autenticación con JWT
-✅ Gestión de roles (Admin, Instructor, Estudiante)
-✅ CRUD completo para todas las entidades
-✅ Sistema de pagos mensuales
-✅ Control de asistencia a clases
-✅ Frontend React + Backend Spring Boot
-✅ Base de datos MySQL
+**Rolling Skate** es una aplicación web para la gestión integral de una escuela de patinaje. Permite administrar usuarios, estudiantes, instructores, clases, pagos y asistencias.
 
+### Características principales:
+- ✅ Sistema de autenticación con JWT
+- ✅ Gestión de roles (Admin, Instructor, Estudiante)
+- ✅ CRUD completo para todas las entidades
+- ✅ Sistema de pagos mensuales
+- ✅ Control de asistencia a clases
+- ✅ Frontend React + Backend Spring Boot
+- ✅ Base de datos MySQL
+
+---
 
 ## 🏗️ Arquitectura del Sistema
 
@@ -37,7 +48,7 @@ La aplicación sigue una **Arquitectura Hexagonal** (Puertos y Adaptadores) con 
 
 ### 📋 Estructura por Capas
 
-### 🎯 Capa de Presentación
+#### 🎯 Capa de Presentación
 > Controllers (REST API)
 
 - `UserController`
@@ -48,7 +59,7 @@ La aplicación sigue una **Arquitectura Hexagonal** (Puertos y Adaptadores) con 
 
 **↓**
 
-### 📦 Capa de Aplicación
+#### 📦 Capa de Aplicación
 > Use Cases
 
 - `UserUseCase`
@@ -59,9 +70,9 @@ La aplicación sigue una **Arquitectura Hexagonal** (Puertos y Adaptadores) con 
 
 **↓**
 
-### 💎 Capa de Dominio
+#### 💎 Capa de Dominio
 
-#### Modelos
+**Modelos:**
 - `User`
 - `Student`
 - `Instructor`
@@ -69,44 +80,45 @@ La aplicación sigue una **Arquitectura Hexagonal** (Puertos y Adaptadores) con 
 - `Class`
 - `Attendance`
 
-#### Services
+**Services:**
 - `CreateUserService`
 - `FindUserService`
 - `AuthService`
 - `CreateStudentService`
 
-#### Ports (Interfaces)
+**Ports (Interfaces):**
 - `CreateUserPort`, `FindUserPort`
 - `AuthenticationPort`
 - `CreateStudentPort`, `FindStudentPort`
 
 **↓**
 
-### 🔧 Capa de Infraestructura
+#### 🔧 Capa de Infraestructura
 
-#### Adapters (Implementaciones)
+**Adapters (Implementaciones):**
 - `UserAdapter`
 - `StudentAdapter`
 - `JwtAdapter`
 - `PaymentAdapter`
 
-#### Entities JPA
+**Entities JPA:**
 - `UserEntity`
 - `StudentEntity`
 - `InstructorEntity`
 
-#### Repositories
+**Repositories:**
 - `UserRepository`
 - `StudentRepository`
 
 **↓**
 
-### 🗄️ Base de Datos
+#### 🗄️ Base de Datos
 - **MySQL**
 
 ---
 
 ### 🔄 Flujo de Datos
+
 ```
 HTTP Request
     ↓
@@ -124,6 +136,8 @@ Repositories (Infraestructura)
     ↓
 MySQL Database
 ```
+
+---
 
 ### ✨ Principios de Diseño
 
@@ -133,148 +147,47 @@ MySQL Database
 | **Clean Architecture** | Las dependencias apuntan hacia el dominio |
 | **Inversión de Dependencias** | Las capas externas dependen de las internas |
 | **Puertos y Adaptadores** | Interfaces definidas en dominio, implementadas en infraestructura |
----
 
-## 📋 Estructura por Capas
-
-### 🎯 Capa de Presentación
-> Controllers (REST API)
-
-- `UserController`
-- `AuthController`
-- `StudentController`
-- `PaymentController`
-- `AdministrativeController`
-
-**↓**
-
-### 📦 Capa de Aplicación
-> Use Cases
-
-- `UserUseCase`
-- `LoginUseCase`
-- `StudentUseCase`
-- `PaymentUseCase`
-- `AdministrativeUseCase`
-
-**↓**
-
-### 💎 Capa de Dominio
-
-#### Modelos
-- `User`
-- `Student`
-- `Instructor`
-- `Payment`
-- `Class`
-- `Attendance`
-
-#### Services
-- `CreateUserService`
-- `FindUserService`
-- `AuthService`
-- `CreateStudentService`
-
-#### Ports (Interfaces)
-- `CreateUserPort`, `FindUserPort`
-- `AuthenticationPort`
-- `CreateStudentPort`, `FindStudentPort`
-
-**↓**
-
-### 🔧 Capa de Infraestructura
-
-#### Adapters (Implementaciones)
-- `UserAdapter`
-- `StudentAdapter`
-- `JwtAdapter`
-- `PaymentAdapter`
-
-#### Entities JPA
-- `UserEntity`
-- `StudentEntity`
-- `InstructorEntity`
-
-#### Repositories
-- `UserRepository`
-- `StudentRepository`
-
-**↓**
-
-### 🗄️ Base de Datos
-- **MySQL**
-
----
-
-## 🔄 Flujo de Datos
-
-```
-HTTP Request
-    ↓
-Controllers (Presentación)
-    ↓
-Use Cases (Aplicación)
-    ↓
-Domain Services (Dominio)
-    ↓
-Ports/Interfaces (Dominio)
-    ↓
-Adapters (Infraestructura)
-    ↓
-Repositories (Infraestructura)
-    ↓
-MySQL Database
-```
-
----
-
-## ✨ Principios de Diseño
-
-| Principio | Descripción |
-|-----------|-------------|
-| **Arquitectura Hexagonal** | Separación clara entre lógica de negocio e infraestructura |
-| **Clean Architecture** | Las dependencias apuntan hacia el dominio |
-| **Inversión de Dependencias** | Las capas externas dependen de las internas |
-| **Puertos y Adaptadores** | Interfaces definidas en dominio, implementadas en infraestructura |
-
----
-
-## 📝 Notas
+### 📝 Notas
 
 - La capa de **Dominio** es independiente de frameworks y librerías externas
 - Los **Ports** actúan como contratos que la infraestructura debe cumplir
 - Los **Adapters** conectan el dominio con tecnologías específicas (JPA, JWT, etc.)
 - El flujo de datos siempre va de afuera hacia adentro (hacia el dominio)
 
-# 🛠️ Tecnologías Utilizadas
-## Backend
+---
 
-Java 21
-Spring Boot 4.0.0
-Spring Security (JWT)
-Spring Data JPA
-MySQL (Base de datos)
-Lombok (Reducción de boilerplate)
-JJWT 0.11.5 (JSON Web Tokens)
-Maven (Gestión de dependencias)
+## 🛠️ Tecnologías Utilizadas
 
-Frontend
+### Backend
+- Java 21
+- Spring Boot 4.0.0
+- Spring Security (JWT)
+- Spring Data JPA
+- MySQL (Base de datos)
+- Lombok (Reducción de boilerplate)
+- JJWT 0.11.5 (JSON Web Tokens)
+- Maven (Gestión de dependencias)
 
-React 18
-Vite
-React Router DOM
-Lucide React (Iconos)
-CSS Modules
+### Frontend
+- React 18
+- Vite
+- React Router DOM
+- Lucide React (Iconos)
+- CSS Modules
 
-Despliegue
+### Despliegue
+- Railway (Backend + Base de datos)
+- Railway (Frontend)
+- Docker (Containerización)
 
-Railway (Backend + Base de datos)
-Railway (Frontend)
-Docker (Containerización)
-
+---
 
 ## 📊 Modelo de Datos
-Diagrama Entidad-Relación
+
+### Diagrama Entidad-Relación
+
+```
 ┌──────────────┐       ┌──────────────┐       ┌──────────────┐
 │    USERS     │       │  INSTRUCTORS │       │   STUDENTS   │
 ├──────────────┤       ├──────────────┤       ├──────────────┤
@@ -315,9 +228,13 @@ Diagrama Entidad-Relación
                        │ attendanceDate│
                        │ present      │
                        └──────────────┘
-Entidades Principales
-1. User (Usuario)
-java- userid: Long (PK)
+```
+
+### Entidades Principales
+
+#### 1. User (Usuario)
+```java
+- userid: Long (PK)
 - document: Long (UNIQUE)
 - name: String
 - lastname: String
@@ -327,29 +244,44 @@ java- userid: Long (PK)
 - username: String (UNIQUE)
 - password: String (Encriptado con BCrypt)
 - rol: Enum (ADMIN, INSTRUCTOR, STUDENT)
-2. Student (Estudiante)
-java- studentId: Long (PK)
+```
+
+#### 2. Student (Estudiante)
+```java
+- studentId: Long (PK)
 - userId: Long (FK → User)
 - active: Boolean (default: false)
-3. Instructor
-java- instructorId: Long (PK)
+```
+
+#### 3. Instructor
+```java
+- instructorId: Long (PK)
 - userId: Long (FK → User, UNIQUE)
 - experience: String
-4. Payment (Pago)
-java- paymentId: Long (PK)
+```
+
+#### 4. Payment (Pago)
+```java
+- paymentId: Long (PK)
 - studentId: Long (FK → Student)
 - paymentDate: LocalDate
 - amount: Double
 - paymentMethod: String
-5. Class (Clase)
-java- classId: Long (PK)
+```
+
+#### 5. Class (Clase)
+```java
+- classId: Long (PK)
 - className: String
 - level: String
 - schedule: LocalDateTime
 - instructorId: Long (FK → Instructor)
 - students: List<Student> (ManyToMany)
-6. Attendance (Asistencia)
-java- attendanceId: Long (PK)
+```
+
+#### 6. Attendance (Asistencia)
+```java
+- attendanceId: Long (PK)
 - classSessionId: Long (FK → Class)
 - studentId: Long (FK → Student)
 - attendanceDate: LocalDate
@@ -364,26 +296,39 @@ java- attendanceId: Long (PK)
 ```
 Producción: https://backend-desrrollo-production.up.railway.app
 Local: http://localhost:8080
+```
 
-🔐 Autenticación
-POST /api/auth/login
+### 🔐 Autenticación
+
+#### `POST /api/auth/login`
 Inicia sesión y devuelve un JWT.
-Request:
-json{
+
+**Request:**
+```json
+{
   "username": "usuario123",
   "password": "contraseña"
 }
-Response:
-json{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "id": 1  // studentId, instructorId o userId según el rol
-}
+```
 
-👤 Usuarios
-POST /api/v1/users/register-student
+**Response:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "id": 1
+}
+```
+
+---
+
+### 👤 Usuarios
+
+#### `POST /api/v1/users/register-student`
 Registra un nuevo estudiante (crea User + Student).
-Request:
-json{
+
+**Request:**
+```json
+{
   "document": "1234567890",
   "name": "Juan",
   "lastname": "Pérez",
@@ -393,8 +338,11 @@ json{
   "username": "juanperez",
   "password": "password123"
 }
-Response:
-json{
+```
+
+**Response:**
+```json
+{
   "user": {
     "document": 1234567890,
     "name": "Juan",
@@ -407,12 +355,18 @@ json{
   },
   "studentId": 1
 }
+```
 
-🎓 Estudiantes
-GET /api/v1/administrative/students
+---
+
+### 🎓 Estudiantes
+
+#### `GET /api/v1/administrative/students`
 Obtiene todos los estudiantes.
-Response:
-json[
+
+**Response:**
+```json
+[
   {
     "studentId": 1,
     "active": false,
@@ -429,33 +383,51 @@ json[
     }
   }
 ]
+```
 
-👨‍🏫 Instructores
-POST /api/v1/administrative/instructors
+---
+
+### 👨‍🏫 Instructores
+
+#### `POST /api/v1/administrative/instructors`
 Crea un nuevo instructor.
-Request:
-json{
+
+**Request:**
+```json
+{
   "userId": "1",
   "experience": "5 años enseñando patinaje"
 }
-Response:
-json{
+```
+
+**Response:**
+```json
+{
   "userId": 1,
   "experience": "5 años enseñando patinaje"
 }
+```
 
-💳 Pagos
-POST /api/v1/payments/register
+---
+
+### 💳 Pagos
+
+#### `POST /api/v1/payments/register`
 Registra un nuevo pago.
-Request:
-json{
+
+**Request:**
+```json
+{
   "studentId": "1",
   "paymentDate": "2025-12-08",
   "amount": "150000",
   "paymentMethod": "credit_card"
 }
-Response:
-json{
+```
+
+**Response:**
+```json
+{
   "paymentId": 1,
   "studentId": 1,
   "paymentDate": "2025-12-08",
@@ -468,7 +440,8 @@ json{
 
 ## 🔄 Flujo de Ejecución del Código
 
-### **Flujo 1: Registro de Usuario y Estudiante**
+### Flujo 1: Registro de Usuario y Estudiante
+
 ```
 ┌─────────────┐
 │   Cliente   │
@@ -543,7 +516,8 @@ json{
 
 ---
 
-### **Flujo 2: Login y Generación de JWT**
+### Flujo 2: Login y Generación de JWT
+
 ```
 ┌─────────────┐
 │   Cliente   │
@@ -590,8 +564,10 @@ json{
        }
 ```
 
+---
 
-### **Flujo 3: Registro de Pago**
+### Flujo 3: Registro de Pago
+
 ```
 ┌─────────────┐
 │   Cliente   │
@@ -627,26 +603,34 @@ json{
 │      MySQL Database                                  │
 │  INSERT INTO payments (student_id, payment_date...)  │
 └──────────────────────────────────────────────────────┘
+```
 
-🔒 Seguridad y Autenticación
-JWT (JSON Web Token)
+---
+
+## 🔒 Seguridad y Autenticación
+
+### JWT (JSON Web Token)
+
 La aplicación utiliza JWT para autenticación stateless.
-Estructura del Token:
-json{
-  "sub": "usuario123",           // Username
-  "role": "STUDENT",             // Rol del usuario
-  "id": 1,                       // studentId/instructorId/userId
-  "iat": 1733678400,             // Timestamp de emisión
-  "exp": 1733678580              // Timestamp de expiración (3 min)
+
+**Estructura del Token:**
+```json
+{
+  "sub": "usuario123",
+  "role": "STUDENT",
+  "id": 1,
+  "iat": 1733678400,
+  "exp": 1733678580
 }
 ```
 
-#### Proceso de Validación:
+### Proceso de Validación
+
 ```
 ┌─────────────┐
 │   Request   │
 │  Headers:   │
-│  Authorization: Bearer eyJhbGci... │
+│  Authorization: Bearer eyJhbGci...│
 └──────┬──────┘
        │
        ▼
@@ -661,27 +645,44 @@ json{
        │
        ▼
   El request continúa con autenticación establecida
-Encriptación de Contraseñas
-Las contraseñas se encriptan usando BCrypt:
-java// En CreateUserService
+```
+
+### Encriptación de Contraseñas
+
+Las contraseñas se encriptan usando **BCrypt**:
+
+```java
+// En CreateUserService
 user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 // En AuthenticationService (login)
 if (!passwordEncoder.matches(credentials.getPassword(), user.getPassword())) {
     throw new Exception("Contraseña incorrecta");
 }
-CORS Configuration
-Configurado en WebConfig.java para permitir requests desde el frontend:
-java.allowedOrigins(
+```
+
+### CORS Configuration
+
+Configurado en `WebConfig.java` para permitir requests desde el frontend:
+
+```java
+.allowedOrigins(
     "https://frontend-desarollo-production.up.railway.app",
     "https://backend-desrrollo-production.up.railway.app",
     "http://localhost:5173"
 )
+```
 
-🚀 Despliegue
-Docker
-El proyecto incluye un Dockerfile multi-stage:
-dockerfile# Stage 1: Build Backend
+---
+
+## 🚀 Despliegue
+
+### Docker
+
+El proyecto incluye un **Dockerfile multi-stage**:
+
+```dockerfile
+# Stage 1: Build Backend
 FROM maven:3.9.6-eclipse-temurin-21 AS backend-build
 WORKDIR /build
 COPY v1/pom.xml ./v1/
@@ -704,47 +705,50 @@ COPY --from=backend-build /build/v1/target/*.jar app.jar
 COPY --from=frontend-build /build/frontend/dist /app/static
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
-Railway Deployment
+```
 
-Backend + DB: Desplegado en Railway con MySQL
+### Railway Deployment
 
-URL: https://backend-desrrollo-production.up.railway.app
+- **Backend + DB**: Desplegado en Railway con MySQL
+  - URL: `https://backend-desrrollo-production.up.railway.app`
 
+- **Frontend**: Desplegado separadamente
+  - URL: `https://frontend-desarollo-production.up.railway.app`
 
-Frontend: Desplegado separadamente
+### Variables de Entorno
 
-URL: https://frontend-desarollo-production.up.railway.app
-
-
-
-Variables de Entorno
-properties# application.properties
+**Backend (`application.properties`):**
+```properties
 spring.datasource.url=jdbc:mysql://host:port/railway
 spring.datasource.username=root
 spring.datasource.password=***
-bash# Frontend .env
+```
+
+**Frontend (`.env`):**
+```bash
 VITE_API_URL=https://backend-desrrollo-production.up.railway.app
+```
 
-📝 Notas Importantes
-Validaciones
+---
 
-Todos los endpoints validan los datos de entrada usando Validators
-Los builders (UserBuilder, StudentBuilder, etc.) aseguran consistencia
+## 📝 Notas Importantes
 
-Manejo de Errores
+### Validaciones
+- Todos los endpoints validan los datos de entrada usando `Validators`
+- Los builders (`UserBuilder`, `StudentBuilder`, etc.) aseguran consistencia
 
-Excepciones personalizadas: BusinessException, InputsException
-Respuestas HTTP apropiadas (400, 401, 404, 500)
+### Manejo de Errores
+- Excepciones personalizadas: `BusinessException`, `InputsException`
+- Respuestas HTTP apropiadas (400, 401, 404, 500)
 
-Transaccionalidad
+### Transaccionalidad
+- Los servicios críticos usan `@Transactional` para garantizar atomicidad
 
-Los servicios críticos usan @Transactional para garantizar atomicidad
-
-Mappers
-
+### Mappers
 Se utilizan mappers para convertir entre:
+- Request DTO → Domain Model
+- Domain Model → Response DTO
+- Domain Model → Entity
+- Entity → Domain Model
 
-Request DTO → Domain Model
-Domain Model → Response DTO
-Domain Model → Entity
-Entity → Domain Model
+---
