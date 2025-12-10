@@ -71,9 +71,9 @@ public class AdministrativeController {
     @PostMapping("/events")
     public Event createEvent(@RequestBody EventRequest request) throws Exception {
 
-        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        // Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getDetails();
 
-        request.setUserId(String.valueOf(userId));
+        // request.setUserId(String.valueOf(userId));
 
         Event entity = eventRestMapper.toDomain(request);
 
