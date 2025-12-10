@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.skatingSchool.v1.application.usecases.AdministrativeUseCase;
 import org.springframework.http.HttpStatus;
@@ -71,9 +70,9 @@ public class AdministrativeController {
     @PostMapping("/events")
     public Event createEvent(@RequestBody EventRequest request) throws Exception {
 
-        // Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getDetails();
 
-        // request.setUserId(String.valueOf(userId));
+        request.setUserId(String.valueOf(userId));
 
         Event entity = eventRestMapper.toDomain(request);
 
