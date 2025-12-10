@@ -190,7 +190,7 @@ function AdminDashboard() {
       return;
     }
 
-    const payload = { ...eventoData, userId: 1 };
+    const payload = { ...eventoData};
 
     const res = await fetch(`${api_url}/api/v1/administrative/events`, {
       method: "POST",
