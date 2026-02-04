@@ -23,6 +23,7 @@ import com.skatingSchool.v1.adapter.rest.response.StudentResponse;
 import com.skatingSchool.v1.domain.model.Event;
 import com.skatingSchool.v1.domain.model.Instructor;
 import com.skatingSchool.v1.domain.model.Student;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class AdministrativeController {
     }
 
     @PostMapping("/events")
-    public Event createEvent(@RequestBody EventRequest request) throws Exception {
+    public ResponseEntity<EventResponse> createEvent(@RequestBody EventRequest request) throws Exception {
 
         Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getDetails();
 
@@ -78,7 +79,7 @@ public class AdministrativeController {
 
         administrativeUseCase.createEvent(entity);
         
-        return entity;
+        return new ResponseEntity<>(eventRestMapper.toResponse(entity), HttpStatus.CREATED);
     }
     
 
