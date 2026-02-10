@@ -34,8 +34,6 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(Arrays.asList(
-                    "https://frontend-desarollo-production.up.railway.app",
-                    "https://backend-desrrollo-production.up.railway.app",
                     "http://localhost:5173"
                 ));
                 config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
