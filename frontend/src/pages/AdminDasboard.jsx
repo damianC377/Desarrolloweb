@@ -18,9 +18,8 @@ import RegisterInstructorModal from "./RegisterInstructorModal";
 import "./AdminDashboard.css";
 import { useNavigate } from "react-router-dom";
 
-const api_url =
-  import.meta.env.VITE_API_URL ??
-  "https://backend-desrrollo-production.up.railway.app";
+const api_url = import.meta.env.VITE_API_URL;
+
 
 function AdminDashboard() {
   const [activeSection, setActiveSection] = useState("dashboard");

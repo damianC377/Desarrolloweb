@@ -9,10 +9,10 @@ import {
   Lock,
   UserCircle,
 } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom"; // 👈 Importar Link
+import { useNavigate, Link } from "react-router-dom";
 import "./SignUp.css";
 
-const api_url = import.meta.env.VITE_API_URL ?? "https://backend-desrrollo-production.up.railway.app";
+const api_url = import.meta.env.VITE_API_URL;
 
 function SignUp() {
   const navigate = useNavigate();

@@ -9,9 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import "./PaymentForm.css";
 
-const api_url =
-  import.meta.env.VITE_API_URL ??
-  "https://backend-desrrollo-production.up.railway.app";
+const api_url = import.meta.env.VITE_API_URL;
 
 function PaymentForm() {
   const [formData, setFormData] = useState({ paymentMethod: "" });

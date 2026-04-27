@@ -13,9 +13,7 @@ import {
 
 import "./RegisterInstructorModal.css";
 
-const api_url =
-  import.meta.env.VITE_API_URL ??
-  "https://backend-desrrollo-production.up.railway.app";
+const api_url = import.meta.env.VITE_API_URL;
 
 export default function RegisterInstructorModal({
   isOpen,

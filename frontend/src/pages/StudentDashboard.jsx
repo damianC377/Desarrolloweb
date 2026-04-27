@@ -13,9 +13,7 @@ import {
 } from "lucide-react";
 import "./StudentDashboard.css";
 
-const api_url =
-  import.meta.env.VITE_API_URL ??
-  "https://backend-desrrollo-production.up.railway.app";
+const api_url = import.meta.env.VITE_API_URL;
 
 function StudentDashboard() {
   const [activeSection, setActiveSection] = useState("perfil");
