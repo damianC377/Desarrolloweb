@@ -153,14 +153,24 @@ function SignUp() {
         body: JSON.stringify(formData),
       });
 
+      // 👇 DEBUG
+      console.log("STATUS:", res.status);
+
+      const text = await res.text();
+      console.log("RESPONSE:", text);
+
+      let data = null;
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch (e) {
+        console.log("No es JSON válido");
+      }
+
       if (!res.ok) {
-        const errorData = await res.json();
-        alert(errorData.message || "Error en el registro");
+        alert(data?.message || "Error en el registro");
         setIsSubmitting(false);
         return;
       }
-
-      const data = await res.json();
 
       if (data.studentId) {
         localStorage.setItem("studentId", data.studentId);

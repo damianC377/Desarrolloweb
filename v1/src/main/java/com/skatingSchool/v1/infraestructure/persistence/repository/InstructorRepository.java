@@ -5,9 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.skatingSchool.v1.infraestructure.persistence.entities.InstructorEntity;
 
-
 @Repository
 public interface InstructorRepository extends JpaRepository<InstructorEntity, Long> {
-    
-    public InstructorEntity findByUser(Long user);
+
+    InstructorEntity findByUserId(Long userId);
+
 }
+

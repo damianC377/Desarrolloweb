@@ -11,6 +11,7 @@ public class UserResquest {
     private String username;
     private String password;
     private String rol;
+    private String experience;
 
     public String getDocument() {
         return document;
@@ -84,4 +85,11 @@ public class UserResquest {
         this.rol = rol;
     }
 
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
 }

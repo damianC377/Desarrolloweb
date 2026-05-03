@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ClassRepository extends JpaRepository<ClassEntity, Long> {
 
-    List<ClassEntity> findByInstructorId(Long instructorId);
+    List<ClassEntity> findByInstructor_InstructorId(Long instructorId);
 
     List<ClassEntity> findBySchedule(LocalDateTime schedule);
 }

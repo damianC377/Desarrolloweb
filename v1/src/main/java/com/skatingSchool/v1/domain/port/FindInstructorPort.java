@@ -4,4 +4,6 @@ import com.skatingSchool.v1.domain.model.Instructor;
 
 public interface FindInstructorPort {
     Instructor findByUserId(Long userId);
+
+    Instructor findById(Long instructorId);
 }

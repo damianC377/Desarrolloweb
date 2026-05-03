@@ -15,25 +15,5 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/students")
 public class StudentController {
 
-    @Autowired
-    private StudentUseCase studentUseCase;
-
-    @Autowired
-    private StudentRestMapper studentRestMapper;
-
-    @PostMapping("/register")
-    public ResponseEntity<StudentResponse> createStudent(@RequestBody StudentRequest request) throws Exception {
-
-        // Convertir Request → Domain
-        Student student = studentRestMapper.toDomain(request);
-
-        // Llamar al caso de uso
-        studentUseCase.createStudent(student);
-
-        // Respuesta
-        return new ResponseEntity<>(
-                studentRestMapper.toResponse(student),
-                HttpStatus.CREATED
-        );
-    }
+    
 }

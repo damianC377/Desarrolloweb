@@ -4,5 +4,5 @@ import com.skatingSchool.v1.domain.model.Instructor;
 
 public interface CreateInstructorPort {
 
-    void save(Instructor instructor);
+    Instructor save(Instructor instructor);
 }

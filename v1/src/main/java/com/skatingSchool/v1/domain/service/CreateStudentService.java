@@ -18,18 +18,12 @@ public class CreateStudentService {
     @Autowired
     private FindStudentPort findStudentPort;
 
-    
-    public CreateStudentService(CreateStudentPort createStudentPort, FindStudentPort findStudentPort) {
-        this.createStudentPort = createStudentPort;
-        this.findStudentPort = findStudentPort;
-    }
 
     public Student createStudent(Student student) throws Exception {
 
-        if (student.getStudentId() != null &&
-                findStudentPort.findById(student.getStudentId()) != null) {
-            throw new Exception("El estudiante con ID " + student.getStudentId() + " ya existe.");
-        }
+         if (student.getUserId() == null) {
+        throw new Exception("El estudiante debe estar asociado a un usuario.");
+    }
 
         if (findStudentPort.findByUserId(student.getUserId()) != null) {
             throw new Exception("El usuario con ID " + student.getUserId() +

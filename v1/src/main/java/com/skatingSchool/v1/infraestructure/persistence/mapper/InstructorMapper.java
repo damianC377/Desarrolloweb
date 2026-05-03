@@ -2,43 +2,33 @@ package com.skatingSchool.v1.infraestructure.persistence.mapper;
 
 import com.skatingSchool.v1.domain.model.Instructor;
 import com.skatingSchool.v1.infraestructure.persistence.entities.InstructorEntity;
-import com.skatingSchool.v1.infraestructure.persistence.entities.UserEntity;
 
 public class InstructorMapper {
 
-    public static InstructorEntity toEntity(Instructor instructor){
+    public static InstructorEntity toEntity(Instructor instructor) {
         if (instructor == null) {
             return null;
-            
         }
 
-        
-        
-        InstructorEntity instructorEntity = new InstructorEntity();
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserid(instructor.getUserId());
-        instructorEntity.setUser(userEntity);
-        instructorEntity.setId(instructor.getInstructorId());
-        instructorEntity.setExperience(instructor.getExperience());
-        
-        return instructorEntity;
+        InstructorEntity entity = new InstructorEntity();
+        entity.setInstructorId(instructor.getInstructorId());
+        entity.setUserId(instructor.getUserId());
+        entity.setExperience(instructor.getExperience());
+
+        return entity;
     }
 
-
-    public static Instructor toDomain(InstructorEntity instructorEntity){
-        if (instructorEntity == null) {
+    
+    public static Instructor toDomain(InstructorEntity entity) {
+        if (entity == null) {
             return null;
-            
         }
 
         Instructor instructor = new Instructor();
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserid(instructor.getUserId());
-        instructorEntity.setUser(userEntity);
-        instructor.setInstructorId(instructorEntity.getId());
-        instructor.setExperience(instructorEntity.getExperience());
-        
+        instructor.setInstructorId(entity.getInstructorId());
+        instructor.setUserId(entity.getUserId());
+        instructor.setExperience(entity.getExperience());
+
         return instructor;
     }
-
 }

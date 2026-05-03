@@ -3,6 +3,7 @@ package com.skatingSchool.v1.adapter.rest.request;
 public class InstructorRequest {
 
     private String userId;
+
     private String experience;
 
     public String getUserId() {
@@ -12,7 +13,7 @@ public class InstructorRequest {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
+
     public String getExperience() {
         return experience;
     }

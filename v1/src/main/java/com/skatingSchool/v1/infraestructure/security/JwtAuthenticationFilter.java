@@ -30,23 +30,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        String token = extractToken(request);
+        String path = request.getServletPath();
 
-        if (token != null) {
-            processToken(token);
+        if (
+            path.startsWith("/api/v1/users") ||
+            path.startsWith("/api/v1/payments") ||
+            path.startsWith("/api/auth")
+        ) {
+            filterChain.doFilter(request, response);
+            return;
         }
+
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String token = authHeader.substring(7);
+        processToken(token);
 
         filterChain.doFilter(request, response);
-    }
-
-    private String extractToken(HttpServletRequest request) {
-        String header = request.getHeader("Authorization");
-
-        if (header != null && header.startsWith("Bearer ")) {
-            return header.substring(7);
-        }
-
-        return null;
     }
 
     private void processToken(String token) {
@@ -58,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Long userId = authenticationPort.extractId(token);
 
             if (role == null || role.trim().isEmpty()) {
-                return; // No role -> no authentication
+                return;
             }
 
             String normalized = role.trim().toUpperCase();

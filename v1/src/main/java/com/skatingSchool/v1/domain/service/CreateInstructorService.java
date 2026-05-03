@@ -1,29 +1,39 @@
 package com.skatingSchool.v1.domain.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.skatingSchool.v1.domain.model.Instructor;
 import com.skatingSchool.v1.domain.port.CreateInstructorPort;
 import com.skatingSchool.v1.domain.port.FindInstructorPort;
 
 @Service()
+@Transactional
 public class CreateInstructorService {
 
-    CreateInstructorPort createInstructorPort;
-    FindInstructorPort findInstructorPort;
+    @Autowired
+    private CreateInstructorPort createInstructorPort;
 
-    public void createInstructor(Instructor instructor, Long userId) throws Exception {
+    @Autowired
+    private FindInstructorPort findInstructorPort;
 
-        instructor.setUserId(userId);
+    public Instructor createInstructor(Instructor instructor) throws Exception {
 
-        if(findInstructorPort.findByUserId(userId) != null) {
-            throw new Exception("El usuario con ID " + userId + " ya es asociado.");
-        }
-
-        if (instructor.getExperience() == null || instructor.getExperience().isBlank()) {
-            throw new Exception("El campo 'experience' no puede estar vacío.");
-        }
-
-        createInstructorPort.save(instructor);
+    if (instructor.getUserId() == null) {
+        throw new Exception("El instructor debe estar asociado a un usuario.");
     }
+
+    if (findInstructorPort.findByUserId(instructor.getUserId()) != null) {
+        throw new Exception("El usuario con ID " + instructor.getUserId() +
+                " ya tiene un instructor asociado.");
+    }
+
+    if (instructor.getExperience() == null || instructor.getExperience().isBlank()) {
+        throw new Exception("El campo 'experience' no puede estar vacío.");
+    }
+
+    return createInstructorPort.save(instructor);
+}
+
 }

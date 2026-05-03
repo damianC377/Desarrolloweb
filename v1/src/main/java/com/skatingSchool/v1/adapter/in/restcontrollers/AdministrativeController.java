@@ -13,19 +13,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.skatingSchool.v1.adapter.rest.mapper.EventRestMapper;
-import com.skatingSchool.v1.adapter.rest.mapper.InstructorRestMapper;
+
 import com.skatingSchool.v1.adapter.rest.mapper.StudentRestMapper;
 import com.skatingSchool.v1.adapter.rest.request.EventRequest;
-import com.skatingSchool.v1.adapter.rest.request.InstructorRequest;
+import com.skatingSchool.v1.adapter.rest.request.UserResquest;
 import com.skatingSchool.v1.adapter.rest.response.EventResponse;
-import com.skatingSchool.v1.adapter.rest.response.InstructorResponse;
+
 import com.skatingSchool.v1.adapter.rest.response.StudentResponse;
+import com.skatingSchool.v1.adapter.rest.response.UserResponse;
 import com.skatingSchool.v1.domain.model.Event;
-import com.skatingSchool.v1.domain.model.Instructor;
+
 import com.skatingSchool.v1.domain.model.Student;
+import com.skatingSchool.v1.domain.model.User;
+
+import com.skatingSchool.v1.domain.model.enums.Rol;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.skatingSchool.v1.adapter.rest.mapper.UserRestMapper;
+import com.skatingSchool.v1.application.usecases.UserUseCase;
+
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @PreAuthorize("hasRole('ADMIN')")
 @RestController
@@ -36,26 +48,18 @@ public class AdministrativeController {
     private AdministrativeUseCase administrativeUseCase;
 
     @Autowired
-    private InstructorRestMapper instructorRestMapper;
+    private StudentRestMapper studentRestMapper;
 
     @Autowired
-    private StudentRestMapper studentRestMapper;
+    private UserUseCase userUseCase;
+
+    @Autowired
+    private UserRestMapper userRestMapper;
+
 
     @Autowired
     private EventRestMapper eventRestMapper;
 
-    @PostMapping("/instructors")
-    public ResponseEntity<InstructorResponse> createInstructors(@RequestBody InstructorRequest request) throws Exception {
-        Instructor instructor = instructorRestMapper.toDomain(request);
-
-        administrativeUseCase.createInstructor(instructor.getExperience(), instructor.getUserId()); 
-
-        return new ResponseEntity<>(
-                instructorRestMapper.toResponse(instructor),
-                HttpStatus.CREATED
-        );
-        
-    }
 
     @GetMapping("/students")
     public ResponseEntity<List<StudentResponse>> findAllStudents() throws Exception {
@@ -67,6 +71,25 @@ public class AdministrativeController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/instructors")
+public ResponseEntity<Map<String, Object>> createInstructor(@RequestBody UserResquest request) throws Exception {
+
+    User user = userRestMapper.toDomain(request);
+
+    user.setRol(Rol.INSTRUCTOR);
+
+    Long instructorId = userUseCase.createUserInstructor(user, request.getExperience());
+
+    UserResponse userResponse = userRestMapper.toResponse(user);
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("user", userResponse);
+    response.put("instructorId", instructorId);
+
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
+}
+
 
     @PostMapping("/events")
     public ResponseEntity<EventResponse> createEvent(@RequestBody EventRequest request) throws Exception {

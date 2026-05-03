@@ -5,4 +5,7 @@ import com.skatingSchool.v1.domain.model.User;
 public interface CreateUserPort {
 
     User save(User user);
+
+     Long createUserAdmin(User user) throws Exception;
+    
 }

@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skatingSchool.v1.domain.model.Event;
-import com.skatingSchool.v1.domain.model.Instructor;
 import com.skatingSchool.v1.domain.model.Student;
 
-import com.skatingSchool.v1.domain.service.CreateInstructorService;
 import com.skatingSchool.v1.domain.service.FindStudentService;
 import com.skatingSchool.v1.domain.service.CreateEventService;
 import com.skatingSchool.v1.domain.service.FindEventService;
@@ -19,9 +17,6 @@ import java.util.List;
 public class AdministrativeUseCase {
 
     @Autowired
-    private CreateInstructorService createInstructorService;
-
-    @Autowired
     private FindStudentService findStudentService;
 
     @Autowired
@@ -29,14 +24,6 @@ public class AdministrativeUseCase {
 
     @Autowired
     private FindEventService findEventService;
-
-    public void createInstructor(String experience, Long userId) throws Exception {
-        Instructor instructor = new Instructor();
-        instructor.setExperience(experience);
-
-        createInstructorService.createInstructor(instructor, userId);
-      
-    }
 
     public List<Student> findAllStudents() throws Exception {
         return findStudentService.findAllStudents();

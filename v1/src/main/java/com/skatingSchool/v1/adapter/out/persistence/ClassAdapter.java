@@ -34,7 +34,8 @@ public class ClassAdapter implements CreateClassPort, FindClassPort {
 
     @Override
     public List<Class> findByInstructorId(Long instructorId) {
-        List<ClassEntity> entities = classRepository.findByInstructorId(instructorId);
+        List<ClassEntity> entities =classRepository.findByInstructor_InstructorId(instructorId);
+
         return entities.stream()
                 .map(ClassMapper::toDomain)
                 .collect(Collectors.toList());

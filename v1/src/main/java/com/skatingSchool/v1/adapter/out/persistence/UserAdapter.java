@@ -6,12 +6,13 @@ import org.springframework.stereotype.Service;
 import com.skatingSchool.v1.domain.model.User;
 import com.skatingSchool.v1.domain.port.CreateUserPort;
 import com.skatingSchool.v1.domain.port.FindUserPort;
+import com.skatingSchool.v1.domain.model.enums.Rol;
 import com.skatingSchool.v1.infraestructure.persistence.entities.UserEntity;
 import com.skatingSchool.v1.infraestructure.persistence.mapper.UserMapper;
 import com.skatingSchool.v1.infraestructure.persistence.repository.UserRepository;
 
 @Service
-public class UserAdapter implements CreateUserPort, FindUserPort{
+public class UserAdapter implements CreateUserPort, FindUserPort {
 
     @Autowired
     private UserRepository userRepository;
@@ -22,6 +23,18 @@ public class UserAdapter implements CreateUserPort, FindUserPort{
         UserEntity savedEntity = userRepository.save(entity);
         return UserMapper.toDomain(savedEntity);
     }
+
+@Override
+    public Long createUserAdmin(User user) throws Exception {
+
+        UserEntity entity = UserMapper.toEntity(user);
+
+        UserEntity savedEntity = userRepository.save(entity);
+
+        return savedEntity.getUserid();
+}
+
+
 
     @Override
     public User findUserByDocument(Long document) {
