@@ -47,4 +47,19 @@ public class PaymentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/payments7user/{userId}")
+
+    public ResponseEntity<List<PaymentResponse>> getPaymentByUser(
+            @PathVariable Long userId) {
+        List<Payment> payments = paymentUseCase.getPaymentsByUserId(userId);
+
+        return ResponseEntity.ok(
+            payments.stream()
+                .map(paymentRestMapper::toResponse)
+                .toList()
+        );
+
+            
+    }
+
 }

@@ -13,4 +13,7 @@ public interface FindClassPort {
 
     List<Class> findBySchedule(LocalDateTime schedule);
 
+    // Nuevo Metodo
+    List<Class> findAllClasses();
+
 }
