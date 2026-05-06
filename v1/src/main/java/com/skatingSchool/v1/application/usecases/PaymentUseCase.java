@@ -26,4 +26,9 @@ public class PaymentUseCase {
     public List<Payment> findAllPayments() throws Exception {
         return findPaymentService.findAll();
     }
+    // Se agrega obtener Payment por el ID
+
+    public List<Payment> getPaymentsByUserId(Long userId) {
+        return findPaymentService.findByUserId(userId);
+    }
 }

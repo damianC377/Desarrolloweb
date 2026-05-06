@@ -47,4 +47,14 @@ public class ClassAdapter implements CreateClassPort, FindClassPort {
                 .map(ClassMapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+    //Sobre escritura del metodo findAllClasses
+    
+    @Override
+    public List<Class> findAllClasses() {
+        return classRepository.findAll()
+            .stream()
+            .map(ClassMapper::toDomain)
+            .toList();
+    }
 }
