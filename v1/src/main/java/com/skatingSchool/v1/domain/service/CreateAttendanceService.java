@@ -6,6 +6,9 @@ import com.skatingSchool.v1.domain.port.FindAttendancePort;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CreateAttendanceService {
 
     private final CreateAttendancePort createAttendancePort;
@@ -20,11 +23,11 @@ public class CreateAttendanceService {
     public void createAttendance(Attendance attendance) throws Exception {
 
         if (attendance.getClassSessionId() == null) {
-            throw new Exception("La asistencia debe estar asociada a una clase (classSessionId).");
+            throw new Exception("La asistencia debe estar asociada a una clase.");
         }
 
         if (attendance.getStudentId() == 0) {
-            throw new Exception("La asistencia debe estar asociada a un estudiante (studentId).");
+            throw new Exception("La asistencia debe estar asociada a un estudiante.");
         }
 
         if (attendance.getAttendanceDate() == null) {
@@ -35,21 +38,35 @@ public class CreateAttendanceService {
             throw new Exception("Debe indicar si el estudiante estuvo presente o no.");
         }
 
+        // 🔥 VALIDACIÓN OPTIMIZADA
         List<Attendance> existingAttendances =
-                findAttendancePort.findByClassId(attendance.getClassSessionId());
+                findAttendancePort.findByClassIdAndDate(
+                        attendance.getClassSessionId(),
+                        attendance.getAttendanceDate()
+                );
 
         for (Attendance existing : existingAttendances) {
-            if (existing.getStudentId() == attendance.getStudentId() &&
-                existing.getAttendanceDate().equals(attendance.getAttendanceDate())) {
+            if (existing.getStudentId() == attendance.getStudentId()) {
                 throw new Exception(
                         "El estudiante con ID " +
                         attendance.getStudentId() +
-                        " ya tiene registrada asistencia para esta clase en la fecha " +
-                        attendance.getAttendanceDate()
+                        " ya tiene asistencia registrada en esta fecha."
                 );
             }
         }
 
         createAttendancePort.save(attendance);
+    }
+
+  
+    public void createAttendances(List<Attendance> attendances) throws Exception {
+
+        if (attendances == null || attendances.isEmpty()) {
+            throw new Exception("La lista de asistencias no puede estar vacía.");
+        }
+
+        for (Attendance attendance : attendances) {
+            createAttendance(attendance);
+        }
     }
 }

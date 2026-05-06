@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ClassRepository extends JpaRepository<ClassEntity, Long> {
@@ -13,4 +14,6 @@ public interface ClassRepository extends JpaRepository<ClassEntity, Long> {
     List<ClassEntity> findByInstructor_InstructorId(Long instructorId);
 
     List<ClassEntity> findBySchedule(LocalDateTime schedule);
+    
+    Optional<ClassEntity> findByClassId(Long classId);
 }

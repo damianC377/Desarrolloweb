@@ -42,4 +42,15 @@ public class FindStudentService {
     return students;
 }
 
+public List<Student> findByClassId(Long classId) throws Exception {
+    
+    List<Student> students = findStudentPort.findByClassId(classId);
+
+    if (students == null || students.isEmpty()) {
+        throw new Exception("No hay estudiantes en esta clase");
+    }
+
+    return students;
+}
+
 }

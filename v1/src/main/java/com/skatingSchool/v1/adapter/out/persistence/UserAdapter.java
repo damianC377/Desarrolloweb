@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.skatingSchool.v1.domain.model.User;
 import com.skatingSchool.v1.domain.port.CreateUserPort;
 import com.skatingSchool.v1.domain.port.FindUserPort;
-import com.skatingSchool.v1.domain.model.enums.Rol;
 import com.skatingSchool.v1.infraestructure.persistence.entities.UserEntity;
 import com.skatingSchool.v1.infraestructure.persistence.mapper.UserMapper;
 import com.skatingSchool.v1.infraestructure.persistence.repository.UserRepository;

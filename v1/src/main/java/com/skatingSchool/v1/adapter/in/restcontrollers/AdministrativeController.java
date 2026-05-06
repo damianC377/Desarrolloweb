@@ -72,7 +72,7 @@ public class AdministrativeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/instructors")
+@PostMapping("/instructors")
 public ResponseEntity<Map<String, Object>> createInstructor(@RequestBody UserResquest request) throws Exception {
 
     User user = userRestMapper.toDomain(request);
@@ -89,7 +89,6 @@ public ResponseEntity<Map<String, Object>> createInstructor(@RequestBody UserRes
 
     return new ResponseEntity<>(response, HttpStatus.CREATED);
 }
-
 
     @PostMapping("/events")
     public ResponseEntity<EventResponse> createEvent(@RequestBody EventRequest request) throws Exception {

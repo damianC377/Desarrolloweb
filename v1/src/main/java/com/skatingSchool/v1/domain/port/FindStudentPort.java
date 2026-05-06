@@ -13,5 +13,8 @@ public interface FindStudentPort {
 
     List<Student> findAll();
 
+    List<Student> findByClassId(Long classId);
+
+
     
 }

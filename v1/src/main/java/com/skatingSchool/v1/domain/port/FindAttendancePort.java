@@ -15,4 +15,5 @@ public interface FindAttendancePort {
 
     List<Attendance> findByDate(LocalDate date);
 
+    List<Attendance> findByClassIdAndDate(Long classId, LocalDate date);
 }
