@@ -3,7 +3,7 @@ package com.skatingSchool.v1;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.skatingSchool.v1")
 public class V1Application {
 
 	public static void main(String[] args) {
@@ -11,7 +11,5 @@ public class V1Application {
 
 		System.out.println("Hola Mundo - La aplicación arrancó correctamente");
 	}
-
-	
 
 }

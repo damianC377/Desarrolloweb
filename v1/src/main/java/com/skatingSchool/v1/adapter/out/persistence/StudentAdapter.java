@@ -34,20 +34,23 @@ public class StudentAdapter implements CreateStudentPort, FindStudentPort {
 
     @Override
     public Student findById(Long studentId) {
-        StudentEntity entity = studentRepository.findByStudentId(studentId);
-        return StudentMapper.toDomain(entity);
+        return studentRepository.findByStudentId(studentId)
+                .map(StudentMapper::toDomain)
+                .orElse(null);
     }
 
     @Override
     public Student findByUserId(Long userId) {
-        StudentEntity entity = studentRepository.findByUserId(userId);
-        return StudentMapper.toDomain(entity);
+        return studentRepository.findByUserId(userId)
+                .map(StudentMapper::toDomain)
+                .orElse(null);
     }
 
     @Override
     public Student findActiveStudent(Long studentId) {
-        StudentEntity entity = studentRepository.findByStudentIdAndActive(studentId, true);
-        return StudentMapper.toDomain(entity);
+        return studentRepository.findByStudentIdAndActive(studentId, true)
+                .map(StudentMapper::toDomain)
+                .orElse(null);
     }
 
     @Override
@@ -58,10 +61,8 @@ public class StudentAdapter implements CreateStudentPort, FindStudentPort {
                 .collect(Collectors.toList());
     }
 
-    
     @Override
     public List<Student> findByClassId(Long classId) {
-
         ClassEntity classEntity = classRepository.findByClassId(classId)
                 .orElseThrow(() -> new RuntimeException("Clase no encontrada"));
 

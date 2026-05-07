@@ -14,7 +14,4 @@ public interface FindPaymentPort {
     List<Payment> findByDate(LocalDate date);
 
     Payment findLatestPaymentByStudent(Long studentId);
-
-    //El estudiante solo ve sus pagos
-    List<Payment> findPaymentsByUserId(Long userId);
 }

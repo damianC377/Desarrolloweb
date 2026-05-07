@@ -5,6 +5,7 @@ import com.skatingSchool.v1.adapter.rest.mapper.AttendanceRestMapper;
 import com.skatingSchool.v1.adapter.rest.request.AttendanceRequest;
 import com.skatingSchool.v1.domain.model.Attendance;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +17,10 @@ import java.util.List;
 @RequestMapping("/api/v1/attendances")
 public class AttendanceController {
 
-    private final AttendanceUseCase attendanceUseCase;
-    private final AttendanceRestMapper attendanceRestMapper;
-
-    public AttendanceController(AttendanceUseCase attendanceUseCase,
-                                AttendanceRestMapper attendanceRestMapper) {
-        this.attendanceUseCase = attendanceUseCase;
-        this.attendanceRestMapper = attendanceRestMapper;
-    }
+    @Autowired
+    private  AttendanceUseCase attendanceUseCase;
+    @Autowired
+    private AttendanceRestMapper attendanceRestMapper;
 
     
     @PostMapping

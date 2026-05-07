@@ -4,15 +4,22 @@ import com.skatingSchool.v1.domain.model.Class;
 import com.skatingSchool.v1.domain.port.CreateClassPort;
 import com.skatingSchool.v1.domain.port.FindClassPort;
 
+
+
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service()
 public class CreateClassService {
 
-    CreateClassPort createClassPort;
-    FindClassPort findClassPort;
+     @Autowired
+    private CreateClassPort createClassPort;
+    
+    @Autowired
+    private FindClassPort findClassPort;
+
 
     public void createClass(Class skatingClass) throws Exception {
 

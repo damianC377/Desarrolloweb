@@ -47,19 +47,17 @@ public class PaymentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/payments7user/{userId}")
+   @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<PaymentResponse>> getPaymentsByStudent(
+            @PathVariable Long studentId) {
 
-    public ResponseEntity<List<PaymentResponse>> getPaymentByUser(
-            @PathVariable Long userId) {
-        List<Payment> payments = paymentUseCase.getPaymentsByUserId(userId);
+        List<Payment> payments = paymentUseCase.getPaymentsByStudentId(studentId);
 
         return ResponseEntity.ok(
-            payments.stream()
-                .map(paymentRestMapper::toResponse)
-                .toList()
+                payments.stream()
+                        .map(paymentRestMapper::toResponse)
+                        .toList()
         );
-
-            
     }
 
 }

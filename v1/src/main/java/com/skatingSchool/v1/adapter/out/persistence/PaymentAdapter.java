@@ -62,11 +62,5 @@ public class PaymentAdapter implements CreatePaymentPort, FindPaymentPort {
         return PaymentMapper.toDomain(entity);
     }
 
-    @Override
-    public List<Payment> findPaymentsByUserId(Long userId) {
-        return paymentRepository.findByUserId(userId)
-            .stream()
-            .map(PaymentMapper::toDomain)
-            .toList();
-    }
+  
 }

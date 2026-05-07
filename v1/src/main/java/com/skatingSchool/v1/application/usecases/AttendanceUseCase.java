@@ -2,6 +2,8 @@ package com.skatingSchool.v1.application.usecases;
 
 import com.skatingSchool.v1.domain.model.Attendance;
 import com.skatingSchool.v1.domain.service.CreateAttendanceService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,11 +11,8 @@ import java.util.List;
 @Service
 public class AttendanceUseCase {
 
-    private final CreateAttendanceService createAttendanceService;
-
-    public AttendanceUseCase(CreateAttendanceService createAttendanceService) {
-        this.createAttendanceService = createAttendanceService;
-    }
+    @Autowired
+    private CreateAttendanceService createAttendanceService;
 
     public void createAttendance(Attendance attendance) throws Exception {
         createAttendanceService.createAttendance(attendance);

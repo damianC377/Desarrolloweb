@@ -13,10 +13,7 @@ public class ClassBuilder {
 
     @Autowired
     private ClassValidator validator;
-
-    public ClassBuilder() {
-        this.validator = new ClassValidator();
-    }
+    
     
     public Class build(String className, String level, String schedule, String instructorId, List<Student> students) throws Exception {
         Class skatingClass = new Class();

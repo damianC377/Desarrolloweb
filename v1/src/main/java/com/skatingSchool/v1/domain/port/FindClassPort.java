@@ -16,4 +16,8 @@ public interface FindClassPort {
     // Nuevo Metodo
     List<Class> findAllClasses();
 
+    List<Class> findClassesWithAvailableSpots();
+
+    List<Class> findByStudentId(Long studentId);
+
 }

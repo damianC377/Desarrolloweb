@@ -16,4 +16,6 @@ public interface ClassRepository extends JpaRepository<ClassEntity, Long> {
     List<ClassEntity> findBySchedule(LocalDateTime schedule);
     
     Optional<ClassEntity> findByClassId(Long classId);
+
+    List<ClassEntity> findByStudents_StudentId(Long studentId);
 }

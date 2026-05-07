@@ -27,8 +27,8 @@ public class FindPaymentService {
         
         return payment;
     }
-    //Metodo para buscar por ID
-    public List<Payment> findByUserId(Long userId) {
-        return findPaymentPort.findPaymentsByUserId(userId);
+   // Método para buscar pagos por estudiante
+    public List<Payment> findByStudentId(Long studentId) {
+        return findPaymentPort.findByStudentId(studentId);
     }
 }

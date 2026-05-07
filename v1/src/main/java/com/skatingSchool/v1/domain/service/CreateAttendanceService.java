@@ -6,19 +6,17 @@ import com.skatingSchool.v1.domain.port.FindAttendancePort;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreateAttendanceService {
 
-    private final CreateAttendancePort createAttendancePort;
-    private final FindAttendancePort findAttendancePort;
-
-    public CreateAttendanceService(CreateAttendancePort createAttendancePort,
-                                   FindAttendancePort findAttendancePort) {
-        this.createAttendancePort = createAttendancePort;
-        this.findAttendancePort = findAttendancePort;
-    }
+    @Autowired
+    private CreateAttendancePort createAttendancePort;
+    @Autowired
+    private FindAttendancePort findAttendancePort;
+   
 
     public void createAttendance(Attendance attendance) throws Exception {
 

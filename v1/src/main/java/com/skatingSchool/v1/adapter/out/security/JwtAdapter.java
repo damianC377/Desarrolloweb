@@ -14,7 +14,7 @@ import java.util.Date;
 public class JwtAdapter implements AuthenticationPort {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION = 3 * 60 * 1000;
+    private static final long EXPIRATION = 60 * 60 * 1000;
 
     // =========================================================
     //   NUEVO MÉTODO: Autenticación con ID (student o instructor)
