@@ -7,6 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
+
         <version>3.5.0</version>
         <relativePath/>
     </parent>
@@ -123,6 +124,8 @@
             <scope>runtime</scope>
         </dependency>
 
+        
+
         <!-- ❌ ELIMINADO: javax.servlet-api -->
     </dependencies>
 
@@ -137,6 +140,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>1.18.28</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
